@@ -23,15 +23,12 @@
 
 <body>
 
-
-    <!-- =========================================
-         MAIN GAME
-    ========================================== -->
-
     <main class="game-screen">
 
 
-        <!-- BRANDING -->
+        <!-- =====================================
+             HEADER
+        ====================================== -->
 
         <header class="game-header">
 
@@ -39,7 +36,8 @@
                 🎮
             </div>
 
-            <div>
+
+            <div class="brand">
 
                 <h1>
                     DIONLYONEE PLAYGROUND
@@ -50,6 +48,15 @@
                 </p>
 
             </div>
+
+
+            <button
+                id="topStartButton"
+                class="top-start-button"
+                type="button"
+            >
+                ▶ START
+            </button>
 
         </header>
 
@@ -84,7 +91,35 @@
                 id="puzzleDisplay"
                 class="puzzle-display"
             >
-                _ _ _ _ _ _ _
+
+                <div class="letter-box hidden">
+                    A
+                </div>
+
+                <div class="letter-box hidden">
+                    B
+                </div>
+
+                <div class="letter-box hidden">
+                    C
+                </div>
+
+                <div class="letter-box hidden">
+                    D
+                </div>
+
+                <div class="letter-box hidden">
+                    E
+                </div>
+
+                <div class="letter-box hidden">
+                    F
+                </div>
+
+                <div class="letter-box hidden">
+                    G
+                </div>
+
             </div>
 
 
@@ -97,12 +132,14 @@
                     NEXT LETTER
                 </div>
 
+
                 <div
                     id="timerDisplay"
                     class="timer-display"
                 >
                     30
                 </div>
+
 
                 <div class="timer-seconds">
                     SECONDS
@@ -112,13 +149,13 @@
 
 
 
-            <!-- GAME MESSAGE -->
+            <!-- MESSAGE -->
 
             <div
                 id="gameMessage"
                 class="game-message"
             >
-                GUESS THE ANSWER IN CHAT!
+                CHOOSE YOUR SETTINGS AND START
             </div>
 
 
@@ -135,7 +172,6 @@
             class="settings-panel"
         >
 
-
             <div class="settings-header">
 
                 <h3>
@@ -150,7 +186,7 @@
 
 
 
-            <!-- LETTER REVEAL TIME -->
+            <!-- LETTER REVEAL -->
 
             <div class="setting-group">
 
@@ -236,7 +272,7 @@
 
 
 
-            <!-- START -->
+            <!-- MAIN START BUTTON -->
 
             <button
                 id="startGameButton"
@@ -246,13 +282,12 @@
                 ▶ START GAME
             </button>
 
-
         </section>
 
 
 
         <!-- =====================================
-             COOLDOWN DISPLAY
+             COOLDOWN
         ====================================== -->
 
         <div
@@ -263,6 +298,7 @@
             <div class="cooldown-title">
                 NEXT PUZZLE
             </div>
+
 
             <div
                 id="cooldownTimer"
@@ -277,13 +313,11 @@
     </main>
 
 
-
-    <!-- =========================================
-         GAME JAVASCRIPT
-    ========================================== -->
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
 
     <script src="game.js"></script>
-
 
 </body>
 
