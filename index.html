@@ -23,18 +23,26 @@
 
 <body>
 
-    <main class="game-screen">
+
+    <!-- ==========================================
+         MAIN GAME
+    =========================================== -->
+
+    <div class="game-container">
 
 
-        <!-- HEADER -->
+        <!-- ======================================
+             HEADER
+        ======================================= -->
 
-        <header class="game-header">
+        <header class="header">
 
             <div class="logo">
-                🎮
+                D
             </div>
 
-            <div class="brand">
+
+            <div class="title-area">
 
                 <h1>
                     DIONLYONEE PLAYGROUND
@@ -46,10 +54,10 @@
 
             </div>
 
+
             <button
-                id="topStartButton"
-                class="top-start-button"
-                type="button"
+                id="startTop"
+                class="start-top"
             >
                 ▶ START
             </button>
@@ -58,111 +66,120 @@
 
 
 
-        <!-- GAME -->
+        <!-- ======================================
+             CATEGORY
+        ======================================= -->
 
-        <section class="game-area">
+        <section class="category-area">
 
-            <div class="category-section">
-
-                <span class="category-label">
-                    CATEGORY
-                </span>
-
-                <h2 id="categoryDisplay">
-                    GET READY!
-                </h2>
-
+            <div class="small-title">
+                CATEGORY
             </div>
 
 
             <div
-                id="puzzleDisplay"
-                class="puzzle-display"
+                id="category"
+                class="category"
             >
-
-            </div>
-
-
-            <div class="timer-section">
-
-                <div class="timer-label">
-                    NEXT LETTER
-                </div>
-
-                <div
-                    id="timerDisplay"
-                    class="timer-display"
-                >
-                    30
-                </div>
-
-                <div class="timer-seconds">
-                    SECONDS
-                </div>
-
-            </div>
-
-
-            <div
-                id="gameMessage"
-                class="game-message"
-            >
-                CHOOSE YOUR SETTINGS AND PRESS ENTER
+                GET READY!
             </div>
 
         </section>
 
 
 
-        <!-- SETTINGS -->
+        <!-- ======================================
+             PUZZLE
+        ======================================= -->
 
         <section
-            id="settingsPanel"
-            class="settings-panel"
+            id="puzzle"
+            class="puzzle"
         >
 
-            <div class="settings-header">
+        </section>
 
-                <h3>
-                    GAME SETTINGS
-                </h3>
 
-                <span>
-                    HOST
-                </span>
 
+        <!-- ======================================
+             TIMER
+        ======================================= -->
+
+        <section class="timer-area">
+
+            <div class="timer-title">
+                NEXT LETTER
             </div>
 
 
-            <!-- LETTER TIME -->
+            <div
+                id="timer"
+                class="timer"
+            >
+                30
+            </div>
 
-            <div class="setting-group">
 
-                <label>
+            <div class="seconds">
+                SECONDS
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             MESSAGE
+        ======================================= -->
+
+        <div
+            id="message"
+            class="message"
+        >
+            CHOOSE YOUR TIME AND PRESS ENTER
+        </div>
+
+
+
+        <!-- ======================================
+             CONTROLS
+        ======================================= -->
+
+        <section
+            id="controls"
+            class="controls"
+        >
+
+
+            <!-- LETTER REVEAL -->
+
+            <div class="control-section">
+
+                <div class="control-title">
                     LETTER REVEAL TIME
-                </label>
+                </div>
 
-                <div class="setting-buttons">
+
+                <div class="button-row">
 
                     <button
-                        type="button"
-                        class="time-button"
+                        class="option-button time-option"
                         data-time="15"
                     >
                         15 SEC
                     </button>
 
+
                     <button
-                        type="button"
-                        class="time-button active"
+                        class="option-button time-option selected"
                         data-time="30"
                     >
                         30 SEC
                     </button>
 
+
                     <button
-                        type="button"
-                        class="time-button"
+                        class="option-button time-option"
                         data-time="60"
                     >
                         1 MIN
@@ -176,33 +193,33 @@
 
             <!-- COOLDOWN -->
 
-            <div class="setting-group">
+            <div class="control-section">
 
-                <label>
-                    NEXT ROUND COOLDOWN
-                </label>
+                <div class="control-title">
+                    NEXT PUZZLE COOLDOWN
+                </div>
 
-                <div class="setting-buttons">
+
+                <div class="button-row">
 
                     <button
-                        type="button"
-                        class="cooldown-button"
+                        class="option-button cooldown-option"
                         data-cooldown="5"
                     >
                         5 SEC
                     </button>
 
+
                     <button
-                        type="button"
-                        class="cooldown-button active"
+                        class="option-button cooldown-option selected"
                         data-cooldown="10"
                     >
                         10 SEC
                     </button>
 
+
                     <button
-                        type="button"
-                        class="cooldown-button"
+                        class="option-button cooldown-option"
                         data-cooldown="15"
                     >
                         15 SEC
@@ -217,31 +234,34 @@
             <!-- START -->
 
             <button
-                id="startGameButton"
-                class="start-game-button"
-                type="button"
+                id="startGame"
+                class="start-game"
             >
                 ▶ START GAME
             </button>
+
 
         </section>
 
 
 
-        <!-- COOLDOWN -->
+        <!-- ======================================
+             COOLDOWN SCREEN
+        ======================================= -->
 
         <div
-            id="cooldownDisplay"
-            class="cooldown-display hidden"
+            id="cooldown"
+            class="cooldown hidden"
         >
 
-            <div class="cooldown-title">
+            <div class="cooldown-text">
                 NEXT PUZZLE
             </div>
 
+
             <div
-                id="cooldownTimer"
-                class="cooldown-timer"
+                id="cooldownNumber"
+                class="cooldown-number"
             >
                 10
             </div>
@@ -249,13 +269,16 @@
         </div>
 
 
-    </main>
+    </div>
 
 
-    <!-- IMPORTANT:
-         JAVASCRIPT IS LOADED LAST -->
 
-    <script src="./game.js"></script>
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script src="game.js"></script>
+
 
 </body>
 
