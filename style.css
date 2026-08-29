@@ -1,13 +1,14 @@
-/* =========================================================
+```css
+/* =====================================================
    DIONLYONEE PLAYGROUND
    WHEEL OF FORTUNE
-   STYLE SHEET
-   ========================================================= */
+   GOLD + BLACK THEME
+===================================================== */
 
 
-/* =========================================================
-   GLOBAL
-   ========================================================= */
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -16,938 +17,152 @@
 }
 
 
+/* =====================================================
+   ROOT
+===================================================== */
+
 :root {
-    --bg-main: #090a10;
-    --bg-secondary: #11131c;
-    --bg-panel: #171a25;
-    --bg-panel-light: #1d2130;
 
-    --text-main: #ffffff;
-    --text-secondary: #aeb4c4;
-    --text-muted: #72798c;
+    --black: #050505;
 
-    --accent: #8b5cf6;
-    --accent-light: #a78bfa;
+    --black-light: #0d0d0d;
 
-    --success: #22c55e;
-    --warning: #f59e0b;
-    --danger: #ef4444;
+    --black-panel: #111111;
 
-    --border: rgba(255, 255, 255, 0.08);
+    --gold: #d4af37;
 
-    --radius: 16px;
+    --gold-light: #f4d56a;
+
+    --gold-dark: #8f721d;
+
+    --white: #ffffff;
+
+    --gray: #a7a7a7;
+
+    --danger: #8b0000;
+
 }
 
 
-html,
-body {
-    min-height: 100%;
-}
-
+/* =====================================================
+   BODY
+===================================================== */
 
 body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #1a1a1a 0%,
+            #080808 45%,
+            #020202 100%
+        );
+
+    color: var(--white);
+
     font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
+        Arial,
+        Helvetica,
         sans-serif;
 
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(139, 92, 246, 0.16),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at bottom right,
-            rgba(34, 197, 94, 0.08),
-            transparent 30%
-        ),
-        var(--bg-main);
-
-    color: var(--text-main);
 }
 
 
-/* =========================================================
-   HOST PAGE
-   ========================================================= */
+/* =====================================================
+   MAIN GAME SCREEN
+===================================================== */
 
-.host-page {
+.game-screen {
+
     min-height: 100vh;
-}
 
-
-/* =========================================================
-   TOP BAR
-   ========================================================= */
-
-.top-bar {
-    height: 82px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 34px;
-
-    background: rgba(9, 10, 16, 0.92);
-
-    border-bottom:
-        1px solid var(--border);
-
-    backdrop-filter: blur(14px);
-
-    position: sticky;
-    top: 0;
-
-    z-index: 100;
-}
-
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
-
-
-.brand-icon {
-    width: 45px;
-    height: 45px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--accent),
-            #5b21b6
-        );
-
-    border-radius: 13px;
-
-    font-size: 23px;
-
-    box-shadow:
-        0 8px 30px rgba(139, 92, 246, 0.3);
-}
-
-
-.brand h1 {
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-}
-
-
-.brand p {
-    color: var(--text-muted);
-    font-size: 12px;
-    margin-top: 2px;
-}
-
-
-.status {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    font-size: 11px;
-    font-weight: 800;
-
-    letter-spacing: 0.8px;
-
-    color: var(--text-secondary);
-}
-
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-
-    border-radius: 50%;
-
-    background: var(--success);
-
-    box-shadow:
-        0 0 12px rgba(34, 197, 94, 0.8);
-
-    animation: statusPulse 2s infinite;
-}
-
-
-@keyframes statusPulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.45;
-    }
-}
-
-
-/* =========================================================
-   HOST CONTAINER
-   ========================================================= */
-
-.host-container {
-    width: min(1180px, calc(100% - 40px));
-
-    margin: 0 auto;
-
-    padding: 50px 0 70px;
-}
-
-
-/* =========================================================
-   GAME HEADER
-   ========================================================= */
-
-.game-header {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 30px;
-
-    margin-bottom: 28px;
-}
-
-
-.eyebrow {
-    color: var(--accent-light);
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 7px;
-}
-
-
-.game-header h2 {
-    font-size: 34px;
-
-    letter-spacing: -1px;
-
-    margin-bottom: 8px;
-}
-
-
-.description {
-    color: var(--text-secondary);
-
-    font-size: 14px;
-
-    max-width: 600px;
-
-    line-height: 1.5;
-}
-
-
-.stream-button {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    min-height: 46px;
-
-    padding: 0 18px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    background: var(--bg-panel);
-
-    color: var(--text-main);
-
-    text-decoration: none;
-
-    font-size: 12px;
-
-    font-weight: 800;
-
-    white-space: nowrap;
-
-    transition:
-        transform 0.2s,
-        background 0.2s,
-        border-color 0.2s;
-}
-
-
-.stream-button:hover {
-    transform: translateY(-2px);
-
-    background: var(--bg-panel-light);
-
-    border-color:
-        rgba(139, 92, 246, 0.5);
-}
-
-
-/* =========================================================
-   PANELS
-   ========================================================= */
-
-.panel {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(29, 33, 48, 0.92),
-            rgba(17, 19, 28, 0.92)
-        );
-
-    border:
-        1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 26px;
-
-    margin-bottom: 20px;
-
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.2);
-}
-
-
-.panel-title {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 24px;
-}
-
-
-.panel-title h3 {
-    font-size: 16px;
-
-    font-weight: 800;
-}
-
-
-.panel-title span {
-    padding: 6px 10px;
-
-    border-radius: 7px;
-
-    background:
-        rgba(139, 92, 246, 0.1);
-
-    color: var(--accent-light);
-
-    font-size: 9px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================================================
-   SETUP
-   ========================================================= */
-
-.setup-grid {
-    display: grid;
-
-    grid-template-columns:
-        minmax(200px, 0.8fr)
-        minmax(300px, 1.2fr);
-
-    gap: 18px;
-}
-
-
-.input-group {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-}
-
-
-.input-group label,
-.winner-area label {
-    color: var(--text-secondary);
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    letter-spacing: 0.8px;
-}
-
-
-select,
-input {
     width: 100%;
 
-    height: 48px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 10px;
-
-    background:
-        rgba(9, 10, 16, 0.65);
-
-    color: var(--text-main);
-
-    padding: 0 14px;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    outline: none;
-
-    transition:
-        border-color 0.2s,
-        box-shadow 0.2s;
-}
-
-
-select:focus,
-input:focus {
-    border-color:
-        rgba(139, 92, 246, 0.65);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(139, 92, 246, 0.1);
-}
-
-
-select option {
-    background: #171a25;
-
-    color: white;
-}
-
-
-.setup-actions {
-    display: flex;
-
-    justify-content: flex-end;
-
-    gap: 10px;
-
-    margin-top: 20px;
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-button {
-    font-family: inherit;
-
-    cursor: pointer;
-
-    border: none;
-
-    transition:
-        transform 0.18s,
-        filter 0.18s,
-        background 0.18s;
-}
-
-
-button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.08);
-}
-
-
-button:active {
-    transform: translateY(0);
-}
-
-
-.primary-button,
-.secondary-button {
-    min-height: 46px;
-
-    padding: 0 20px;
-
-    border-radius: 10px;
-
-    font-size: 11px;
-
-    font-weight: 900;
-
-    letter-spacing: 0.7px;
-}
-
-
-.primary-button {
-    background:
-        linear-gradient(
-            135deg,
-            var(--accent),
-            #6d28d9
-        );
-
-    color: white;
-
-    box-shadow:
-        0 10px 25px
-        rgba(139, 92, 246, 0.25);
-}
-
-
-.secondary-button {
-    background:
-        rgba(255, 255, 255, 0.06);
-
-    border:
-        1px solid var(--border);
-
-    color: var(--text-main);
-}
-
-
-/* =========================================================
-   PUZZLE INFO
-   ========================================================= */
-
-.puzzle-info {
-    display: flex;
-
-    gap: 45px;
-
-    margin-bottom: 28px;
-}
-
-
-.puzzle-info div {
     display: flex;
 
     flex-direction: column;
 
-    gap: 5px;
-}
-
-
-.info-label {
-    color: var(--text-muted);
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-}
-
-
-.puzzle-info strong {
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   HOST PUZZLE
-   ========================================================= */
-
-.host-puzzle {
-    min-height: 130px;
-
-    display: flex;
-
     align-items: center;
 
-    justify-content: center;
+    padding: 35px 25px 45px;
 
-    text-align: center;
+    position: relative;
 
-    padding: 25px;
+    overflow: hidden;
 
-    border-radius: 14px;
+}
+
+
+/* =====================================================
+   GOLD BACKGROUND GLOW
+===================================================== */
+
+.game-screen::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+
+    height: 700px;
+
+    top: -400px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
 
     background:
         radial-gradient(
             circle,
-            rgba(139, 92, 246, 0.08),
+            rgba(212, 175, 55, 0.18),
             transparent 65%
-        ),
-        rgba(9, 10, 16, 0.75);
-
-    border:
-        1px solid
-        rgba(139, 92, 246, 0.15);
-
-    font-size: clamp(25px, 4vw, 42px);
-
-    font-weight: 900;
-
-    letter-spacing: 7px;
-
-    word-break: break-word;
-
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   TIMER
-   ========================================================= */
-
-.timer-area {
-    text-align: center;
-
-    margin: 30px 0;
-}
-
-
-.timer-label {
-    color: var(--text-muted);
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 5px;
-}
-
-
-.timer {
-    font-size: 60px;
-
-    font-weight: 900;
-
-    line-height: 1;
-
-    font-variant-numeric:
-        tabular-nums;
-
-    letter-spacing: -3px;
-}
-
-
-.seconds {
-    color: var(--text-muted);
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-    margin-top: 6px;
-}
-
-
-/* =========================================================
-   GAME CONTROLS
-   ========================================================= */
-
-.game-controls {
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr 1fr;
-
-    gap: 10px;
-
-    margin-bottom: 25px;
-}
-
-
-.control-button {
-    min-height: 52px;
-
-    border-radius: 11px;
-
-    background:
-        rgba(255, 255, 255, 0.055);
-
-    border:
-        1px solid var(--border);
-
-    color: white;
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 0.5px;
-}
-
-
-.control-button.reveal {
-    background:
-        rgba(139, 92, 246, 0.13);
-
-    border-color:
-        rgba(139, 92, 246, 0.3);
-
-    color: var(--accent-light);
-}
-
-
-.control-button.answer {
-    background:
-        rgba(34, 197, 94, 0.08);
-
-    border-color:
-        rgba(34, 197, 94, 0.2);
-
-    color: #86efac;
-}
-
-
-/* =========================================================
-   WINNER
-   ========================================================= */
-
-.winner-area {
-    padding-top: 20px;
-
-    border-top:
-        1px solid var(--border);
-}
-
-
-.winner-input {
-    display: grid;
-
-    grid-template-columns: 1fr auto;
-
-    gap: 10px;
-
-    margin-top: 8px;
-}
-
-
-#winnerBtn {
-    min-width: 150px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #f59e0b,
-            #d97706
         );
 
-    color: white;
+    pointer-events: none;
 
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 0.5px;
 }
 
 
-/* =========================================================
-   NEW ROUND
-   ========================================================= */
+/* =====================================================
+   HEADER
+===================================================== */
 
-.new-round-button {
+.game-header {
+
     width: 100%;
 
-    height: 48px;
+    max-width: 1200px;
 
-    margin-top: 15px;
+    display: flex;
 
-    border-radius: 10px;
+    align-items: center;
 
-    background:
-        rgba(239, 68, 68, 0.08);
+    justify-content: center;
 
-    border:
+    gap: 18px;
+
+    padding-bottom: 30px;
+
+    border-bottom:
         1px solid
-        rgba(239, 68, 68, 0.2);
-
-    color: #fca5a5;
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 0.8px;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-footer {
-    text-align: center;
-
-    padding: 0 20px 35px;
-
-    color: var(--text-muted);
-
-    font-size: 10px;
-
-    letter-spacing: 0.5px;
-}
-
-
-/* =========================================================
-   STREAM / OBS PAGE
-   ========================================================= */
-
-.stream-page {
-    min-height: 100vh;
-
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(139, 92, 246, 0.2),
-            transparent 40%
-        ),
-        radial-gradient(
-            circle at 10% 100%,
-            rgba(34, 197, 94, 0.08),
-            transparent 35%
-        ),
-        #07080d;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-
-/* =========================================================
-   STREAM CONTAINER
-   ========================================================= */
-
-.stream-container {
-    width: 94vw;
-
-    max-width: 1500px;
-
-    min-height: 82vh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
+        rgba(212, 175, 55, 0.35);
 
     position: relative;
 
-    padding: 50px;
+    z-index: 2;
 
-    text-align: center;
 }
 
 
-/* =========================================================
-   STREAM LOGO
-   ========================================================= */
+.logo {
 
-.stream-logo {
-    position: absolute;
+    width: 58px;
 
-    top: 25px;
-
-    left: 30px;
-
-    font-size: 13px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    color: rgba(255, 255, 255, 0.7);
-}
-
-
-/* =========================================================
-   GAME NAME
-   ========================================================= */
-
-.game-name {
-    color: var(--accent-light);
-
-    font-size: clamp(14px, 1.5vw, 20px);
-
-    font-weight: 900;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 20px;
-}
-
-
-/* =========================================================
-   STREAM CATEGORY
-   ========================================================= */
-
-.category-display span {
-    display: block;
-
-    color: var(--text-muted);
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 7px;
-}
-
-
-.category-display h2 {
-    font-size: clamp(20px, 3vw, 38px);
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================================================
-   STREAM PUZZLE
-   ========================================================= */
-
-.stream-puzzle {
-    width: 100%;
-
-    margin-top: 55px;
-
-    padding: 25px 15px;
-
-    min-height: 150px;
+    height: 58px;
 
     display: flex;
 
@@ -955,117 +170,628 @@ footer {
 
     justify-content: center;
 
-    border-radius: 20px;
+    border:
+        2px solid
+        var(--gold);
+
+    border-radius: 14px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(139, 92, 246, 0.12),
-            rgba(17, 19, 28, 0.8)
+            #171717,
+            #050505
         );
 
-    border:
-        1px solid
-        rgba(139, 92, 246, 0.25);
+    font-size: 29px;
 
     box-shadow:
-        0 25px 80px
-        rgba(0, 0, 0, 0.35);
-
-    font-size: clamp(28px, 5vw, 68px);
-
-    font-weight: 900;
-
-    letter-spacing: clamp(4px, 1vw, 12px);
-
-    line-height: 1.7;
-
-    word-break: break-word;
-
-    animation: puzzleAppear 0.5s ease;
-}
-
-
-@keyframes puzzleAppear {
-
-    from {
-        opacity: 0;
-        transform: scale(0.97);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+        0 0 25px
+        rgba(212, 175, 55, 0.15);
 
 }
 
 
-/* =========================================================
-   STREAM TIMER
-   ========================================================= */
+.game-header h1 {
 
-.stream-timer-container {
-    margin-top: 35px;
+    color: var(--gold-light);
 
-    text-align: center;
-}
-
-
-.stream-timer-label {
-    color: var(--text-muted);
-
-    font-size: 9px;
+    font-size: clamp(
+        22px,
+        4vw,
+        38px
+    );
 
     font-weight: 900;
 
     letter-spacing: 3px;
 
-    margin-bottom: 6px;
 }
 
 
-.stream-timer {
-    font-size: clamp(50px, 7vw, 90px);
+.game-header p {
+
+    margin-top: 5px;
+
+    color: var(--gray);
+
+    font-size: 13px;
+
+    letter-spacing: 5px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   GAME AREA
+===================================================== */
+
+.game-area {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin-top: 35px;
+
+    padding: 45px 35px 50px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #090909
+        );
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.35);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.65),
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.03);
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+.category-section {
+
+    text-align: center;
+
+}
+
+
+.category-label {
+
+    display: block;
+
+    color: var(--gold);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.category-section h2 {
+
+    color: var(--white);
+
+    font-size: clamp(
+        25px,
+        5vw,
+        46px
+    );
 
     font-weight: 900;
 
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =====================================================
+   PUZZLE
+===================================================== */
+
+.puzzle-display {
+
+    margin-top: 55px;
+
+    min-height: 115px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    padding: 15px;
+
+}
+
+
+/* =====================================================
+   LETTER BOX
+===================================================== */
+
+.letter-box {
+
+    width: 58px;
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171717,
+            #080808
+        );
+
+    border:
+        2px solid
+        var(--gold);
+
+    border-radius: 7px;
+
+    color: var(--gold-light);
+
+    font-size: 36px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.5);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+/* =====================================================
+   REVEALED LETTER
+===================================================== */
+
+.letter-box.revealed {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--gold),
+            var(--gold-dark)
+        );
+
+    color: #050505;
+
+    border-color:
+        var(--gold-light);
+
+    box-shadow:
+        0 0 20px
+        rgba(212, 175, 55, 0.35);
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =====================================================
+   HIDDEN LETTER
+===================================================== */
+
+.letter-box.hidden {
+
+    color: transparent;
+
+}
+
+
+/* =====================================================
+   WORD SPACE
+===================================================== */
+
+.word-space {
+
+    width: 25px;
+
+    height: 70px;
+
+}
+
+
+/* =====================================================
+   TIMER SECTION
+===================================================== */
+
+.timer-section {
+
+    margin-top: 45px;
+
+    text-align: center;
+
+}
+
+
+.timer-label {
+
+    color: var(--gray);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+}
+
+
+.timer-display {
+
+    margin-top: 8px;
+
+    color: var(--gold-light);
+
+    font-size: 72px;
+
     line-height: 1;
+
+    font-weight: 900;
 
     font-variant-numeric:
         tabular-nums;
 
-    letter-spacing: -4px;
-
     text-shadow:
-        0 0 30px
-        rgba(139, 92, 246, 0.25);
+        0 0 25px
+        rgba(212, 175, 55, 0.25);
+
 }
 
 
-/* =========================================================
-   STREAM MESSAGE
-   ========================================================= */
+.timer-seconds {
 
-.stream-message {
-    margin-top: 25px;
+    margin-top: 6px;
 
-    color: var(--text-secondary);
+    color: var(--gray);
 
-    font-size: clamp(11px, 1.3vw, 16px);
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+}
+
+
+/* =====================================================
+   TIMER WARNING
+===================================================== */
+
+.timer-display.warning {
+
+    color: #ffcc00;
+
+    animation:
+        timerPulse 1s infinite;
+
+}
+
+
+@keyframes timerPulse {
+
+    0%,
+    100% {
+
+        transform: scale(1);
+
+    }
+
+    50% {
+
+        transform: scale(1.08);
+
+    }
+
+}
+
+
+/* =====================================================
+   GAME MESSAGE
+===================================================== */
+
+.game-message {
+
+    margin-top: 35px;
+
+    text-align: center;
+
+    color: var(--gold);
+
+    font-size: 16px;
 
     font-weight: 800;
 
     letter-spacing: 2px;
+
 }
 
 
-/* =========================================================
-   WINNER DISPLAY
-   ========================================================= */
+/* =====================================================
+   SETTINGS PANEL
+===================================================== */
 
-.winner-display {
-    position: absolute;
+.settings-panel {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background:
+        var(--black-panel);
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.25);
+
+    border-radius: 18px;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.settings-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+
+}
+
+
+.settings-header h3 {
+
+    color: var(--white);
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+
+}
+
+
+.settings-header span {
+
+    color: var(--gold);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* =====================================================
+   SETTING GROUP
+===================================================== */
+
+.setting-group {
+
+    margin-bottom: 22px;
+
+}
+
+
+.setting-group label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--gray);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* =====================================================
+   SETTING BUTTONS
+===================================================== */
+
+.setting-buttons {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.setting-buttons button {
+
+    min-width: 100px;
+
+    padding: 12px 18px;
+
+    border:
+        1px solid
+        #333;
+
+    border-radius: 8px;
+
+    background:
+        #080808;
+
+    color: var(--gray);
+
+    font-weight: 800;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.setting-buttons button:hover {
+
+    border-color:
+        var(--gold-dark);
+
+    color:
+        var(--gold-light);
+
+}
+
+
+.setting-buttons button.active {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--gold),
+            var(--gold-dark)
+        );
+
+    color:
+        #050505;
+
+    border-color:
+        var(--gold-light);
+
+}
+
+
+/* =====================================================
+   START BUTTON
+===================================================== */
+
+.start-game-button {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--gold-light),
+            var(--gold-dark)
+        );
+
+    color: #050505;
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(212, 175, 55, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.start-game-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(212, 175, 55, 0.35);
+
+}
+
+
+.start-game-button:active {
+
+    transform:
+        translateY(1px);
+
+}
+
+
+/* =====================================================
+   COOLDOWN
+===================================================== */
+
+.cooldown-display {
+
+    position: fixed;
 
     inset: 0;
 
@@ -1079,226 +805,227 @@ footer {
 
     justify-content: center;
 
-    padding: 40px;
-
     background:
-        radial-gradient(
-            circle,
-            rgba(139, 92, 246, 0.35),
-            rgba(7, 8, 13, 0.97) 65%
-        );
+        rgba(0, 0, 0, 0.94);
 
-    animation:
-        winnerAppear 0.6s ease;
+    text-align: center;
+
 }
 
 
-.winner-title {
-    color: #fbbf24;
+.cooldown-display.hidden {
 
-    font-size: clamp(18px, 3vw, 34px);
+    display: none;
+
+}
+
+
+.cooldown-title {
+
+    color: var(--gold);
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    letter-spacing: 5px;
+
+}
+
+
+.cooldown-timer {
+
+    margin-top: 15px;
+
+    color: var(--gold-light);
+
+    font-size: 110px;
+
+    line-height: 1;
 
     font-weight: 900;
 
-    letter-spacing: 3px;
-
-    margin-bottom: 20px;
 }
 
 
-#streamWinner {
-    font-size: clamp(35px, 7vw, 90px);
-
-    font-weight: 900;
-
-    letter-spacing: -2px;
-
-    margin-bottom: 20px;
-}
-
-
-#winningAnswer {
-    padding: 15px 25px;
-
-    border-radius: 12px;
-
-    background:
-        rgba(255, 255, 255, 0.08);
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.12);
-
-    color: var(--accent-light);
-
-    font-size: clamp(18px, 3vw, 34px);
-
-    font-weight: 900;
-
-    letter-spacing: 2px;
-}
-
-
-@keyframes winnerAppear {
-
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-}
-
-
-/* =========================================================
-   HIDDEN
-   ========================================================= */
-
-.hidden {
-    display: none !important;
-}
-
-
-/* =========================================================
+/* =====================================================
    RESPONSIVE
-   ========================================================= */
+===================================================== */
 
-@media (max-width: 800px) {
+@media (
+    max-width: 700px
+) {
 
-    .top-bar {
-        padding: 0 18px;
-    }
+    .game-screen {
 
+        padding:
+            20px 12px 30px;
 
-    .host-container {
-        width: min(
-            100% - 24px,
-            1180px
-        );
-
-        padding-top: 30px;
     }
 
 
     .game-header {
-        flex-direction: column;
 
-        align-items: flex-start;
+        justify-content:
+            flex-start;
+
     }
 
 
-    .setup-grid {
-        grid-template-columns: 1fr;
+    .game-header h1 {
+
+        font-size: 20px;
+
+        letter-spacing: 2px;
+
     }
 
 
-    .setup-actions {
-        flex-direction: column;
-    }
+    .game-header p {
 
-
-    .setup-actions button {
-        width: 100%;
-    }
-
-
-    .game-controls {
-        grid-template-columns: 1fr;
-    }
-
-
-    .winner-input {
-        grid-template-columns: 1fr;
-    }
-
-
-    #winnerBtn {
-        width: 100%;
-        height: 48px;
-    }
-
-
-    .puzzle-info {
-        gap: 25px;
-
-        flex-wrap: wrap;
-    }
-
-
-    .stream-container {
-        width: 96vw;
-
-        padding: 30px 15px;
-    }
-
-
-    .stream-logo {
-        left: 15px;
-
-        top: 15px;
-    }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 500px) {
-
-    .brand h1 {
-        font-size: 14px;
-    }
-
-
-    .brand-icon {
-        width: 38px;
-        height: 38px;
-
-        font-size: 19px;
-    }
-
-
-    .status {
-        display: none;
-    }
-
-
-    .game-header h2 {
-        font-size: 26px;
-    }
-
-
-    .panel {
-        padding: 18px;
-    }
-
-
-    .host-puzzle {
-        font-size: 22px;
-
-        letter-spacing: 4px;
-    }
-
-
-    .timer {
-        font-size: 48px;
-    }
-
-
-    .stream-puzzle {
-        margin-top: 35px;
-
-        min-height: 120px;
-
-        font-size: 24px;
+        font-size: 9px;
 
         letter-spacing: 3px;
+
+    }
+
+
+    .logo {
+
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 22px;
+
+    }
+
+
+    .game-area {
+
+        padding:
+            30px 12px 35px;
+
+        margin-top: 20px;
+
+    }
+
+
+    .puzzle-display {
+
+        gap: 5px;
+
+        margin-top: 35px;
+
+    }
+
+
+    .letter-box {
+
+        width: 38px;
+
+        height: 50px;
+
+        font-size: 25px;
+
+    }
+
+
+    .word-space {
+
+        width: 12px;
+
+        height: 50px;
+
+    }
+
+
+    .timer-display {
+
+        font-size: 58px;
+
+    }
+
+
+    .settings-panel {
+
+        padding: 18px;
+
+    }
+
+
+    .setting-buttons {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+    }
+
+
+    .setting-buttons button {
+
+        min-width: 0;
+
+        padding:
+            12px 5px;
+
+        font-size: 10px;
+
     }
 
 }
+
+
+/* =====================================================
+   LARGE STREAM DISPLAY
+===================================================== */
+
+@media (
+    min-width: 1400px
+) {
+
+    .game-screen {
+
+        padding-top: 55px;
+
+    }
+
+
+    .game-area {
+
+        padding:
+            65px 50px 70px;
+
+    }
+
+
+    .letter-box {
+
+        width: 70px;
+
+        height: 85px;
+
+        font-size: 44px;
+
+    }
+
+
+    .word-space {
+
+        width: 35px;
+
+        height: 85px;
+
+    }
+
+
+    .timer-display {
+
+        font-size: 90px;
+
+    }
+
+}
+```
