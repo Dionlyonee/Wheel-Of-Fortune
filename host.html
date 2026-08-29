@@ -1,0 +1,936 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dionlyonee LIVE — Host Control</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="game">
+
+
+    <!-- HOST HEADER -->
+
+    <header>
+
+        <div class="logo">
+            D
+        </div>
+
+        <div>
+
+            <h1>
+                DIONLYONEE PLAYGROUND
+            </h1>
+
+            <p>
+                HOST CONTROL PANEL
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- GAME STATUS -->
+
+        <div class="category-label">
+            CURRENT CATEGORY
+        </div>
+
+
+        <div
+            id="hostCategory"
+            class="category"
+        >
+            WAITING
+        </div>
+
+
+
+        <!-- ANSWER -->
+
+        <div class="category-label">
+            ANSWER
+        </div>
+
+
+        <div
+            id="hostAnswer"
+            class="host-answer"
+        >
+            —
+        </div>
+
+
+
+        <!-- REVEALED LETTERS -->
+
+        <div class="category-label">
+            REVEALED LETTERS
+        </div>
+
+
+        <div
+            id="hostLetters"
+            class="host-letters"
+        >
+            NONE
+        </div>
+
+
+
+        <!-- TIMER -->
+
+        <div class="timer-label">
+            NEXT LETTER
+        </div>
+
+
+        <div
+            id="hostTimer"
+            class="timer"
+        >
+            30
+        </div>
+
+
+        <div class="seconds">
+            SECONDS
+        </div>
+
+
+
+        <!-- STATUS -->
+
+        <div
+            id="hostMessage"
+            class="message"
+        >
+            READY TO START
+        </div>
+
+
+
+        <!-- CONTROLS -->
+
+        <div class="controls">
+
+
+            <!-- LETTER REVEAL -->
+
+            <div class="setting">
+
+                <h3>
+                    LETTER REVEAL
+                </h3>
+
+
+                <button
+                    class="host-time-button"
+                    data-time="15"
+                >
+                    15 SEC
+                </button>
+
+
+                <button
+                    class="host-time-button active"
+                    data-time="30"
+                >
+                    30 SEC
+                </button>
+
+
+                <button
+                    class="host-time-button"
+                    data-time="60"
+                >
+                    1 MIN
+                </button>
+
+            </div>
+
+
+
+            <!-- COOLDOWN -->
+
+            <div class="setting">
+
+                <h3>
+                    NEXT PUZZLE COOLDOWN
+                </h3>
+
+
+                <button
+                    class="host-cooldown-button"
+                    data-time="5"
+                >
+                    5 SEC
+                </button>
+
+
+                <button
+                    class="host-cooldown-button active"
+                    data-time="10"
+                >
+                    10 SEC
+                </button>
+
+
+                <button
+                    class="host-cooldown-button"
+                    data-time="15"
+                >
+                    15 SEC
+                </button>
+
+            </div>
+
+
+
+            <!-- START -->
+
+            <button
+                id="hostStart"
+                class="start-button"
+            >
+                ▶ START GAME
+            </button>
+
+
+            <!-- NEXT PUZZLE -->
+
+            <button
+                id="hostNext"
+                class="host-next-button"
+            >
+                NEXT PUZZLE
+            </button>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =================================================
+   PUZZLES
+================================================= */
+
+const puzzles = {
+
+    Animals: [
+
+        "ELEPHANT",
+        "GIRAFFE",
+        "MONKEY",
+        "DOLPHIN",
+        "CROCODILE",
+        "KANGAROO",
+        "TIGER",
+        "GORILLA"
+
+    ],
+
+
+    Countries: [
+
+        "JAMAICA",
+        "CANADA",
+        "BRAZIL",
+        "JAPAN",
+        "MEXICO",
+        "BAHAMAS",
+        "BARBADOS",
+        "FRANCE"
+
+    ],
+
+
+    "Jamaican Phrases": [
+
+        "WAH GWAAN",
+        "WEH YUH A SEH",
+        "MI DEH YA",
+        "EVERYTING IRIE",
+        "BIG UP",
+        "WALK GOOD"
+
+    ],
+
+
+    Food: [
+
+        "JERK CHICKEN",
+        "RICE AND PEAS",
+        "PIZZA",
+        "HAMBURGER",
+        "ICE CREAM"
+
+    ]
+
+};
+
+
+/* =================================================
+   SETTINGS
+================================================= */
+
+let revealTime = 30;
+
+let cooldownTime = 10;
+
+
+/* =================================================
+   GAME VARIABLES
+================================================= */
+
+let answer = "";
+
+let category = "";
+
+let revealed = [];
+
+let seconds = 30;
+
+let timer = null;
+
+let gameRunning = false;
+
+
+/* =================================================
+   HTML ELEMENTS
+================================================= */
+
+const hostCategory =
+    document.getElementById(
+        "hostCategory"
+    );
+
+
+const hostAnswer =
+    document.getElementById(
+        "hostAnswer"
+    );
+
+
+const hostLetters =
+    document.getElementById(
+        "hostLetters"
+    );
+
+
+const hostTimer =
+    document.getElementById(
+        "hostTimer"
+    );
+
+
+const hostMessage =
+    document.getElementById(
+        "hostMessage"
+    );
+
+
+const hostStart =
+    document.getElementById(
+        "hostStart"
+    );
+
+
+const hostNext =
+    document.getElementById(
+        "hostNext"
+    );
+
+
+/* =================================================
+   LETTER TIME BUTTONS
+================================================= */
+
+document
+    .querySelectorAll(
+        ".host-time-button"
+    )
+    .forEach(function(button) {
+
+
+        button.addEventListener(
+            "click",
+            function() {
+
+
+                if (gameRunning) {
+                    return;
+                }
+
+
+                document
+                    .querySelectorAll(
+                        ".host-time-button"
+                    )
+                    .forEach(function(item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                revealTime =
+                    Number(
+                        button.dataset.time
+                    );
+
+
+                seconds =
+                    revealTime;
+
+
+                hostTimer.textContent =
+                    seconds;
+
+
+                hostMessage.textContent =
+                    "LETTERS REVEAL EVERY " +
+                    revealTime +
+                    " SECONDS";
+
+            }
+        );
+
+    });
+
+
+
+/* =================================================
+   COOLDOWN BUTTONS
+================================================= */
+
+document
+    .querySelectorAll(
+        ".host-cooldown-button"
+    )
+    .forEach(function(button) {
+
+
+        button.addEventListener(
+            "click",
+            function() {
+
+
+                if (gameRunning) {
+                    return;
+                }
+
+
+                document
+                    .querySelectorAll(
+                        ".host-cooldown-button"
+                    )
+                    .forEach(function(item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                cooldownTime =
+                    Number(
+                        button.dataset.time
+                    );
+
+
+                hostMessage.textContent =
+                    "COOLDOWN: " +
+                    cooldownTime +
+                    " SECONDS";
+
+            }
+        );
+
+    });
+
+
+
+/* =================================================
+   START GAME
+================================================= */
+
+hostStart.addEventListener(
+    "click",
+    function() {
+
+        startGame();
+
+    }
+);
+
+
+
+/* =================================================
+   ENTER KEY
+================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+            &&
+            !gameRunning
+        ) {
+
+            startGame();
+
+        }
+
+    }
+);
+
+
+
+/* =================================================
+   START GAME FUNCTION
+================================================= */
+
+function startGame() {
+
+
+    clearInterval(
+        timer
+    );
+
+
+    const categories =
+        Object.keys(
+            puzzles
+        );
+
+
+    const categoryIndex =
+        Math.floor(
+            Math.random() *
+            categories.length
+        );
+
+
+    category =
+        categories[
+            categoryIndex
+        ];
+
+
+    const words =
+        puzzles[
+            category
+        ];
+
+
+    const wordIndex =
+        Math.floor(
+            Math.random() *
+            words.length
+        );
+
+
+    answer =
+        words[
+            wordIndex
+        ];
+
+
+    revealed = [];
+
+
+    seconds =
+        revealTime;
+
+
+    gameRunning = true;
+
+
+    hostCategory.textContent =
+        category;
+
+
+    hostAnswer.textContent =
+        answer;
+
+
+    hostLetters.textContent =
+        "NONE";
+
+
+    hostTimer.textContent =
+        seconds;
+
+
+    hostMessage.textContent =
+        "GAME IS LIVE — WATCH THE CHAT!";
+
+
+    timer =
+        setInterval(
+            countdown,
+            1000
+        );
+
+
+    saveGame();
+
+}
+
+
+
+/* =================================================
+   COUNTDOWN
+================================================= */
+
+function countdown() {
+
+
+    seconds--;
+
+
+    hostTimer.textContent =
+        seconds;
+
+
+    saveGame();
+
+
+    if (
+        seconds <= 0
+    ) {
+
+        revealLetter();
+
+    }
+
+}
+
+
+
+/* =================================================
+   REVEAL LETTER
+================================================= */
+
+function revealLetter() {
+
+
+    clearInterval(
+        timer
+    );
+
+
+    const hiddenLetters =
+        [
+            ...new Set(
+
+                answer
+                    .split("")
+                    .filter(
+                        function(letter) {
+
+                            return (
+                                letter !== " "
+                                &&
+                                !revealed.includes(
+                                    letter
+                                )
+                            );
+
+                        }
+                    )
+
+            )
+        ];
+
+
+    if (
+        hiddenLetters.length === 0
+    ) {
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    const randomIndex =
+        Math.floor(
+            Math.random() *
+            hiddenLetters.length
+        );
+
+
+    const letter =
+        hiddenLetters[
+            randomIndex
+        ];
+
+
+    revealed.push(
+        letter
+    );
+
+
+    updateHostLetters();
+
+
+    if (
+        puzzleComplete()
+    ) {
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    seconds =
+        revealTime;
+
+
+    hostTimer.textContent =
+        seconds;
+
+
+    timer =
+        setInterval(
+            countdown,
+            1000
+        );
+
+
+    saveGame();
+
+}
+
+
+
+/* =================================================
+   UPDATE REVEALED LETTERS
+================================================= */
+
+function updateHostLetters() {
+
+
+    if (
+        revealed.length === 0
+    ) {
+
+        hostLetters.textContent =
+            "NONE";
+
+        return;
+
+    }
+
+
+    hostLetters.textContent =
+        revealed.join(
+            " • "
+        );
+
+}
+
+
+
+/* =================================================
+   PUZZLE COMPLETE
+================================================= */
+
+function puzzleComplete() {
+
+
+    for (
+        let i = 0;
+        i < answer.length;
+        i++
+    ) {
+
+
+        const character =
+            answer[i];
+
+
+        if (
+            character === " "
+        ) {
+
+            continue;
+
+        }
+
+
+        if (
+            !revealed.includes(
+                character
+            )
+        ) {
+
+            return false;
+
+        }
+
+    }
+
+
+    return true;
+
+}
+
+
+
+/* =================================================
+   FINISH GAME
+================================================= */
+
+function finishGame() {
+
+
+    clearInterval(
+        timer
+    );
+
+
+    gameRunning = false;
+
+
+    hostTimer.textContent =
+        "✓";
+
+
+    hostMessage.textContent =
+        "ANSWER: " +
+        answer;
+
+
+    saveGame();
+
+
+    setTimeout(
+        function() {
+
+            startGame();
+
+        },
+        cooldownTime * 1000
+    );
+
+}
+
+
+
+/* =================================================
+   NEXT PUZZLE BUTTON
+================================================= */
+
+hostNext.addEventListener(
+    "click",
+    function() {
+
+        startGame();
+
+    }
+);
+
+
+
+/* =================================================
+   SAVE GAME STATE
+================================================= */
+
+function saveGame() {
+
+
+    const gameState = {
+
+        answer: answer,
+
+        category: category,
+
+        revealed: revealed,
+
+        seconds: seconds,
+
+        running: gameRunning,
+
+        revealTime: revealTime,
+
+        cooldownTime: cooldownTime
+
+    };
+
+
+    localStorage.setItem(
+        "dionlyoneeGameState",
+        JSON.stringify(
+            gameState
+        )
+    );
+
+}
+
+
+console.log(
+    "DIONLYONEE HOST CONTROL READY"
+);
+
+
+</script>
+
+
+</body>
+
+</html>
+```
