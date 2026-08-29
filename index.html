@@ -6,17 +6,11 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dionlyonee Playground</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -24,7 +18,6 @@
 <body>
 
     <div class="game">
-
 
         <header>
 
@@ -47,149 +40,60 @@
         </header>
 
 
-
         <main>
-
 
             <div class="category-label">
                 CATEGORY
             </div>
 
-
             <div
                 id="category"
                 class="category"
             >
-                GET READY!
+                TESTING JAVASCRIPT
             </div>
-
-
-
-            <div
-                id="puzzle"
-                class="puzzle"
-            >
-            </div>
-
-
-
-            <div class="timer-label">
-                NEXT LETTER
-            </div>
-
-
-            <div
-                id="timer"
-                class="timer"
-            >
-                30
-            </div>
-
-
-            <div class="seconds">
-                SECONDS
-            </div>
-
-
-
-            <div
-                id="message"
-                class="message"
-            >
-                CHOOSE A TIME AND START THE GAME
-            </div>
-
 
 
             <div class="controls">
 
-
-                <div class="setting">
-
-                    <h3>
-                        LETTER REVEAL
-                    </h3>
-
-
-                    <button
-                        class="time-button"
-                        data-time="15"
-                    >
-                        15 SEC
-                    </button>
-
-
-                    <button
-                        class="time-button active"
-                        data-time="30"
-                    >
-                        30 SEC
-                    </button>
-
-
-                    <button
-                        class="time-button"
-                        data-time="60"
-                    >
-                        1 MIN
-                    </button>
-
-                </div>
-
-
-
-                <div class="setting">
-
-                    <h3>
-                        NEXT PUZZLE
-                    </h3>
-
-
-                    <button
-                        class="cooldown-button"
-                        data-time="5"
-                    >
-                        5 SEC
-                    </button>
-
-
-                    <button
-                        class="cooldown-button active"
-                        data-time="10"
-                    >
-                        10 SEC
-                    </button>
-
-
-                    <button
-                        class="cooldown-button"
-                        data-time="15"
-                    >
-                        15 SEC
-                    </button>
-
-                </div>
-
-
-
                 <button
-                    id="start"
+                    id="testButton"
                     class="start-button"
                 >
-                    ▶ START GAME
+                    TEST JAVASCRIPT
                 </button>
-
 
             </div>
 
-
         </main>
-
 
     </div>
 
 
-<script src="game.js"></script>
+    <!-- JAVASCRIPT TEST -->
+
+    <script>
+
+        console.log(
+            "JAVASCRIPT IS RUNNING"
+        );
+
+
+        document
+            .getElementById("testButton")
+            .addEventListener(
+                "click",
+                function() {
+
+                    alert(
+                        "YES! JAVASCRIPT IS WORKING!"
+                    );
+
+                }
+            );
+
+    </script>
+
 
 </body>
 
