@@ -1,61 +1,169 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dionlyonee Playground HOST</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dionlyonee Playground - Host</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
 <div class="host-screen">
-  <header class="host-header">
-    <div class="host-logo">D</div>
-    <div>
-      <h1>DIONLYONEE PLAYGROUND</h1>
-      <p>HOST CONTROL PANEL</p>
-    </div>
-  </header>
-  <main class="host-main">
-    <div class="host-status">HOST CONTROL</div>
-    <div class="host-label">CATEGORY</div>
-    <div id="hostCategory" class="host-category">READY</div>
-    <div class="host-label">ANSWER</div>
-    <div id="answer" class="host-answer">—</div>
-    <div class="host-label">REVEALED LETTERS</div>
-    <div id="revealed" class="host-revealed">NONE</div>
-    <div class="host-label">NEXT LETTER</div>
-    <div id="hostTimer" class="host-timer">30</div>
 
-    <section class="host-settings">
-      <div class="host-setting">
-        <h3>LETTER REVEAL</h3>
-        <button class="time-button" data-time="15">15 SEC</button>
-        <button class="time-button active" data-time="30">30 SEC</button>
-        <button class="time-button" data-time="60">1 MIN</button>
-      </div>
-      <div class="host-setting">
-        <h3>NEXT PUZZLE COOLDOWN</h3>
-        <button class="cooldown-button" data-time="5">5 SEC</button>
-        <button class="cooldown-button active" data-time="10">10 SEC</button>
-        <button class="cooldown-button" data-time="15">15 SEC</button>
-      </div>
-    </section>
+    <header class="host-header">
 
-    <div class="host-controls">
-      <button id="start" class="start-game">START GAME</button>
-      <button id="next" class="next-game">NEXT PUZZLE</button>
-    </div>
-    <div id="hostMessage" class="host-message">READY TO START</div>
-  </main>
+        <div class="host-logo">D</div>
+
+        <div>
+            <h1>DIONLYONEE PLAYGROUND</h1>
+            <p>HOST CONTROL PANEL</p>
+        </div>
+
+    </header>
+
+
+    <main class="host-main">
+
+        <div class="host-status">
+            HOST CONTROL
+        </div>
+
+
+        <div class="host-label">
+            CATEGORY
+        </div>
+
+        <div id="hostCategory" class="host-category">
+            READY
+        </div>
+
+
+        <div class="host-label">
+            ANSWER
+        </div>
+
+        <div id="answer" class="host-answer">
+            —
+        </div>
+
+
+        <div class="host-label">
+            REVEALED LETTERS
+        </div>
+
+        <div id="revealed" class="host-revealed">
+            NONE
+        </div>
+
+
+        <div class="host-label">
+            NEXT LETTER
+        </div>
+
+        <div id="hostTimer" class="host-timer">
+            30
+        </div>
+
+
+        <!-- SETTINGS -->
+
+        <section class="host-settings">
+
+            <div class="host-setting">
+
+                <h3>LETTER REVEAL</h3>
+
+                <button class="time-button"
+                        data-time="15">
+                    15 SEC
+                </button>
+
+                <button class="time-button active"
+                        data-time="30">
+                    30 SEC
+                </button>
+
+                <button class="time-button"
+                        data-time="60">
+                    1 MIN
+                </button>
+
+            </div>
+
+
+            <div class="host-setting">
+
+                <h3>NEXT PUZZLE COOLDOWN</h3>
+
+                <button class="cooldown-button"
+                        data-time="5">
+                    5 SEC
+                </button>
+
+                <button class="cooldown-button active"
+                        data-time="10">
+                    10 SEC
+                </button>
+
+                <button class="cooldown-button"
+                        data-time="15">
+                    15 SEC
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- GAME BUTTONS -->
+
+        <div class="host-controls">
+
+            <button id="start"
+                    class="start-game">
+                START GAME
+            </button>
+
+            <button id="next"
+                    class="next-game">
+                NEXT PUZZLE
+            </button>
+
+        </div>
+
+
+        <div id="hostMessage"
+             class="host-message">
+            READY TO START
+        </div>
+
+    </main>
+
 </div>
 
-<script>
-const channel = new BroadcastChannel("dionlyonee-wheel-game");
 
-```javascript
+<script>
+
+/* =========================================================
+   GAME CONNECTION
+========================================================= */
+
+const channel = new BroadcastChannel(
+    "dionlyonee-wheel-game"
+);
+
+
+/* =========================================================
+   PUZZLE DATABASE
+========================================================= */
+
 const puzzles = {
 
     Countries: [
+
         "JAMAICA",
         "CANADA",
         "BRAZIL",
@@ -83,7 +191,6 @@ const puzzles = {
         "COSTA RICA",
         "PANAMA",
         "BELIZE",
-        "MEXICO",
         "SOUTH AFRICA",
         "NIGERIA",
         "GHANA",
@@ -108,10 +215,12 @@ const puzzles = {
         "NETHERLANDS",
         "GREECE",
         "TURKEY"
+
     ],
 
 
     Animals: [
+
         "ELEPHANT",
         "GIRAFFE",
         "MONKEY",
@@ -162,10 +271,12 @@ const puzzles = {
         "LOBSTER",
         "JELLYFISH",
         "BAT"
+
     ],
 
 
     "Jamaican Phrases": [
+
         "WAH GWAAN",
         "WEH YUH A SEH",
         "MI DEH YA",
@@ -176,7 +287,6 @@ const puzzles = {
         "MEK WE GO",
         "YEAH MON",
         "MI SOON COME",
-        "MI DEH YAH",
         "WEH DI DEAL",
         "HOW YUH MEAN",
         "MI NUH KNOW",
@@ -215,10 +325,12 @@ const puzzles = {
         "MI A COME",
         "MI A GO",
         "MEK WE LINK"
+
     ],
 
 
     Food: [
+
         "JERK CHICKEN",
         "RICE AND PEAS",
         "PIZZA",
@@ -269,10 +381,12 @@ const puzzles = {
         "SUSHI",
         "DUMPLINGS",
         "ICE CREAM SUNDAE"
+
     ],
 
 
     "Things You Do": [
+
         "WATCH TV",
         "PLAY VIDEO GAMES",
         "GO SHOPPING",
@@ -313,10 +427,12 @@ const puzzles = {
         "GO TO THE STORE",
         "GO TO THE MOVIES",
         "GO TO A CONCERT"
+
     ],
 
 
     "Famous Places": [
+
         "TIMES SQUARE",
         "STATUE OF LIBERTY",
         "EMPIRE STATE BUILDING",
@@ -335,7 +451,6 @@ const puzzles = {
         "LAS VEGAS",
         "MIAMI BEACH",
         "WAIKIKI BEACH",
-        "REGGAE BEACH",
         "DUNNS RIVER FALLS",
         "SEVEN MILE BEACH",
         "BLUE MOUNTAINS",
@@ -351,12 +466,13 @@ const puzzles = {
         "TOKYO JAPAN",
         "ROME ITALY",
         "DUBAI",
-        "SYDNEY OPERA HOUSE",
-        "NIAGARA FALLS"
+        "SYDNEY OPERA HOUSE"
+
     ],
 
 
-    "Music": [
+    Music: [
+
         "REGGAE MUSIC",
         "DANCEHALL MUSIC",
         "HIP HOP",
@@ -377,10 +493,12 @@ const puzzles = {
         "SOUND SYSTEM",
         "MUSIC FESTIVAL",
         "DANCE FLOOR"
+
     ],
 
 
     "Everyday Objects": [
+
         "CELL PHONE",
         "TELEVISION",
         "COMPUTER",
@@ -421,10 +539,12 @@ const puzzles = {
         "CAR KEYS",
         "DOOR KEY",
         "SHOPPING BAG"
+
     ],
 
 
-    "Sports": [
+    Sports: [
+
         "BASKETBALL",
         "FOOTBALL",
         "SOCCER",
@@ -455,10 +575,12 @@ const puzzles = {
         "BEACH VOLLEYBALL",
         "COLLEGE FOOTBALL",
         "STREET BASKETBALL"
+
     ],
 
 
     "Things at the Beach": [
+
         "BEACH BALL",
         "SURFBOARD",
         "SAND CASTLE",
@@ -472,7 +594,6 @@ const puzzles = {
         "COCONUT",
         "PALM TREE",
         "OCEAN WAVES",
-        "SAND CASTLE",
         "LIFEGUARD",
         "SNORKEL",
         "DIVING MASK",
@@ -480,15 +601,15 @@ const puzzles = {
         "CRAB",
         "STARFISH",
         "BEACH PARTY",
-        "TROPICAL DRINK",
+        "TROPICAL ISLAND",
         "OCEAN BREEZE",
-        "SUNSET",
-        "SAND",
-        "TROPICAL ISLAND"
+        "SUNSET"
+
     ],
 
 
     "Random Things": [
+
         "BIRTHDAY PARTY",
         "FAMILY REUNION",
         "ROAD TRIP",
@@ -519,125 +640,426 @@ const puzzles = {
         "LAZY SUNDAY",
         "WEEKEND VIBES",
         "GOOD TIMES"
+
     ]
 
-}:
+};
 
+
+/* =========================================================
+   GAME VARIABLES
+========================================================= */
 
 let revealTime = 30;
+
 let cooldownTime = 10;
+
 let answer = "";
+
 let category = "";
+
 let revealed = [];
+
 let seconds = 30;
+
 let running = false;
+
 let timer = null;
 
-const hostCategory = document.getElementById("hostCategory");
-const answerElement = document.getElementById("answer");
-const revealedElement = document.getElementById("revealed");
-const timerElement = document.getElementById("hostTimer");
-const messageElement = document.getElementById("hostMessage");
+
+/* =========================================================
+   HTML ELEMENTS
+========================================================= */
+
+const hostCategory =
+    document.getElementById("hostCategory");
+
+const answerElement =
+    document.getElementById("answer");
+
+const revealedElement =
+    document.getElementById("revealed");
+
+const timerElement =
+    document.getElementById("hostTimer");
+
+const messageElement =
+    document.getElementById("hostMessage");
+
+
+/* =========================================================
+   SEND GAME TO LIVE SCREEN
+========================================================= */
 
 function sendGame() {
-  channel.postMessage({category, answer, revealed, seconds, running});
+
+    channel.postMessage({
+
+        category: category,
+
+        answer: answer,
+
+        revealed: revealed,
+
+        seconds: seconds,
+
+        running: running
+
+    });
+
 }
+
+
+/* =========================================================
+   START GAME
+========================================================= */
 
 function startGame() {
-  clearInterval(timer);
-  const categories = Object.keys(puzzles);
-  category = categories[Math.floor(Math.random() * categories.length)];
-  const words = puzzles[category];
-  answer = words[Math.floor(Math.random() * words.length)];
-  revealed = [];
-  seconds = revealTime;
-  running = true;
 
-  hostCategory.textContent = category;
-  answerElement.textContent = answer;
-  revealedElement.textContent = "NONE";
-  timerElement.textContent = seconds;
-  messageElement.textContent = "GAME IS LIVE";
-  sendGame();
-  timer = setInterval(tick, 1000);
+    clearInterval(timer);
+
+
+    const categories =
+        Object.keys(puzzles);
+
+
+    category =
+        categories[
+            Math.floor(
+                Math.random() * categories.length
+            )
+        ];
+
+
+    const words =
+        puzzles[category];
+
+
+    answer =
+        words[
+            Math.floor(
+                Math.random() * words.length
+            )
+        ];
+
+
+    revealed = [];
+
+
+    seconds = revealTime;
+
+
+    running = true;
+
+
+    hostCategory.textContent =
+        category;
+
+
+    answerElement.textContent =
+        answer;
+
+
+    revealedElement.textContent =
+        "NONE";
+
+
+    timerElement.textContent =
+        seconds;
+
+
+    messageElement.textContent =
+        "GAME IS LIVE";
+
+
+    sendGame();
+
+
+    timer =
+        setInterval(tick, 1000);
+
 }
+
+
+/* =========================================================
+   TIMER
+========================================================= */
 
 function tick() {
-  seconds--;
-  timerElement.textContent = seconds;
-  sendGame();
-  if (seconds <= 0) revealLetter();
+
+    seconds--;
+
+    timerElement.textContent =
+        seconds;
+
+
+    sendGame();
+
+
+    if (seconds <= 0) {
+
+        revealLetter();
+
+    }
+
 }
+
+
+/* =========================================================
+   REVEAL LETTER
+========================================================= */
 
 function revealLetter() {
-  clearInterval(timer);
-  const hidden = [...new Set(answer.split("").filter(letter =>
-    letter !== " " && !revealed.includes(letter)
-  ))];
 
-  if (!hidden.length) {
-    finishGame();
-    return;
-  }
+    clearInterval(timer);
 
-  const letter = hidden[Math.floor(Math.random() * hidden.length)];
-  revealed.push(letter);
-  revealedElement.textContent = revealed.join(" • ");
-  messageElement.textContent = "REVEALED: " + letter;
-  seconds = revealTime;
-  timerElement.textContent = seconds;
-  sendGame();
 
-  if (puzzleComplete()) {
-    finishGame();
-    return;
-  }
+    const hidden =
+        [
+            ...new Set(
 
-  timer = setInterval(tick, 1000);
+                answer
+                    .split("")
+                    .filter(letter =>
+                        letter !== " " &&
+                        !revealed.includes(letter)
+                    )
+
+            )
+        ];
+
+
+    if (!hidden.length) {
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    const letter =
+        hidden[
+            Math.floor(
+                Math.random() * hidden.length
+            )
+        ];
+
+
+    revealed.push(letter);
+
+
+    revealedElement.textContent =
+        revealed.join(" • ");
+
+
+    messageElement.textContent =
+        "REVEALED: " + letter;
+
+
+    seconds =
+        revealTime;
+
+
+    timerElement.textContent =
+        seconds;
+
+
+    sendGame();
+
+
+    if (puzzleComplete()) {
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    timer =
+        setInterval(tick, 1000);
+
 }
+
+
+/* =========================================================
+   CHECK PUZZLE
+========================================================= */
 
 function puzzleComplete() {
-  for (const letter of answer) {
-    if (letter !== " " && !revealed.includes(letter)) return false;
-  }
-  return true;
+
+    for (const letter of answer) {
+
+        if (
+            letter !== " " &&
+            !revealed.includes(letter)
+        ) {
+
+            return false;
+
+        }
+
+    }
+
+    return true;
+
 }
+
+
+/* =========================================================
+   FINISH GAME
+========================================================= */
 
 function finishGame() {
-  clearInterval(timer);
-  running = false;
-  messageElement.textContent = "PUZZLE COMPLETE";
-  timerElement.textContent = "✓";
-  sendGame();
-  setTimeout(startGame, cooldownTime * 1000);
+
+    clearInterval(timer);
+
+
+    running = false;
+
+
+    messageElement.textContent =
+        "PUZZLE COMPLETE";
+
+
+    timerElement.textContent =
+        "✓";
+
+
+    sendGame();
+
+
+    setTimeout(
+        startGame,
+        cooldownTime * 1000
+    );
+
 }
 
-document.getElementById("start").addEventListener("click", startGame);
-document.getElementById("next").addEventListener("click", startGame);
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Enter" && !running) startGame();
-});
+/* =========================================================
+   BUTTONS
+========================================================= */
 
-document.querySelectorAll(".time-button").forEach(button => {
-  button.addEventListener("click", () => {
-    if (running) return;
-    document.querySelectorAll(".time-button").forEach(item => item.classList.remove("active"));
-    button.classList.add("active");
-    revealTime = Number(button.dataset.time);
-    seconds = revealTime;
-    timerElement.textContent = seconds;
-  });
-});
+document
+    .getElementById("start")
+    .addEventListener(
+        "click",
+        startGame
+    );
 
-document.querySelectorAll(".cooldown-button").forEach(button => {
-  button.addEventListener("click", () => {
-    if (running) return;
-    document.querySelectorAll(".cooldown-button").forEach(item => item.classList.remove("active"));
-    button.classList.add("active");
-    cooldownTime = Number(button.dataset.time);
-  });
-});
+
+document
+    .getElementById("next")
+    .addEventListener(
+        "click",
+        startGame
+    );
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter" &&
+            !running
+        ) {
+
+            startGame();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   REVEAL TIME BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(".time-button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                if (running) return;
+
+
+                document
+                    .querySelectorAll(".time-button")
+                    .forEach(item =>
+                        item.classList.remove("active")
+                    );
+
+
+                button.classList.add("active");
+
+
+                revealTime =
+                    Number(
+                        button.dataset.time
+                    );
+
+
+                seconds =
+                    revealTime;
+
+
+                timerElement.textContent =
+                    seconds;
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   COOLDOWN BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(".cooldown-button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                if (running) return;
+
+
+                document
+                    .querySelectorAll(".cooldown-button")
+                    .forEach(item =>
+                        item.classList.remove("active")
+                    );
+
+
+                button.classList.add("active");
+
+
+                cooldownTime =
+                    Number(
+                        button.dataset.time
+                    );
+
+            }
+        );
+
+    });
+
 </script>
+
 </body>
 </html>
+```
