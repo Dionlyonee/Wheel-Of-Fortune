@@ -1,271 +1,78 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <<title>Dionlyonee Playground | HOST CONTROL</title>
-        <h1>Dionlyonee Playground</h1>
-<p>HOST CONTROL PANEL</p>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>Dionlyonee Playground | Wheel of Fortune</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
 
-<body class="host-page">
 
-    <header class="top-bar">
+<body>
 
-        <div class="brand">
 
-            <div class="brand-icon">
+    <!-- =========================================
+         MAIN GAME
+    ========================================== -->
+
+    <main class="game-screen">
+
+
+        <!-- BRANDING -->
+
+        <header class="game-header">
+
+            <div class="logo">
                 🎮
             </div>
 
             <div>
-                <h1>Dionlyonee Playground</h1>
-                <p>Host Dashboard</p>
-            </div>
 
-        </div>
+                <h1>
+                    DIONLYONEE PLAYGROUND
+                </h1>
 
-
-        <div class="status">
-
-            <span class="status-dot"></span>
-
-            <span id="connectionStatus">
-                READY
-            </span>
-
-        </div>
-
-    </header>
-
-
-    <main class="host-container">
-
-
-        <!-- GAME HEADER -->
-
-        <section class="game-header">
-
-            <div>
-
-                <p class="eyebrow">
-                    CURRENT GAME
+                <p>
+                    WHEEL OF FORTUNE
                 </p>
 
-                <h2>
-                    🎡 Wheel of Fortune
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             GAME AREA
+        ====================================== -->
+
+        <section class="game-area">
+
+
+            <!-- CATEGORY -->
+
+            <div class="category-section">
+
+                <span class="category-label">
+                    CATEGORY
+                </span>
+
+                <h2 id="categoryDisplay">
+                    GET READY!
                 </h2>
-
-                <p class="description">
-                    Give your stream one minute to guess before the next letter is revealed.
-                </p>
-
-            </div>
-
-
-            <a
-                href="game.html"
-                target="_blank"
-                class="stream-button"
-            >
-                📺 OPEN STREAM SCREEN
-            </a>
-
-        </section>
-
-
-
-        <!-- GAME SETUP -->
-<div class="input-group">
-
-    <label for="revealTime">
-        LETTER REVEAL TIME
-    </label>
-
-    <select id="revealTime">
-
-        <option value="15">
-            ⚡ 15 Seconds
-        </option>
-
-        <option value="30" selected>
-            ⏱️ 30 Seconds
-        </option>
-
-        <option value="60">
-            🕐 1 Minute
-        </option>
-
-    </select>
-
-</div>
-        <section class="panel">
-
-            <div class="panel-title">
-
-                <h3>
-                    Game Setup
-                </h3>
-
-                <span>
-                    SETUP
-                </span>
-
-            </div>
-
-
-            <div class="setup-grid">
-
-
-                <!-- CATEGORY -->
-
-                <div class="input-group">
-
-                    <label for="category">
-                        CATEGORY
-                    </label>
-
-                    <select id="category">
-
-                        <option value="Animals">
-                            🐶 Animals
-                        </option>
-
-                        <option value="Countries">
-                            🌎 Countries
-                        </option>
-
-                        <option value="Jamaican Phrases">
-                            🇯🇲 Jamaican Phrases
-                        </option>
-
-                        <option value="Food">
-                            🍔 Food
-                        </option>
-
-                        <option value="Movies">
-                            🎬 Movies
-                        </option>
-
-                        <option value="Music">
-                            🎵 Music
-                        </option>
-
-                        <option value="Video Games">
-                            🎮 Video Games
-                        </option>
-
-                        <option value="Sports">
-                            🏆 Sports
-                        </option>
-
-                        <option value="Places">
-                            📍 Places
-                        </option>
-
-                        <option value="Random">
-                            🎲 Random
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-
-                <!-- PUZZLE -->
-
-                <div class="input-group">
-
-                    <label for="customAnswer">
-                        PUZZLE / ANSWER
-                    </label>
-
-                    <input
-                        type="text"
-                        id="customAnswer"
-                        placeholder="Enter the answer"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-            </div>
-
-
-
-            <div class="setup-actions">
-
-                <button
-                    id="randomPuzzleBtn"
-                    class="secondary-button"
-                    type="button"
-                >
-                    🎲 RANDOM PUZZLE
-                </button>
-
-
-                <button
-                    id="startBtn"
-                    class="primary-button"
-                    type="button"
-                >
-                    ▶ START ROUND
-                </button>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- CURRENT GAME -->
-
-        <section class="panel puzzle-panel">
-
-            <div class="panel-title">
-
-                <h3>
-                    Current Puzzle
-                </h3>
-
-                <span id="gameStatus">
-                    WAITING
-                </span>
-
-            </div>
-
-
-
-            <div class="puzzle-info">
-
-                <div>
-
-                    <span class="info-label">
-                        CATEGORY
-                    </span>
-
-                    <strong id="displayCategory">
-                        ---
-                    </strong>
-
-                </div>
-
-
-                <div>
-
-                    <span class="info-label">
-                        ANSWER
-                    </span>
-
-                    <strong id="hostAnswer">
-                        ---
-                    </strong>
-
-                </div>
 
             </div>
 
@@ -274,8 +81,8 @@
             <!-- PUZZLE -->
 
             <div
-                class="host-puzzle"
-                id="hostPuzzle"
+                id="puzzleDisplay"
+                class="puzzle-display"
             >
                 _ _ _ _ _ _ _
             </div>
@@ -284,22 +91,20 @@
 
             <!-- TIMER -->
 
-            <div class="timer-area">
+            <div class="timer-section">
 
                 <div class="timer-label">
-                    NEXT LETTER IN
+                    NEXT LETTER
                 </div>
-
 
                 <div
-                    id="timer"
-                    class="timer"
+                    id="timerDisplay"
+                    class="timer-display"
                 >
-                    60
+                    30
                 </div>
 
-
-                <div class="seconds">
+                <div class="timer-seconds">
                     SECONDS
                 </div>
 
@@ -307,66 +112,180 @@
 
 
 
-            <!-- CONTROLS -->
+            <!-- GAME MESSAGE -->
 
-            <div class="game-controls">
-
-
-                <button
-                    id="revealLetterBtn"
-                    class="control-button reveal"
-                    type="button"
-                >
-                    🔤 REVEAL LETTER
-                </button>
+            <div
+                id="gameMessage"
+                class="game-message"
+            >
+                GUESS THE ANSWER IN CHAT!
+            </div>
 
 
-                <button
-                    id="pauseBtn"
-                    class="control-button"
-                    type="button"
-                >
-                    ⏸ PAUSE
-                </button>
+        </section>
 
 
-                <button
-                    id="revealAnswerBtn"
-                    class="control-button answer"
-                    type="button"
-                >
-                    👀 REVEAL ANSWER
-                </button>
+
+        <!-- =====================================
+             SETTINGS
+        ====================================== -->
+
+        <section
+            id="settingsPanel"
+            class="settings-panel"
+        >
+
+
+            <div class="settings-header">
+
+                <h3>
+                    GAME SETTINGS
+                </h3>
+
+                <span>
+                    HOST
+                </span>
 
             </div>
 
 
 
-            <!-- NEW ROUND -->
+            <!-- LETTER REVEAL TIME -->
+
+            <div class="setting-group">
+
+                <label>
+                    LETTER REVEAL TIME
+                </label>
+
+
+                <div class="setting-buttons">
+
+                    <button
+                        type="button"
+                        class="time-button"
+                        data-time="15"
+                    >
+                        15 SEC
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="time-button active"
+                        data-time="30"
+                    >
+                        30 SEC
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="time-button"
+                        data-time="60"
+                    >
+                        1 MIN
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COOLDOWN -->
+
+            <div class="setting-group">
+
+                <label>
+                    NEXT ROUND COOLDOWN
+                </label>
+
+
+                <div class="setting-buttons">
+
+                    <button
+                        type="button"
+                        class="cooldown-button"
+                        data-cooldown="5"
+                    >
+                        5 SEC
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="cooldown-button active"
+                        data-cooldown="10"
+                    >
+                        10 SEC
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="cooldown-button"
+                        data-cooldown="15"
+                    >
+                        15 SEC
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- START -->
 
             <button
-                id="newRoundBtn"
-                class="new-round-button"
+                id="startGameButton"
+                class="start-game-button"
                 type="button"
             >
-                🔄 NEW ROUND
+                ▶ START GAME
             </button>
 
+
         </section>
+
+
+
+        <!-- =====================================
+             COOLDOWN DISPLAY
+        ====================================== -->
+
+        <div
+            id="cooldownDisplay"
+            class="cooldown-display hidden"
+        >
+
+            <div class="cooldown-title">
+                NEXT PUZZLE
+            </div>
+
+            <div
+                id="cooldownTimer"
+                class="cooldown-timer"
+            >
+                10
+            </div>
+
+        </div>
+
 
     </main>
 
 
 
-    <footer>
-        Dionlyonee Playground • Wheel of Fortune
-    </footer>
-
-
-
-    <script src="puzzles.js"></script>
+    <!-- =========================================
+         GAME JAVASCRIPT
+    ========================================== -->
 
     <script src="game.js"></script>
 
+
 </body>
+
 </html>
+```
