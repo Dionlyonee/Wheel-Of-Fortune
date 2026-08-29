@@ -2,12 +2,12 @@
 /* =====================================================
    DIONLYONEE PLAYGROUND
    WHEEL OF FORTUNE
-   AUTOMATIC GAME ENGINE
+   AUTOMATIC GAME
 ===================================================== */
 
 
 /* =====================================================
-   PUZZLE DATABASE
+   PUZZLES
 ===================================================== */
 
 const puzzles = {
@@ -199,7 +199,10 @@ let timer = 30;
 
 let gameRunning = false;
 
-let cooldownRunning = false;
+
+/* =====================================================
+   TIMERS
+===================================================== */
 
 let gameTimer = null;
 
@@ -207,7 +210,7 @@ let cooldownTimer = null;
 
 
 /* =====================================================
-   HTML ELEMENTS
+   ELEMENTS
 ===================================================== */
 
 const categoryDisplay =
@@ -240,15 +243,9 @@ const startGameButton =
     );
 
 
-const timeButtons =
-    document.querySelectorAll(
-        ".time-button"
-    );
-
-
-const cooldownButtons =
-    document.querySelectorAll(
-        ".cooldown-button"
+const topStartButton =
+    document.getElementById(
+        "topStartButton"
     );
 
 
@@ -270,8 +267,20 @@ const cooldownTimerDisplay =
     );
 
 
+const timeButtons =
+    document.querySelectorAll(
+        ".time-button"
+    );
+
+
+const cooldownButtons =
+    document.querySelectorAll(
+        ".cooldown-button"
+    );
+
+
 /* =====================================================
-   SELECT REVEAL TIME
+   REVEAL TIME BUTTONS
 ===================================================== */
 
 timeButtons.forEach(
@@ -321,7 +330,7 @@ timeButtons.forEach(
 
 
 /* =====================================================
-   SELECT COOLDOWN
+   COOLDOWN BUTTONS
 ===================================================== */
 
 cooldownButtons.forEach(
@@ -367,7 +376,63 @@ cooldownButtons.forEach(
 
 
 /* =====================================================
-   GET RANDOM CATEGORY
+   START BUTTON FUNCTION
+===================================================== */
+
+function handleStartGame() {
+
+    if (gameRunning) {
+
+        return;
+
+    }
+
+
+    startGame();
+
+}
+
+
+/* =====================================================
+   START BUTTONS
+===================================================== */
+
+startGameButton.addEventListener(
+    "click",
+    handleStartGame
+);
+
+
+topStartButton.addEventListener(
+    "click",
+    handleStartGame
+);
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            handleStartGame();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   RANDOM CATEGORY
 ===================================================== */
 
 function getRandomCategory() {
@@ -389,48 +454,27 @@ function getRandomCategory() {
 
 
 /* =====================================================
-   GET RANDOM PUZZLE
+   RANDOM PUZZLE
 ===================================================== */
 
 function getRandomPuzzle(
     category
 ) {
 
-    const categoryPuzzles =
+    const list =
         puzzles[
             category
         ];
 
 
-    return categoryPuzzles[
+    return list[
         Math.floor(
             Math.random() *
-            categoryPuzzles.length
+            list.length
         )
     ];
 
 }
-
-
-/* =====================================================
-   START GAME
-===================================================== */
-
-startGameButton.addEventListener(
-    "click",
-    function() {
-
-        if (gameRunning) {
-
-            return;
-
-        }
-
-
-        startGame();
-
-    }
-);
 
 
 /* =====================================================
@@ -449,26 +493,14 @@ function startGame() {
     );
 
 
-    cooldownRunning =
-        false;
-
-
     cooldownDisplay.classList.add(
         "hidden"
     );
 
 
-    // -----------------------------------------------
-    // SELECT CATEGORY
-    // -----------------------------------------------
-
     currentCategory =
         getRandomCategory();
 
-
-    // -----------------------------------------------
-    // SELECT ANSWER
-    // -----------------------------------------------
 
     currentAnswer =
         getRandomPuzzle(
@@ -476,32 +508,16 @@ function startGame() {
         );
 
 
-    // -----------------------------------------------
-    // RESET LETTERS
-    // -----------------------------------------------
-
     revealedLetters = [];
 
-
-    // -----------------------------------------------
-    // RESET TIMER
-    // -----------------------------------------------
 
     timer =
         revealInterval;
 
 
-    // -----------------------------------------------
-    // GAME STATE
-    // -----------------------------------------------
-
     gameRunning =
         true;
 
-
-    // -----------------------------------------------
-    // UPDATE SCREEN
-    // -----------------------------------------------
 
     categoryDisplay.textContent =
         currentCategory;
@@ -515,28 +531,25 @@ function startGame() {
         timer;
 
 
+    timerDisplay.classList.remove(
+        "warning"
+    );
+
+
     renderPuzzle();
 
-
-    // -----------------------------------------------
-    // HIDE SETTINGS
-    // -----------------------------------------------
 
     settingsPanel.style.display =
         "none";
 
 
-    // -----------------------------------------------
-    // START COUNTDOWN
-    // -----------------------------------------------
-
     startCountdown();
 
-});
+}
 
 
 /* =====================================================
-   RENDER PUZZLE
+   DRAW PUZZLE
 ===================================================== */
 
 function renderPuzzle() {
@@ -549,10 +562,6 @@ function renderPuzzle() {
         .split("")
         .forEach(
             function(character) {
-
-                // -------------------------------------
-                // SPACE BETWEEN WORDS
-                // -------------------------------------
 
                 if (
                     character === " "
@@ -578,10 +587,6 @@ function renderPuzzle() {
                 }
 
 
-                // -------------------------------------
-                // CREATE LETTER BOX
-                // -------------------------------------
-
                 const box =
                     document.createElement(
                         "div"
@@ -591,10 +596,6 @@ function renderPuzzle() {
                 box.className =
                     "letter-box";
 
-
-                // -------------------------------------
-                // LETTER IS REVEALED
-                // -------------------------------------
 
                 if (
                     revealedLetters.includes(
@@ -610,14 +611,7 @@ function renderPuzzle() {
                     box.textContent =
                         character;
 
-                }
-
-
-                // -------------------------------------
-                // LETTER IS HIDDEN
-                // -------------------------------------
-
-                else {
+                } else {
 
                     box.classList.add(
                         "hidden"
@@ -641,7 +635,7 @@ function renderPuzzle() {
 
 
 /* =====================================================
-   START COUNTDOWN
+   COUNTDOWN
 ===================================================== */
 
 function startCountdown() {
@@ -669,10 +663,6 @@ function startCountdown() {
                     timer;
 
 
-                // -------------------------------------
-                // WARNING
-                // -------------------------------------
-
                 if (
                     timer <= 5
                 ) {
@@ -681,18 +671,8 @@ function startCountdown() {
                         "warning"
                     );
 
-                } else {
-
-                    timerDisplay.classList.remove(
-                        "warning"
-                    );
-
                 }
 
-
-                // -------------------------------------
-                // TIME UP
-                // -------------------------------------
 
                 if (
                     timer <= 0
@@ -715,7 +695,7 @@ function startCountdown() {
 
 
 /* =====================================================
-   REVEAL NEXT LETTER
+   REVEAL LETTER
 ===================================================== */
 
 function revealNextLetter() {
@@ -724,10 +704,6 @@ function revealNextLetter() {
         gameTimer
     );
 
-
-    // -----------------------------------------------
-    // FIND LETTERS THAT HAVE NOT BEEN REVEALED
-    // -----------------------------------------------
 
     const availableLetters =
         [
@@ -743,10 +719,9 @@ function revealNextLetter() {
                                     letter
                                 )
                                 &&
-                                !revealedLetters
-                                    .includes(
-                                        letter
-                                    )
+                                !revealedLetters.includes(
+                                    letter
+                                )
                             );
 
                         }
@@ -755,10 +730,6 @@ function revealNextLetter() {
             )
         ];
 
-
-    // -----------------------------------------------
-    // NO LETTERS LEFT
-    // -----------------------------------------------
 
     if (
         availableLetters.length === 0
@@ -771,46 +742,30 @@ function revealNextLetter() {
     }
 
 
-    // -----------------------------------------------
-    // PICK A LETTER
-    // -----------------------------------------------
+    const randomIndex =
+        Math.floor(
+            Math.random() *
+            availableLetters.length
+        );
+
 
     const letter =
         availableLetters[
-            Math.floor(
-                Math.random() *
-                availableLetters.length
-            )
+            randomIndex
         ];
 
-
-    // -----------------------------------------------
-    // SAVE LETTER
-    // -----------------------------------------------
 
     revealedLetters.push(
         letter
     );
 
 
-    // -----------------------------------------------
-    // UPDATE PUZZLE
-    // -----------------------------------------------
-
     renderPuzzle();
 
-
-    // -----------------------------------------------
-    // MESSAGE
-    // -----------------------------------------------
 
     gameMessage.textContent =
         `LETTER REVEALED: ${letter}`;
 
-
-    // -----------------------------------------------
-    // CHECK IF PUZZLE IS COMPLETE
-    // -----------------------------------------------
 
     if (
         isPuzzleComplete()
@@ -823,10 +778,6 @@ function revealNextLetter() {
     }
 
 
-    // -----------------------------------------------
-    // RESET TIMER
-    // -----------------------------------------------
-
     timer =
         revealInterval;
 
@@ -835,17 +786,13 @@ function revealNextLetter() {
         timer;
 
 
-    // -----------------------------------------------
-    // START AGAIN
-    // -----------------------------------------------
-
     startCountdown();
 
 }
 
 
 /* =====================================================
-   CHECK PUZZLE
+   CHECK COMPLETE
 ===================================================== */
 
 function isPuzzleComplete() {
@@ -898,15 +845,6 @@ function finishRound() {
         false;
 
 
-    timerDisplay.classList.remove(
-        "warning"
-    );
-
-
-    // -----------------------------------------------
-    // SHOW COMPLETE ANSWER
-    // -----------------------------------------------
-
     revealedLetters =
         [
             ...new Set(
@@ -930,17 +868,18 @@ function finishRound() {
     renderPuzzle();
 
 
-    // -----------------------------------------------
-    // MESSAGE
-    // -----------------------------------------------
+    timerDisplay.classList.remove(
+        "warning"
+    );
+
+
+    timerDisplay.textContent =
+        "✓";
+
 
     gameMessage.textContent =
         "🎉 ANSWER REVEALED!";
 
-
-    // -----------------------------------------------
-    // START COOLDOWN
-    // -----------------------------------------------
 
     startCooldown();
 
@@ -953,10 +892,6 @@ function finishRound() {
 
 function startCooldown() {
 
-    cooldownRunning =
-        true;
-
-
     let remaining =
         cooldownLength;
 
@@ -968,6 +903,11 @@ function startCooldown() {
 
     cooldownTimerDisplay.textContent =
         remaining;
+
+
+    clearInterval(
+        cooldownTimer
+    );
 
 
     cooldownTimer =
@@ -988,10 +928,6 @@ function startCooldown() {
                     clearInterval(
                         cooldownTimer
                     );
-
-
-                    cooldownRunning =
-                        false;
 
 
                     cooldownDisplay.classList.add(
@@ -1016,44 +952,7 @@ function startCooldown() {
 
 function startNextRound() {
 
-    // Keep game running automatically
-
     startGame();
 
 }
-
-
-/* =====================================================
-   INITIAL SCREEN
-===================================================== */
-
-categoryDisplay.textContent =
-    "GET READY!";
-
-
-puzzleDisplay.innerHTML =
-    "";
-
-
-timerDisplay.textContent =
-    revealInterval;
-
-
-gameMessage.textContent =
-    "CHOOSE YOUR SETTINGS AND START";
-
-
-/* =====================================================
-   PREVENT RIGHT CLICK
-   Optional for stream screen
-===================================================== */
-
-document.addEventListener(
-    "contextmenu",
-    function(event) {
-
-        event.preventDefault();
-
-    }
-);
 ```
