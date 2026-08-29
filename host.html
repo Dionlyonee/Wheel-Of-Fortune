@@ -6,24 +6,22 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Dionlyonee HOST - Wheel of Fortune</title>
+    <title>Dionlyonee HOST Panel</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
 
 <body>
 
+
 <div class="game">
+
 
     <!-- HEADER -->
 
@@ -44,7 +42,9 @@
     </header>
 
 
+
     <main>
+
 
         <!-- CATEGORY -->
 
@@ -53,12 +53,13 @@
         </div>
 
 
-        <div
-            id="hostCategory"
-            class="category"
-        >
+        <div id="hostCategory"
+             class="category">
+
             WAITING
+
         </div>
+
 
 
         <!-- ANSWER -->
@@ -68,12 +69,13 @@
         </div>
 
 
-        <div
-            id="hostAnswer"
-            class="host-answer"
-        >
-            -
+        <div id="hostAnswer"
+             class="host-answer">
+
+            —
+
         </div>
+
 
 
         <!-- REVEALED LETTERS -->
@@ -83,12 +85,13 @@
         </div>
 
 
-        <div
-            id="hostLetters"
-            class="host-letters"
-        >
+        <div id="hostLetters"
+             class="host-letters">
+
             NONE
+
         </div>
+
 
 
         <!-- TIMER -->
@@ -98,11 +101,11 @@
         </div>
 
 
-        <div
-            id="hostTimer"
-            class="timer"
-        >
+        <div id="hostTimer"
+             class="timer">
+
             30
+
         </div>
 
 
@@ -111,14 +114,16 @@
         </div>
 
 
-        <!-- MESSAGE -->
 
-        <div
-            id="hostMessage"
-            class="message"
-        >
+        <!-- STATUS -->
+
+        <div id="hostMessage"
+             class="message">
+
             READY TO START
+
         </div>
+
 
 
         <!-- SETTINGS -->
@@ -137,28 +142,32 @@
 
                 <button
                     class="host-time-button"
-                    data-time="15"
-                >
+                    data-time="15">
+
                     15 SEC
+
                 </button>
 
 
                 <button
                     class="host-time-button active"
-                    data-time="30"
-                >
+                    data-time="30">
+
                     30 SEC
+
                 </button>
 
 
                 <button
                     class="host-time-button"
-                    data-time="60"
-                >
+                    data-time="60">
+
                     1 MIN
+
                 </button>
 
             </div>
+
 
 
             <!-- COOLDOWN -->
@@ -172,69 +181,75 @@
 
                 <button
                     class="host-cooldown-button"
-                    data-time="5"
-                >
+                    data-time="5">
+
                     5 SEC
+
                 </button>
 
 
                 <button
                     class="host-cooldown-button active"
-                    data-time="10"
-                >
+                    data-time="10">
+
                     10 SEC
+
                 </button>
 
 
                 <button
                     class="host-cooldown-button"
-                    data-time="15"
-                >
+                    data-time="15">
+
                     15 SEC
+
                 </button>
 
             </div>
 
+
         </section>
 
 
-        <!-- MAIN BUTTONS -->
+
+        <!-- CONTROLS -->
 
         <div class="controls">
 
+
             <button
                 id="hostStart"
-                class="start-button"
-            >
+                class="start-button">
+
                 START GAME
+
             </button>
 
 
             <button
                 id="hostNext"
-                class="host-next-button"
-            >
+                class="host-next-button">
+
                 NEXT PUZZLE
+
             </button>
 
+
         </div>
+
 
 
         <!-- CONNECTION -->
 
-        <div
-            id="connectionStatus"
-            class="live-status"
-        >
+        <div id="connectionStatus"
+             class="live-status">
 
-            <span
-                id="connectionDot"
-                class="connection-dot"
-            ></span>
+            <span class="connection-dot"></span>
 
             HOST READY
 
         </div>
+
 
     </main>
 
@@ -244,27 +259,23 @@
 
 <script>
 
-/* =================================================
-   DIONLYONEE WHEEL OF FORTUNE
+
+/* =====================================================
+   DIONLYONEE PLAYGROUND
    HOST CONTROLLER
-================================================= */
+===================================================== */
 
 
-/* =================================================
+/* =====================================================
    LIVE CONNECTION
-================================================= */
-
-/*
-   IMPORTANT:
-
-   This name MUST be identical to the
-   BroadcastChannel name in index.html.
-*/
+===================================================== */
 
 let gameChannel = null;
 
 
-if ("BroadcastChannel" in window) {
+if (
+    "BroadcastChannel" in window
+) {
 
     gameChannel =
         new BroadcastChannel(
@@ -274,9 +285,10 @@ if ("BroadcastChannel" in window) {
 }
 
 
-/* =================================================
-   PUZZLE DATABASE
-================================================= */
+
+/* =====================================================
+   PUZZLES
+===================================================== */
 
 const puzzles = {
 
@@ -341,18 +353,20 @@ const puzzles = {
 };
 
 
-/* =================================================
-   GAME SETTINGS
-================================================= */
+
+/* =====================================================
+   SETTINGS
+===================================================== */
 
 let revealTime = 30;
 
 let cooldownTime = 10;
 
 
-/* =================================================
-   GAME VARIABLES
-================================================= */
+
+/* =====================================================
+   GAME STATE
+===================================================== */
 
 let answer = "";
 
@@ -367,9 +381,10 @@ let timer = null;
 let gameRunning = false;
 
 
-/* =================================================
-   PAGE ELEMENTS
-================================================= */
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 const hostCategory =
     document.getElementById(
@@ -420,9 +435,9 @@ const connectionStatus =
 
 
 
-/* =================================================
-   SEND GAME TO LIVE
-================================================= */
+/* =====================================================
+   SEND TO LIVE
+===================================================== */
 
 function sendToLive() {
 
@@ -442,11 +457,9 @@ function sendToLive() {
     };
 
 
-    /*
-       Send directly to LIVE tab.
-    */
-
-    if (gameChannel) {
+    if (
+        gameChannel
+    ) {
 
         gameChannel.postMessage(
             state
@@ -456,7 +469,7 @@ function sendToLive() {
 
 
     /*
-       Also save a copy locally.
+       Backup.
     */
 
     localStorage.setItem(
@@ -473,9 +486,9 @@ function sendToLive() {
 
 
 
-/* =================================================
+/* =====================================================
    START GAME
-================================================= */
+===================================================== */
 
 function startGame() {
 
@@ -491,10 +504,6 @@ function startGame() {
         );
 
 
-    /*
-       Pick random category.
-    */
-
     category =
         categories[
             Math.floor(
@@ -504,50 +513,30 @@ function startGame() {
         ];
 
 
-    /*
-       Pick random answer.
-    */
-
-    const categoryWords =
+    const words =
         puzzles[
             category
         ];
 
 
     answer =
-        categoryWords[
+        words[
             Math.floor(
                 Math.random() *
-                categoryWords.length
+                words.length
             )
         ];
 
 
-    /*
-       Reset letters.
-    */
-
     revealed = [];
 
-
-    /*
-       Reset timer.
-    */
 
     seconds =
         revealTime;
 
 
-    /*
-       Game is now running.
-    */
-
     gameRunning = true;
 
-
-    /*
-       Update Host screen.
-    */
 
     hostCategory.textContent =
         category;
@@ -569,16 +558,8 @@ function startGame() {
         "GAME LIVE - WATCH THE CHAT";
 
 
-    /*
-       Send everything to LIVE.
-    */
-
     sendToLive();
 
-
-    /*
-       Start countdown.
-    */
 
     timer =
         setInterval(
@@ -590,9 +571,9 @@ function startGame() {
 
 
 
-/* =================================================
+/* =====================================================
    COUNTDOWN
-================================================= */
+===================================================== */
 
 function countdown() {
 
@@ -604,16 +585,8 @@ function countdown() {
         seconds;
 
 
-    /*
-       Keep LIVE synchronized.
-    */
-
     sendToLive();
 
-
-    /*
-       Time to reveal.
-    */
 
     if (
         seconds <= 0
@@ -627,9 +600,9 @@ function countdown() {
 
 
 
-/* =================================================
+/* =====================================================
    REVEAL LETTER
-================================================= */
+===================================================== */
 
 function revealLetter() {
 
@@ -638,11 +611,6 @@ function revealLetter() {
         timer
     );
 
-
-    /*
-       Find letters that haven't
-       been revealed yet.
-    */
 
     const hiddenLetters =
         [
@@ -672,11 +640,6 @@ function revealLetter() {
         ];
 
 
-    /*
-       If there are no letters left,
-       finish the puzzle.
-    */
-
     if (
         hiddenLetters.length === 0
     ) {
@@ -687,10 +650,6 @@ function revealLetter() {
 
     }
 
-
-    /*
-       Pick a random hidden letter.
-    */
 
     const randomIndex =
         Math.floor(
@@ -705,18 +664,10 @@ function revealLetter() {
         ];
 
 
-    /*
-       Add letter to revealed list.
-    */
-
     revealed.push(
         letter
     );
 
-
-    /*
-       Update Host.
-    */
 
     hostLetters.textContent =
         revealed.join(
@@ -729,16 +680,8 @@ function revealLetter() {
         letter;
 
 
-    /*
-       Update LIVE.
-    */
-
     sendToLive();
 
-
-    /*
-       Check if every letter is revealed.
-    */
 
     if (
         puzzleComplete()
@@ -750,10 +693,6 @@ function revealLetter() {
 
     }
 
-
-    /*
-       Reset countdown.
-    */
 
     seconds =
         revealTime;
@@ -776,9 +715,9 @@ function revealLetter() {
 
 
 
-/* =================================================
+/* =====================================================
    CHECK PUZZLE
-================================================= */
+===================================================== */
 
 function puzzleComplete() {
 
@@ -794,10 +733,6 @@ function puzzleComplete() {
             answer[i];
 
 
-        /*
-           Ignore spaces.
-        */
-
         if (
             letter === " "
         ) {
@@ -806,10 +741,6 @@ function puzzleComplete() {
 
         }
 
-
-        /*
-           Letter still hidden.
-        */
 
         if (
             !revealed.includes(
@@ -830,9 +761,9 @@ function puzzleComplete() {
 
 
 
-/* =================================================
-   FINISH GAME
-================================================= */
+/* =====================================================
+   FINISH
+===================================================== */
 
 function finishGame() {
 
@@ -853,18 +784,8 @@ function finishGame() {
         "PUZZLE COMPLETE";
 
 
-    /*
-       Tell LIVE that the puzzle
-       has finished.
-    */
-
     sendToLive();
 
-
-    /*
-       Automatically start another
-       puzzle after cooldown.
-    */
 
     setTimeout(
         function() {
@@ -879,9 +800,9 @@ function finishGame() {
 
 
 
-/* =================================================
+/* =====================================================
    START BUTTON
-================================================= */
+===================================================== */
 
 hostStart.addEventListener(
     "click",
@@ -894,9 +815,9 @@ hostStart.addEventListener(
 
 
 
-/* =================================================
-   NEXT PUZZLE
-================================================= */
+/* =====================================================
+   NEXT BUTTON
+===================================================== */
 
 hostNext.addEventListener(
     "click",
@@ -909,9 +830,9 @@ hostNext.addEventListener(
 
 
 
-/* =================================================
+/* =====================================================
    ENTER KEY
-================================================= */
+===================================================== */
 
 document.addEventListener(
     "keydown",
@@ -933,9 +854,9 @@ document.addEventListener(
 
 
 
-/* =================================================
-   LETTER TIMER BUTTONS
-================================================= */
+/* =====================================================
+   TIMER BUTTONS
+===================================================== */
 
 document
     .querySelectorAll(
@@ -950,12 +871,9 @@ document
                 function() {
 
 
-                    /*
-                       Don't change timer
-                       while game is running.
-                    */
-
-                    if (gameRunning) {
+                    if (
+                        gameRunning
+                    ) {
 
                         return;
 
@@ -995,13 +913,6 @@ document
                     hostTimer.textContent =
                         seconds;
 
-
-                    hostMessage.textContent =
-                        "REVEAL EVERY " +
-                        revealTime +
-                        " SECONDS";
-
-
                 }
             );
 
@@ -1010,9 +921,9 @@ document
 
 
 
-/* =================================================
+/* =====================================================
    COOLDOWN BUTTONS
-================================================= */
+===================================================== */
 
 document
     .querySelectorAll(
@@ -1027,7 +938,9 @@ document
                 function() {
 
 
-                    if (gameRunning) {
+                    if (
+                        gameRunning
+                    ) {
 
                         return;
 
@@ -1065,7 +978,6 @@ document
                         cooldownTime +
                         " SECONDS";
 
-
                 }
             );
 
@@ -1074,11 +986,13 @@ document
 
 
 
-/* =================================================
-   INITIAL CONNECTION
-================================================= */
+/* =====================================================
+   CONNECTION STATUS
+===================================================== */
 
-if (gameChannel) {
+if (
+    gameChannel
+) {
 
     connectionStatus.innerHTML =
         '<span class="connection-dot"></span>' +
@@ -1089,20 +1003,13 @@ else {
 
     connectionStatus.innerHTML =
         '<span class="connection-dot"></span>' +
-        ' BROWSER CONNECTION NOT AVAILABLE';
+        ' CONNECTION NOT AVAILABLE';
 
 }
 
 
-/* =================================================
-   INITIAL STATE
-================================================= */
-
-sendToLive();
-
-
 console.log(
-    "DIONLYONEE HOST CONTROLLER READY"
+    "DIONLYONEE HOST READY"
 );
 
 </script>
