@@ -9,7 +9,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Dionlyonee Playground - LIVE</title>
+    <title>Dionlyonee Playground LIVE</title>
 
     <link rel="stylesheet"
           href="style.css">
@@ -23,164 +23,142 @@
 <div class="live-screen">
 
 
-    <!-- =========================================
-         TOP BAR
-    ========================================== -->
+    <!-- TOP BAR -->
 
     <div class="live-topbar">
 
-        <div class="brand">
 
-            <div class="brand-logo">
+        <div class="live-brand">
+
+
+            <div class="live-logo">
                 D
             </div>
 
-            <div class="brand-text">
 
-                <div class="brand-name">
+            <div>
+
+                <div class="live-brand-name">
                     DIONLYONEE PLAYGROUND
                 </div>
 
-                <div class="brand-game">
+                <div class="live-brand-game">
                     WHEEL OF FORTUNE
                 </div>
 
             </div>
 
+
         </div>
 
 
-        <div class="live-indicator">
+        <div class="live-status">
 
-            <span class="live-light"></span>
+            <span class="live-dot"></span>
 
             LIVE
 
         </div>
 
+
     </div>
 
 
 
-    <!-- =========================================
-         GAME AREA
-    ========================================== -->
+    <!-- GAME -->
 
-    <div class="game-board">
+    <main class="live-main">
 
 
-        <!-- CATEGORY -->
-
-        <div class="category-title">
+        <div class="live-category-label">
             CATEGORY
         </div>
 
 
         <div
-            id="liveCategory"
-            class="category-name"
+            id="category"
+            class="live-category"
         >
             WAITING FOR GAME
         </div>
 
 
 
-        <!-- =====================================
-             PUZZLE BOARD
-        ====================================== -->
+        <!-- PUZZLE -->
 
         <div
-            id="puzzleBoard"
-            class="puzzle-board"
+            id="puzzle"
+            class="puzzle"
         >
 
+            <div class="word">
 
-            <!-- DEMO BOXES
-                 These disappear when a real
-                 puzzle arrives.
-            -->
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box"></div>
 
-            <div class="letter-box"></div>
-
-            <div class="letter-box"></div>
-
-            <div class="letter-box"></div>
-
-            <div class="letter-box"></div>
-
-            <div class="letter-box"></div>
-
-            <div class="letter-box"></div>
-
-            <div class="letter-box"></div>
-
-
-        </div>
-
-
-
-        <!-- =====================================
-             TIMER
-        ====================================== -->
-
-        <div class="timer-section">
-
-            <div class="timer-title">
-                NEXT LETTER
-            </div>
-
-
-            <div
-                id="liveTimer"
-                class="big-timer"
-            >
-                —
-            </div>
-
-
-            <div class="timer-caption">
-                SECONDS
             </div>
 
         </div>
 
 
 
-        <!-- =====================================
-             MESSAGE
-        ====================================== -->
+        <!-- TIMER -->
+
+        <div class="timer-label">
+            NEXT LETTER
+        </div>
+
 
         <div
-            id="liveMessage"
-            class="chat-message"
+            id="timer"
+            class="live-timer"
+        >
+            —
+        </div>
+
+
+        <div class="timer-seconds">
+            SECONDS
+        </div>
+
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="message"
+            class="live-message"
         >
             GUESS THE ANSWER IN CHAT
         </div>
 
 
-    </div>
+    </main>
 
 
 
-    <!-- =========================================
-         BOTTOM BAR
-    ========================================== -->
+    <!-- FOOTER -->
 
-    <div class="live-bottom">
+    <footer class="live-footer">
 
-        <div>
+        <span>
             GUESS IN CHAT
-        </div>
+        </span>
 
-        <div class="bottom-divider">
+        <b>
             ◆
-        </div>
+        </b>
 
-        <div>
+        <span>
             DIONLYONEE
-        </div>
+        </span>
 
-    </div>
+    </footer>
 
 
 </div>
@@ -190,64 +168,48 @@
 <script>
 
 
-/* =================================================
-   DIONLYONEE PLAYGROUND
-   LIVE DISPLAY
-================================================= */
+/* =========================================
+   LIVE CONNECTION
+========================================= */
+
+const channel =
+    new BroadcastChannel(
+        "dionlyonee-wheel-game"
+    );
 
 
-/* =================================================
-   CHANNEL
-================================================= */
-
-let gameChannel = null;
-
-
-if (
-    "BroadcastChannel" in window
-) {
-
-    gameChannel =
-        new BroadcastChannel(
-            "dionlyonee-wheel-game"
-        );
-
-}
-
-
-
-/* =================================================
+/* =========================================
    ELEMENTS
-================================================= */
+========================================= */
 
-const category =
+const categoryElement =
     document.getElementById(
-        "liveCategory"
+        "category"
     );
 
 
-const board =
+const puzzleElement =
     document.getElementById(
-        "puzzleBoard"
+        "puzzle"
     );
 
 
-const timer =
+const timerElement =
     document.getElementById(
-        "liveTimer"
+        "timer"
     );
 
 
-const message =
+const messageElement =
     document.getElementById(
-        "liveMessage"
+        "message"
     );
 
 
 
-/* =================================================
+/* =========================================
    DRAW PUZZLE
-================================================= */
+========================================= */
 
 function drawPuzzle(
     answer,
@@ -255,14 +217,10 @@ function drawPuzzle(
 ) {
 
 
-    board.innerHTML = "";
+    puzzleElement.innerHTML = "";
 
 
-    if (
-        !answer
-    ) {
-
-        createDemoBoard();
+    if (!answer) {
 
         return;
 
@@ -274,17 +232,17 @@ function drawPuzzle(
 
 
     words.forEach(
-        function(word, wordIndex) {
+        function(word) {
 
 
-            const wordContainer =
+            const wordElement =
                 document.createElement(
                     "div"
                 );
 
 
-            wordContainer.className =
-                "word-group";
+            wordElement.className =
+                "word";
 
 
             for (
@@ -294,10 +252,6 @@ function drawPuzzle(
             ) {
 
 
-                const letter =
-                    word[i];
-
-
                 const box =
                     document.createElement(
                         "div"
@@ -305,11 +259,14 @@ function drawPuzzle(
 
 
                 box.className =
-                    "letter-box";
+                    "box";
+
+
+                const letter =
+                    word[i];
 
 
                 if (
-                    revealed &&
                     revealed.includes(
                         letter
                     )
@@ -325,15 +282,15 @@ function drawPuzzle(
                 }
 
 
-                wordContainer.appendChild(
+                wordElement.appendChild(
                     box
                 );
 
             }
 
 
-            board.appendChild(
-                wordContainer
+            puzzleElement.appendChild(
+                wordElement
             );
 
         }
@@ -343,162 +300,70 @@ function drawPuzzle(
 
 
 
-/* =================================================
-   DEMO BOARD
-================================================= */
+/* =========================================
+   RECEIVE HOST UPDATE
+========================================= */
 
-function createDemoBoard() {
-
-
-    board.innerHTML = "";
+channel.onmessage =
+    function(event) {
 
 
-    const demoWords =
-        [
-            7
-        ];
+        const game =
+            event.data;
 
 
-    demoWords.forEach(
-        function(count) {
+        console.log(
+            "LIVE RECEIVED:",
+            game
+        );
 
 
-            const group =
-                document.createElement(
-                    "div"
-                );
+        categoryElement.textContent =
+            game.category ||
+            "WAITING FOR GAME";
 
 
-            group.className =
-                "word-group";
+        drawPuzzle(
+
+            game.answer,
+
+            game.revealed || []
+
+        );
 
 
-            for (
-                let i = 0;
-                i < count;
-                i++
-            ) {
-
-                const box =
-                    document.createElement(
-                        "div"
-                    );
+        if (
+            game.running
+        ) {
 
 
-                box.className =
-                    "letter-box";
+            timerElement.textContent =
+                game.seconds;
 
 
-                group.appendChild(
-                    box
-                );
+            messageElement.textContent =
+                "GUESS THE ANSWER IN CHAT";
 
-            }
-
-
-            board.appendChild(
-                group
-            );
 
         }
-    );
-
-}
+        else {
 
 
-
-/* =================================================
-   UPDATE GAME
-================================================= */
-
-function updateGame(
-    state
-) {
+            timerElement.textContent =
+                "—";
 
 
-    if (
-        !state
-    ) {
+            messageElement.textContent =
+                "GET READY FOR THE NEXT PUZZLE";
 
-        return;
-
-    }
+        }
 
 
-    category.textContent =
-        state.category ||
-        "WAITING FOR GAME";
-
-
-    drawPuzzle(
-        state.answer,
-        state.revealed
-    );
-
-
-    if (
-        state.running
-    ) {
-
-        timer.textContent =
-            state.seconds;
-
-        message.textContent =
-            "GUESS THE ANSWER IN CHAT";
-
-    }
-    else {
-
-        timer.textContent =
-            "—";
-
-        message.textContent =
-            "GET READY FOR THE NEXT PUZZLE";
-
-    }
-
-}
-
-
-
-/* =================================================
-   RECEIVE HOST DATA
-================================================= */
-
-if (
-    gameChannel
-) {
-
-
-    gameChannel.onmessage =
-        function(event) {
-
-
-            console.log(
-                "HOST → LIVE",
-                event.data
-            );
-
-
-            updateGame(
-                event.data
-            );
-
-        };
-
-}
-
-
-
-/* =================================================
-   START WITH DEMO BOARD
-================================================= */
-
-createDemoBoard();
+    };
 
 
 console.log(
-    "DIONLYONEE LIVE DISPLAY READY"
+    "DIONLYONEE LIVE READY"
 );
 
 
