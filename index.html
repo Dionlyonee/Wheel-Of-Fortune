@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -10,20 +11,23 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Dionlyonee LIVE - Wheel of Fortune</title>
+    <title>Dionlyonee Playground</title>
 
     <link
         rel="stylesheet"
         href="style.css"
     >
+
 </head>
 
 
 <body>
 
+
 <div class="game">
 
-    <!-- HEADER -->
+
+    <!-- LOGO / TITLE -->
 
     <header>
 
@@ -33,85 +37,111 @@
 
         <div>
 
-            <h1>DIONLYONEE PLAYGROUND</h1>
+            <h1>
+                DIONLYONEE PLAYGROUND
+            </h1>
 
-            <p>WHEEL OF FORTUNE - LIVE</p>
+            <p>
+                LIVE GAME CENTER
+            </p>
 
         </div>
 
     </header>
 
 
-    <!-- LIVE GAME -->
 
-    <main>
+    <!-- LAUNCH SCREEN -->
+
+    <main class="launch-screen">
+
 
         <div class="category-label">
-            CATEGORY
+            WHEEL OF FORTUNE
         </div>
 
 
-        <div
-            id="category"
-            class="category"
-        >
-            WAITING
+        <h2>
+            READY TO PLAY?
+        </h2>
+
+
+        <p class="launch-description">
+            Choose which screen you want to open.
+        </p>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="launch-buttons">
+
+
+            <!-- LIVE -->
+
+            <button
+                class="launch-button live-button"
+                onclick="openLive()"
+            >
+
+                <span class="button-icon">
+                    📺
+                </span>
+
+                <span>
+                    LIVE GAME
+                </span>
+
+                <small>
+                    Stream this screen
+                </small>
+
+            </button>
+
+
+
+            <!-- HOST -->
+
+            <button
+                class="launch-button host-button"
+                onclick="openHost()"
+            >
+
+                <span class="button-icon">
+                    🎤
+                </span>
+
+                <span>
+                    HOST PANEL
+                </span>
+
+                <small>
+                    Control the game
+                </small>
+
+            </button>
+
+
         </div>
 
 
-        <!-- PUZZLE -->
 
-        <div
-            id="puzzle"
-            class="puzzle"
-        >
-            <div class="waiting">
-                WAITING FOR HOST
-            </div>
-        </div>
+        <div class="launch-note">
 
+            Open both screens in separate tabs.
 
-        <!-- TIMER -->
+            <br>
 
-        <div class="timer-label">
-            NEXT LETTER
-        </div>
-
-
-        <div
-            id="timer"
-            class="timer"
-        >
-            -
-        </div>
-
-
-        <div class="seconds">
-            SECONDS
-        </div>
-
-
-        <!-- MESSAGE -->
-
-        <div
-            id="message"
-            class="message"
-        >
-            WAITING FOR GAME
-        </div>
-
-
-        <!-- LIVE -->
-
-        <div class="live-status">
-
-            <span class="connection-dot"></span>
-
-            DIONLYONEE LIVE
+            <strong>
+                LIVE GAME
+            </strong>
+            is the screen you capture in Streamlabs.
 
         </div>
+
 
     </main>
+
 
 </div>
 
@@ -119,261 +149,35 @@
 
 <script>
 
-/* =================================================
-   LIVE GAME CONNECTION
-================================================= */
-
-/*
-   This channel connects the LIVE screen
-   to the HOST screen when both pages are
-   open in the same browser.
-*/
-
-let gameChannel = null;
-
-
-/*
-   Some browsers support BroadcastChannel.
-   If it is available, use it.
-*/
-
-if ("BroadcastChannel" in window) {
-
-    gameChannel =
-        new BroadcastChannel(
-            "dionlyonee-wheel-game"
-        );
-
-}
-
 
 /* =================================================
-   PAGE ELEMENTS
+   OPEN LIVE
 ================================================= */
 
-const categoryElement =
-    document.getElementById(
-        "category"
+function openLive() {
+
+    window.open(
+        "live.html",
+        "_blank"
     );
-
-
-const puzzleElement =
-    document.getElementById(
-        "puzzle"
-    );
-
-
-const timerElement =
-    document.getElementById(
-        "timer"
-    );
-
-
-const messageElement =
-    document.getElementById(
-        "message"
-    );
-
-
-
-/* =================================================
-   DRAW PUZZLE
-================================================= */
-
-function drawPuzzle(
-    answer,
-    revealed
-) {
-
-    puzzleElement.innerHTML = "";
-
-
-    if (!answer) {
-
-        puzzleElement.innerHTML =
-            '<div class="waiting">WAITING FOR HOST</div>';
-
-        return;
-
-    }
-
-
-    for (
-        let i = 0;
-        i < answer.length;
-        i++
-    ) {
-
-        const character =
-            answer[i];
-
-
-        /*
-           Space between words.
-        */
-
-        if (character === " ") {
-
-            const space =
-                document.createElement(
-                    "div"
-                );
-
-            space.className = "space";
-
-            puzzleElement.appendChild(
-                space
-            );
-
-            continue;
-
-        }
-
-
-        /*
-           Letter box.
-        */
-
-        const box =
-            document.createElement(
-                "div"
-            );
-
-        box.className = "letter";
-
-
-        /*
-           Only show revealed letters.
-        */
-
-        if (
-            Array.isArray(revealed)
-            &&
-            revealed.includes(character)
-        ) {
-
-            box.textContent =
-                character;
-
-            box.classList.add(
-                "revealed"
-            );
-
-        }
-
-
-        puzzleElement.appendChild(
-            box
-        );
-
-    }
 
 }
 
 
 
 /* =================================================
-   RECEIVE HOST MESSAGE
+   OPEN HOST
 ================================================= */
 
-if (gameChannel) {
+function openHost() {
 
-    gameChannel.onmessage =
-        function(event) {
-
-            const state =
-                event.data;
-
-
-            if (!state) {
-
-                return;
-
-            }
-
-
-            updateLiveScreen(
-                state
-            );
-
-        };
-
-}
-
-
-
-/* =================================================
-   UPDATE LIVE SCREEN
-================================================= */
-
-function updateLiveScreen(
-    state
-) {
-
-    /*
-       CATEGORY
-    */
-
-    categoryElement.textContent =
-        state.category ||
-        "WAITING";
-
-
-    /*
-       PUZZLE
-    */
-
-    drawPuzzle(
-
-        state.answer || "",
-
-        state.revealed || []
-
+    window.open(
+        "host.html",
+        "_blank"
     );
 
-
-    /*
-       TIMER
-    */
-
-    if (state.running) {
-
-        timerElement.textContent =
-            state.seconds;
-
-
-        messageElement.textContent =
-            "GUESS THE ANSWER IN CHAT!";
-
-    }
-
-    else {
-
-        timerElement.textContent =
-            "-";
-
-
-        messageElement.textContent =
-            "WAITING FOR NEXT GAME";
-
-    }
-
 }
 
-
-/* =================================================
-   TEST MESSAGE
-================================================= */
-
-/*
-   The LIVE page will display this in the
-   browser console so we know the JavaScript
-   loaded correctly.
-*/
-
-console.log(
-    "DIONLYONEE LIVE PAGE LOADED"
-);
 
 </script>
 
