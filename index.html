@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -11,21 +10,20 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Dionlyonee LIVE — STREAM</title>
+    <title>Dionlyonee LIVE - Wheel of Fortune</title>
 
     <link
         rel="stylesheet"
         href="style.css"
     >
-
 </head>
 
 
 <body>
 
-
 <div class="game">
 
+    <!-- HEADER -->
 
     <header>
 
@@ -35,22 +33,18 @@
 
         <div>
 
-            <h1>
-                DIONLYONEE PLAYGROUND
-            </h1>
+            <h1>DIONLYONEE PLAYGROUND</h1>
 
-            <p>
-                WHEEL OF FORTUNE — LIVE
-            </p>
+            <p>WHEEL OF FORTUNE - LIVE</p>
 
         </div>
 
     </header>
 
 
+    <!-- LIVE GAME -->
 
     <main>
-
 
         <div class="category-label">
             CATEGORY
@@ -61,18 +55,23 @@
             id="category"
             class="category"
         >
-            WAITING FOR HOST
+            WAITING
         </div>
 
 
+        <!-- PUZZLE -->
 
         <div
             id="puzzle"
             class="puzzle"
         >
+            <div class="waiting">
+                WAITING FOR HOST
+            </div>
         </div>
 
 
+        <!-- TIMER -->
 
         <div class="timer-label">
             NEXT LETTER
@@ -83,7 +82,7 @@
             id="timer"
             class="timer"
         >
-            —
+            -
         </div>
 
 
@@ -92,6 +91,7 @@
         </div>
 
 
+        <!-- MESSAGE -->
 
         <div
             id="message"
@@ -101,6 +101,7 @@
         </div>
 
 
+        <!-- LIVE -->
 
         <div class="live-status">
 
@@ -110,9 +111,7 @@
 
         </div>
 
-
     </main>
-
 
 </div>
 
@@ -120,19 +119,36 @@
 
 <script>
 
-
 /* =================================================
-   CONNECT TO HOST
+   LIVE GAME CONNECTION
 ================================================= */
 
-const gameChannel =
-    new BroadcastChannel(
-        "dionlyonee-live-game"
-    );
+/*
+   This channel connects the LIVE screen
+   to the HOST screen when both pages are
+   open in the same browser.
+*/
+
+let gameChannel = null;
+
+
+/*
+   Some browsers support BroadcastChannel.
+   If it is available, use it.
+*/
+
+if ("BroadcastChannel" in window) {
+
+    gameChannel =
+        new BroadcastChannel(
+            "dionlyonee-wheel-game"
+        );
+
+}
 
 
 /* =================================================
-   ELEMENTS
+   PAGE ELEMENTS
 ================================================= */
 
 const categoryElement =
@@ -159,6 +175,7 @@ const messageElement =
     );
 
 
+
 /* =================================================
    DRAW PUZZLE
 ================================================= */
@@ -168,12 +185,13 @@ function drawPuzzle(
     revealed
 ) {
 
-
-    puzzleElement.innerHTML =
-        "";
+    puzzleElement.innerHTML = "";
 
 
     if (!answer) {
+
+        puzzleElement.innerHTML =
+            '<div class="waiting">WAITING FOR HOST</div>';
 
         return;
 
@@ -186,60 +204,52 @@ function drawPuzzle(
         i++
     ) {
 
-
         const character =
             answer[i];
 
 
-        /* SPACE */
+        /*
+           Space between words.
+        */
 
-        if (
-            character === " "
-        ) {
-
+        if (character === " ") {
 
             const space =
                 document.createElement(
                     "div"
                 );
 
-
-            space.className =
-                "space";
-
+            space.className = "space";
 
             puzzleElement.appendChild(
                 space
             );
-
 
             continue;
 
         }
 
 
-        /* LETTER BOX */
+        /*
+           Letter box.
+        */
 
         const box =
             document.createElement(
                 "div"
             );
 
-
-        box.className =
-            "letter";
+        box.className = "letter";
 
 
         /*
-        Only display letters that
-        the host has revealed.
+           Only show revealed letters.
         */
 
         if (
-            revealed &&
-            revealed.includes(
-                character
-            )
+            Array.isArray(revealed)
+            &&
+            revealed.includes(character)
         ) {
 
             box.textContent =
@@ -263,142 +273,107 @@ function drawPuzzle(
 
 
 /* =================================================
-   RECEIVE HOST UPDATE
+   RECEIVE HOST MESSAGE
 ================================================= */
 
-gameChannel.onmessage =
-    function(event) {
+if (gameChannel) {
+
+    gameChannel.onmessage =
+        function(event) {
+
+            const state =
+                event.data;
 
 
-        const state =
-            event.data;
+            if (!state) {
+
+                return;
+
+            }
 
 
-        console.log(
-            "HOST UPDATE:",
-            state
-        );
-
-
-        categoryElement.textContent =
-            state.category ||
-            "WAITING FOR HOST";
-
-
-        drawPuzzle(
-
-            state.answer,
-
-            state.revealed || []
-
-        );
-
-
-        if (
-            state.running
-        ) {
-
-            timerElement.textContent =
-                state.seconds;
-
-            messageElement.textContent =
-                "GUESS THE ANSWER IN CHAT!";
-
-        }
-
-        else {
-
-            timerElement.textContent =
-                "—";
-
-            messageElement.textContent =
-                "WAITING FOR NEXT GAME";
-
-        }
-
-
-    };
-
-
-
-/* =================================================
-   BACKUP STATE
-================================================= */
-
-function loadBackupState() {
-
-
-    const saved =
-        localStorage.getItem(
-            "dionlyoneeGameState"
-        );
-
-
-    if (!saved) {
-
-        return;
-
-    }
-
-
-    try {
-
-
-        const state =
-            JSON.parse(
-                saved
+            updateLiveScreen(
+                state
             );
 
-
-        categoryElement.textContent =
-            state.category ||
-            "WAITING FOR HOST";
-
-
-        drawPuzzle(
-
-            state.answer,
-
-            state.revealed || []
-
-        );
-
-
-        if (
-            state.running
-        ) {
-
-            timerElement.textContent =
-                state.seconds;
-
-        }
-
-
-    }
-
-    catch (error) {
-
-        console.log(
-            "No backup game state."
-        );
-
-    }
+        };
 
 }
 
 
 
 /* =================================================
-   LOAD BACKUP
+   UPDATE LIVE SCREEN
 ================================================= */
 
-loadBackupState();
+function updateLiveScreen(
+    state
+) {
 
+    /*
+       CATEGORY
+    */
+
+    categoryElement.textContent =
+        state.category ||
+        "WAITING";
+
+
+    /*
+       PUZZLE
+    */
+
+    drawPuzzle(
+
+        state.answer || "",
+
+        state.revealed || []
+
+    );
+
+
+    /*
+       TIMER
+    */
+
+    if (state.running) {
+
+        timerElement.textContent =
+            state.seconds;
+
+
+        messageElement.textContent =
+            "GUESS THE ANSWER IN CHAT!";
+
+    }
+
+    else {
+
+        timerElement.textContent =
+            "-";
+
+
+        messageElement.textContent =
+            "WAITING FOR NEXT GAME";
+
+    }
+
+}
+
+
+/* =================================================
+   TEST MESSAGE
+================================================= */
+
+/*
+   The LIVE page will display this in the
+   browser console so we know the JavaScript
+   loaded correctly.
+*/
 
 console.log(
-    "DIONLYONEE LIVE SCREEN CONNECTED"
+    "DIONLYONEE LIVE PAGE LOADED"
 );
-
 
 </script>
 
