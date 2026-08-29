@@ -11,7 +11,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Dionlyonee LIVE — HOST</title>
+    <title>Dionlyonee HOST - Wheel of Fortune</title>
 
     <link
         rel="stylesheet"
@@ -23,9 +23,9 @@
 
 <body>
 
-
 <div class="game">
 
+    <!-- HEADER -->
 
     <header>
 
@@ -35,22 +35,18 @@
 
         <div>
 
-            <h1>
-                DIONLYONEE PLAYGROUND
-            </h1>
+            <h1>DIONLYONEE PLAYGROUND</h1>
 
-            <p>
-                HOST CONTROL PANEL
-            </p>
+            <p>HOST CONTROL PANEL</p>
 
         </div>
 
     </header>
 
 
-
     <main>
 
+        <!-- CATEGORY -->
 
         <div class="category-label">
             CURRENT CATEGORY
@@ -65,6 +61,7 @@
         </div>
 
 
+        <!-- ANSWER -->
 
         <div class="category-label">
             ANSWER
@@ -75,10 +72,11 @@
             id="hostAnswer"
             class="host-answer"
         >
-            —
+            -
         </div>
 
 
+        <!-- REVEALED LETTERS -->
 
         <div class="category-label">
             REVEALED LETTERS
@@ -93,6 +91,7 @@
         </div>
 
 
+        <!-- TIMER -->
 
         <div class="timer-label">
             NEXT LETTER
@@ -112,6 +111,7 @@
         </div>
 
 
+        <!-- MESSAGE -->
 
         <div
             id="hostMessage"
@@ -121,9 +121,12 @@
         </div>
 
 
+        <!-- SETTINGS -->
 
         <section class="host-settings">
 
+
+            <!-- LETTER TIMER -->
 
             <div class="setting">
 
@@ -158,6 +161,7 @@
             </div>
 
 
+            <!-- COOLDOWN -->
 
             <div class="setting">
 
@@ -191,19 +195,18 @@
 
             </div>
 
-
         </section>
 
 
+        <!-- MAIN BUTTONS -->
 
         <div class="controls">
-
 
             <button
                 id="hostStart"
                 class="start-button"
             >
-                ▶ START GAME
+                START GAME
             </button>
 
 
@@ -214,25 +217,26 @@
                 NEXT PUZZLE
             </button>
 
-
         </div>
 
 
+        <!-- CONNECTION -->
 
-        <div class="live-status">
+        <div
+            id="connectionStatus"
+            class="live-status"
+        >
 
             <span
                 id="connectionDot"
                 class="connection-dot"
             ></span>
 
-            LIVE SCREEN READY
+            HOST READY
 
         </div>
 
-
     </main>
-
 
 </div>
 
@@ -240,30 +244,43 @@
 
 <script>
 
+/* =================================================
+   DIONLYONEE WHEEL OF FORTUNE
+   HOST CONTROLLER
+================================================= */
+
 
 /* =================================================
-   PUZZLES
+   LIVE CONNECTION
+================================================= */
+
+/*
+   IMPORTANT:
+
+   This name MUST be identical to the
+   BroadcastChannel name in index.html.
+*/
+
+let gameChannel = null;
+
+
+if ("BroadcastChannel" in window) {
+
+    gameChannel =
+        new BroadcastChannel(
+            "dionlyonee-wheel-game"
+        );
+
+}
+
+
+/* =================================================
+   PUZZLE DATABASE
 ================================================= */
 
 const puzzles = {
 
-    Animals: [
-
-        "ELEPHANT",
-        "GIRAFFE",
-        "MONKEY",
-        "DOLPHIN",
-        "CROCODILE",
-        "KANGAROO",
-        "TIGER",
-        "GORILLA",
-        "PENGUIN",
-        "ZEBRA"
-
-    ],
-
-
-    Countries: [
+    "Countries": [
 
         "JAMAICA",
         "CANADA",
@@ -275,6 +292,22 @@ const puzzles = {
         "FRANCE",
         "GERMANY",
         "AUSTRALIA"
+
+    ],
+
+
+    "Animals": [
+
+        "ELEPHANT",
+        "GIRAFFE",
+        "MONKEY",
+        "DOLPHIN",
+        "CROCODILE",
+        "KANGAROO",
+        "TIGER",
+        "GORILLA",
+        "PENGUIN",
+        "ZEBRA"
 
     ],
 
@@ -293,7 +326,7 @@ const puzzles = {
     ],
 
 
-    Food: [
+    "Food": [
 
         "JERK CHICKEN",
         "RICE AND PEAS",
@@ -309,7 +342,7 @@ const puzzles = {
 
 
 /* =================================================
-   SETTINGS
+   GAME SETTINGS
 ================================================= */
 
 let revealTime = 30;
@@ -335,71 +368,7 @@ let gameRunning = false;
 
 
 /* =================================================
-   BROADCAST CHANNEL
-================================================= */
-
-const gameChannel =
-    new BroadcastChannel(
-        "dionlyonee-live-game"
-    );
-
-
-/* =================================================
-   SEND STATE TO LIVE SCREEN
-================================================= */
-
-function sendGameState() {
-
-
-    const state = {
-
-        answer: answer,
-
-        category: category,
-
-        revealed: revealed,
-
-        seconds: seconds,
-
-        revealTime: revealTime,
-
-        cooldownTime: cooldownTime,
-
-        running: gameRunning
-
-    };
-
-
-    /*
-    Send the game state directly
-    to the LIVE browser tab.
-    */
-
-    gameChannel.postMessage(
-        state
-    );
-
-
-    /*
-    Keep localStorage as backup.
-    */
-
-    localStorage.setItem(
-
-        "dionlyoneeGameState",
-
-        JSON.stringify(
-            state
-        )
-
-    );
-
-}
-
-
-
-/* =================================================
-   ELEMENTS
+   PAGE ELEMENTS
 ================================================= */
 
 const hostCategory =
@@ -444,171 +413,63 @@ const hostNext =
     );
 
 
+const connectionStatus =
+    document.getElementById(
+        "connectionStatus"
+    );
+
+
 
 /* =================================================
-   REVEAL TIME
+   SEND GAME TO LIVE
 ================================================= */
 
-document
-    .querySelectorAll(
-        ".host-time-button"
-    )
-    .forEach(function(button) {
+function sendToLive() {
 
 
-        button.addEventListener(
-            "click",
-            function() {
+    const state = {
+
+        category: category,
+
+        answer: answer,
+
+        revealed: revealed,
+
+        seconds: seconds,
+
+        running: gameRunning
+
+    };
 
 
-                if (gameRunning) {
-                    return;
-                }
+    /*
+       Send directly to LIVE tab.
+    */
 
+    if (gameChannel) {
 
-                document
-                    .querySelectorAll(
-                        ".host-time-button"
-                    )
-                    .forEach(function(item) {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    });
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                revealTime =
-                    Number(
-                        button.dataset.time
-                    );
-
-
-                seconds =
-                    revealTime;
-
-
-                hostTimer.textContent =
-                    seconds;
-
-
-                hostMessage.textContent =
-                    "LETTERS REVEAL EVERY " +
-                    revealTime +
-                    " SECONDS";
-
-
-                sendGameState();
-
-            }
+        gameChannel.postMessage(
+            state
         );
 
-    });
-
-
-
-/* =================================================
-   COOLDOWN
-================================================= */
-
-document
-    .querySelectorAll(
-        ".host-cooldown-button"
-    )
-    .forEach(function(button) {
-
-
-        button.addEventListener(
-            "click",
-            function() {
-
-
-                if (gameRunning) {
-                    return;
-                }
-
-
-                document
-                    .querySelectorAll(
-                        ".host-cooldown-button"
-                    )
-                    .forEach(function(item) {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    });
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                cooldownTime =
-                    Number(
-                        button.dataset.time
-                    );
-
-
-                hostMessage.textContent =
-                    "COOLDOWN: " +
-                    cooldownTime +
-                    " SECONDS";
-
-
-                sendGameState();
-
-            }
-        );
-
-    });
-
-
-
-/* =================================================
-   START
-================================================= */
-
-hostStart.addEventListener(
-    "click",
-    function() {
-
-        startGame();
-
     }
-);
 
 
+    /*
+       Also save a copy locally.
+    */
 
-/* =================================================
-   ENTER
-================================================= */
+    localStorage.setItem(
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+        "dionlyoneeGameState",
 
+        JSON.stringify(
+            state
+        )
 
-        if (
-            event.key === "Enter"
-            &&
-            !gameRunning
-        ) {
+    );
 
-            startGame();
-
-        }
-
-    }
-);
+}
 
 
 
@@ -630,6 +491,10 @@ function startGame() {
         );
 
 
+    /*
+       Pick random category.
+    */
+
     category =
         categories[
             Math.floor(
@@ -639,30 +504,50 @@ function startGame() {
         ];
 
 
-    const words =
+    /*
+       Pick random answer.
+    */
+
+    const categoryWords =
         puzzles[
             category
         ];
 
 
     answer =
-        words[
+        categoryWords[
             Math.floor(
                 Math.random() *
-                words.length
+                categoryWords.length
             )
         ];
 
 
+    /*
+       Reset letters.
+    */
+
     revealed = [];
 
+
+    /*
+       Reset timer.
+    */
 
     seconds =
         revealTime;
 
 
+    /*
+       Game is now running.
+    */
+
     gameRunning = true;
 
+
+    /*
+       Update Host screen.
+    */
 
     hostCategory.textContent =
         category;
@@ -681,11 +566,19 @@ function startGame() {
 
 
     hostMessage.textContent =
-        "GAME LIVE — WATCH THE CHAT";
+        "GAME LIVE - WATCH THE CHAT";
 
 
-    sendGameState();
+    /*
+       Send everything to LIVE.
+    */
 
+    sendToLive();
+
+
+    /*
+       Start countdown.
+    */
 
     timer =
         setInterval(
@@ -711,8 +604,16 @@ function countdown() {
         seconds;
 
 
-    sendGameState();
+    /*
+       Keep LIVE synchronized.
+    */
 
+    sendToLive();
+
+
+    /*
+       Time to reveal.
+    */
 
     if (
         seconds <= 0
@@ -737,6 +638,11 @@ function revealLetter() {
         timer
     );
 
+
+    /*
+       Find letters that haven't
+       been revealed yet.
+    */
 
     const hiddenLetters =
         [
@@ -766,6 +672,11 @@ function revealLetter() {
         ];
 
 
+    /*
+       If there are no letters left,
+       finish the puzzle.
+    */
+
     if (
         hiddenLetters.length === 0
     ) {
@@ -777,30 +688,57 @@ function revealLetter() {
     }
 
 
-    const randomLetter =
+    /*
+       Pick a random hidden letter.
+    */
+
+    const randomIndex =
+        Math.floor(
+            Math.random() *
+            hiddenLetters.length
+        );
+
+
+    const letter =
         hiddenLetters[
-            Math.floor(
-                Math.random() *
-                hiddenLetters.length
-            )
+            randomIndex
         ];
 
 
+    /*
+       Add letter to revealed list.
+    */
+
     revealed.push(
-        randomLetter
+        letter
     );
 
 
-    updateLetters();
+    /*
+       Update Host.
+    */
+
+    hostLetters.textContent =
+        revealed.join(
+            " • "
+        );
 
 
     hostMessage.textContent =
         "LETTER REVEALED: " +
-        randomLetter;
+        letter;
 
 
-    sendGameState();
+    /*
+       Update LIVE.
+    */
 
+    sendToLive();
+
+
+    /*
+       Check if every letter is revealed.
+    */
 
     if (
         puzzleComplete()
@@ -813,6 +751,10 @@ function revealLetter() {
     }
 
 
+    /*
+       Reset countdown.
+    */
+
     seconds =
         revealTime;
 
@@ -821,7 +763,7 @@ function revealLetter() {
         seconds;
 
 
-    sendGameState();
+    sendToLive();
 
 
     timer =
@@ -835,35 +777,7 @@ function revealLetter() {
 
 
 /* =================================================
-   LETTER DISPLAY
-================================================= */
-
-function updateLetters() {
-
-
-    if (
-        revealed.length === 0
-    ) {
-
-        hostLetters.textContent =
-            "NONE";
-
-        return;
-
-    }
-
-
-    hostLetters.textContent =
-        revealed.join(
-            " • "
-        );
-
-}
-
-
-
-/* =================================================
-   COMPLETE
+   CHECK PUZZLE
 ================================================= */
 
 function puzzleComplete() {
@@ -880,6 +794,10 @@ function puzzleComplete() {
             answer[i];
 
 
+        /*
+           Ignore spaces.
+        */
+
         if (
             letter === " "
         ) {
@@ -888,6 +806,10 @@ function puzzleComplete() {
 
         }
 
+
+        /*
+           Letter still hidden.
+        */
 
         if (
             !revealed.includes(
@@ -909,7 +831,7 @@ function puzzleComplete() {
 
 
 /* =================================================
-   FINISH
+   FINISH GAME
 ================================================= */
 
 function finishGame() {
@@ -931,8 +853,18 @@ function finishGame() {
         "PUZZLE COMPLETE";
 
 
-    sendGameState();
+    /*
+       Tell LIVE that the puzzle
+       has finished.
+    */
 
+    sendToLive();
+
+
+    /*
+       Automatically start another
+       puzzle after cooldown.
+    */
 
     setTimeout(
         function() {
@@ -944,6 +876,21 @@ function finishGame() {
     );
 
 }
+
+
+
+/* =================================================
+   START BUTTON
+================================================= */
+
+hostStart.addEventListener(
+    "click",
+    function() {
+
+        startGame();
+
+    }
+);
 
 
 
@@ -961,17 +908,202 @@ hostNext.addEventListener(
 );
 
 
+
+/* =================================================
+   ENTER KEY
+================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+
+        if (
+            event.key === "Enter"
+            &&
+            !gameRunning
+        ) {
+
+            startGame();
+
+        }
+
+    }
+);
+
+
+
+/* =================================================
+   LETTER TIMER BUTTONS
+================================================= */
+
+document
+    .querySelectorAll(
+        ".host-time-button"
+    )
+    .forEach(
+        function(button) {
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+
+                    /*
+                       Don't change timer
+                       while game is running.
+                    */
+
+                    if (gameRunning) {
+
+                        return;
+
+                    }
+
+
+                    document
+                        .querySelectorAll(
+                            ".host-time-button"
+                        )
+                        .forEach(
+                            function(item) {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    revealTime =
+                        Number(
+                            button.dataset.time
+                        );
+
+
+                    seconds =
+                        revealTime;
+
+
+                    hostTimer.textContent =
+                        seconds;
+
+
+                    hostMessage.textContent =
+                        "REVEAL EVERY " +
+                        revealTime +
+                        " SECONDS";
+
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =================================================
+   COOLDOWN BUTTONS
+================================================= */
+
+document
+    .querySelectorAll(
+        ".host-cooldown-button"
+    )
+    .forEach(
+        function(button) {
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+
+                    if (gameRunning) {
+
+                        return;
+
+                    }
+
+
+                    document
+                        .querySelectorAll(
+                            ".host-cooldown-button"
+                        )
+                        .forEach(
+                            function(item) {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    cooldownTime =
+                        Number(
+                            button.dataset.time
+                        );
+
+
+                    hostMessage.textContent =
+                        "COOLDOWN: " +
+                        cooldownTime +
+                        " SECONDS";
+
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =================================================
+   INITIAL CONNECTION
+================================================= */
+
+if (gameChannel) {
+
+    connectionStatus.innerHTML =
+        '<span class="connection-dot"></span>' +
+        ' LIVE CHANNEL READY';
+
+}
+else {
+
+    connectionStatus.innerHTML =
+        '<span class="connection-dot"></span>' +
+        ' BROWSER CONNECTION NOT AVAILABLE';
+
+}
+
+
 /* =================================================
    INITIAL STATE
 ================================================= */
 
-sendGameState();
+sendToLive();
 
 
 console.log(
-    "DIONLYONEE HOST CONNECTED"
+    "DIONLYONEE HOST CONTROLLER READY"
 );
-
 
 </script>
 
