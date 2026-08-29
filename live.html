@@ -6,17 +6,13 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Dionlyonee LIVE Game</title>
+    <title>Dionlyonee Playground - LIVE</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
@@ -24,36 +20,39 @@
 <body class="live-page">
 
 
-<div class="live-game">
+<div class="live-screen">
 
 
-    <!-- =================================================
-         TOP BRAND
-    ================================================== -->
+    <!-- =========================================
+         TOP BAR
+    ========================================== -->
 
-    <div class="live-header">
+    <div class="live-topbar">
 
-        <div class="live-logo">
-            D
+        <div class="brand">
+
+            <div class="brand-logo">
+                D
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    DIONLYONEE PLAYGROUND
+                </div>
+
+                <div class="brand-game">
+                    WHEEL OF FORTUNE
+                </div>
+
+            </div>
+
         </div>
 
 
-        <div class="live-title">
+        <div class="live-indicator">
 
-            <h1>
-                DIONLYONEE PLAYGROUND
-            </h1>
-
-            <p>
-                WHEEL OF FORTUNE
-            </p>
-
-        </div>
-
-
-        <div class="live-badge">
-
-            <span class="live-dot"></span>
+            <span class="live-light"></span>
 
             LIVE
 
@@ -63,103 +62,123 @@
 
 
 
-    <!-- =================================================
-         CATEGORY
-    ================================================== -->
+    <!-- =========================================
+         GAME AREA
+    ========================================== -->
 
-    <div class="live-category-area">
+    <div class="game-board">
 
-        <div class="live-label">
+
+        <!-- CATEGORY -->
+
+        <div class="category-title">
             CATEGORY
         </div>
 
 
         <div
             id="liveCategory"
-            class="live-category"
+            class="category-name"
         >
             WAITING FOR GAME
         </div>
 
-    </div>
 
 
-
-    <!-- =================================================
-         PUZZLE
-    ================================================== -->
-
-    <div
-        id="livePuzzle"
-        class="live-puzzle"
-    >
-
-        <div class="live-waiting">
-            GET READY!
-        </div>
-
-    </div>
-
-
-
-    <!-- =================================================
-         TIMER
-    ================================================== -->
-
-    <div class="live-timer-area">
-
-
-        <div class="live-label">
-            NEXT LETTER
-        </div>
-
+        <!-- =====================================
+             PUZZLE BOARD
+        ====================================== -->
 
         <div
-            id="liveTimer"
-            class="live-timer"
+            id="puzzleBoard"
+            class="puzzle-board"
         >
-            —
+
+
+            <!-- DEMO BOXES
+                 These disappear when a real
+                 puzzle arrives.
+            -->
+
+            <div class="letter-box"></div>
+
+            <div class="letter-box"></div>
+
+            <div class="letter-box"></div>
+
+            <div class="letter-box"></div>
+
+            <div class="letter-box"></div>
+
+            <div class="letter-box"></div>
+
+            <div class="letter-box"></div>
+
+
         </div>
 
 
-        <div class="live-seconds">
-            SECONDS
+
+        <!-- =====================================
+             TIMER
+        ====================================== -->
+
+        <div class="timer-section">
+
+            <div class="timer-title">
+                NEXT LETTER
+            </div>
+
+
+            <div
+                id="liveTimer"
+                class="big-timer"
+            >
+                —
+            </div>
+
+
+            <div class="timer-caption">
+                SECONDS
+            </div>
+
         </div>
+
+
+
+        <!-- =====================================
+             MESSAGE
+        ====================================== -->
+
+        <div
+            id="liveMessage"
+            class="chat-message"
+        >
+            GUESS THE ANSWER IN CHAT
+        </div>
+
 
     </div>
 
 
 
-    <!-- =================================================
-         MESSAGE
-    ================================================== -->
+    <!-- =========================================
+         BOTTOM BAR
+    ========================================== -->
 
-    <div
-        id="liveMessage"
-        class="live-message"
-    >
-        WAITING FOR THE HOST
-    </div>
+    <div class="live-bottom">
 
+        <div>
+            GUESS IN CHAT
+        </div>
 
+        <div class="bottom-divider">
+            ◆
+        </div>
 
-    <!-- =================================================
-         FOOTER
-    ================================================== -->
-
-    <div class="live-footer">
-
-        <span>
-            GUESS IN THE CHAT
-        </span>
-
-        <span>
-            •
-        </span>
-
-        <span>
+        <div>
             DIONLYONEE
-        </span>
+        </div>
 
     </div>
 
@@ -170,15 +189,16 @@
 
 <script>
 
-/* =====================================================
+
+/* =================================================
    DIONLYONEE PLAYGROUND
-   LIVE SCREEN
-===================================================== */
+   LIVE DISPLAY
+================================================= */
 
 
-/* =====================================================
-   CONNECT TO HOST
-===================================================== */
+/* =================================================
+   CHANNEL
+================================================= */
 
 let gameChannel = null;
 
@@ -196,38 +216,38 @@ if (
 
 
 
-/* =====================================================
-   PAGE ELEMENTS
-===================================================== */
+/* =================================================
+   ELEMENTS
+================================================= */
 
-const categoryElement =
+const category =
     document.getElementById(
         "liveCategory"
     );
 
 
-const puzzleElement =
+const board =
     document.getElementById(
-        "livePuzzle"
+        "puzzleBoard"
     );
 
 
-const timerElement =
+const timer =
     document.getElementById(
         "liveTimer"
     );
 
 
-const messageElement =
+const message =
     document.getElementById(
         "liveMessage"
     );
 
 
 
-/* =====================================================
+/* =================================================
    DRAW PUZZLE
-===================================================== */
+================================================= */
 
 function drawPuzzle(
     answer,
@@ -235,126 +255,163 @@ function drawPuzzle(
 ) {
 
 
-    puzzleElement.innerHTML =
-        "";
+    board.innerHTML = "";
 
 
     if (
         !answer
     ) {
 
-        puzzleElement.innerHTML =
-            '<div class="live-waiting">GET READY!</div>';
+        createDemoBoard();
 
         return;
 
     }
 
 
-
-    /*
-       Create a box for every letter.
-    */
-
-    for (
-        let i = 0;
-        i < answer.length;
-        i++
-    ) {
+    const words =
+        answer.split(" ");
 
 
-        const character =
-            answer[i];
+    words.forEach(
+        function(word, wordIndex) {
 
 
-
-        /* ---------------------------------------------
-           WORD SPACE
-        --------------------------------------------- */
-
-        if (
-            character === " "
-        ) {
-
-
-            const space =
+            const wordContainer =
                 document.createElement(
                     "div"
                 );
 
 
-            space.className =
-                "live-space";
+            wordContainer.className =
+                "word-group";
 
 
-            puzzleElement.appendChild(
-                space
+            for (
+                let i = 0;
+                i < word.length;
+                i++
+            ) {
+
+
+                const letter =
+                    word[i];
+
+
+                const box =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                box.className =
+                    "letter-box";
+
+
+                if (
+                    revealed &&
+                    revealed.includes(
+                        letter
+                    )
+                ) {
+
+                    box.textContent =
+                        letter;
+
+                    box.classList.add(
+                        "revealed"
+                    );
+
+                }
+
+
+                wordContainer.appendChild(
+                    box
+                );
+
+            }
+
+
+            board.appendChild(
+                wordContainer
             );
-
-
-            continue;
 
         }
-
-
-
-        /* ---------------------------------------------
-           LETTER BOX
-        --------------------------------------------- */
-
-        const box =
-            document.createElement(
-                "div"
-            );
-
-
-        box.className =
-            "live-letter";
-
-
-
-        /*
-           Only show letters the Host
-           has revealed.
-        */
-
-        if (
-            Array.isArray(
-                revealed
-            )
-            &&
-            revealed.includes(
-                character
-            )
-        ) {
-
-
-            box.textContent =
-                character;
-
-
-            box.classList.add(
-                "live-letter-revealed"
-            );
-
-        }
-
-
-        puzzleElement.appendChild(
-            box
-        );
-
-    }
+    );
 
 }
 
 
 
-/* =====================================================
-   UPDATE LIVE SCREEN
-===================================================== */
+/* =================================================
+   DEMO BOARD
+================================================= */
 
-function updateLive(
+function createDemoBoard() {
+
+
+    board.innerHTML = "";
+
+
+    const demoWords =
+        [
+            7
+        ];
+
+
+    demoWords.forEach(
+        function(count) {
+
+
+            const group =
+                document.createElement(
+                    "div"
+                );
+
+
+            group.className =
+                "word-group";
+
+
+            for (
+                let i = 0;
+                i < count;
+                i++
+            ) {
+
+                const box =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                box.className =
+                    "letter-box";
+
+
+                group.appendChild(
+                    box
+                );
+
+            }
+
+
+            board.appendChild(
+                group
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =================================================
+   UPDATE GAME
+================================================= */
+
+function updateGame(
     state
 ) {
 
@@ -368,53 +425,35 @@ function updateLive(
     }
 
 
-
-    /* CATEGORY */
-
-    categoryElement.textContent =
+    category.textContent =
         state.category ||
         "WAITING FOR GAME";
 
 
-
-    /* PUZZLE */
-
     drawPuzzle(
-
-        state.answer || "",
-
-        state.revealed || []
-
+        state.answer,
+        state.revealed
     );
 
-
-
-    /* TIMER */
 
     if (
         state.running
     ) {
 
-
-        timerElement.textContent =
+        timer.textContent =
             state.seconds;
 
-
-        messageElement.textContent =
+        message.textContent =
             "GUESS THE ANSWER IN CHAT";
 
-
     }
-
     else {
 
-
-        timerElement.textContent =
+        timer.textContent =
             "—";
 
-
-        messageElement.textContent =
-            "WAITING FOR THE NEXT GAME";
+        message.textContent =
+            "GET READY FOR THE NEXT PUZZLE";
 
     }
 
@@ -422,9 +461,9 @@ function updateLive(
 
 
 
-/* =====================================================
-   RECEIVE HOST UPDATES
-===================================================== */
+/* =================================================
+   RECEIVE HOST DATA
+================================================= */
 
 if (
     gameChannel
@@ -436,12 +475,12 @@ if (
 
 
             console.log(
-                "LIVE UPDATE",
+                "HOST → LIVE",
                 event.data
             );
 
 
-            updateLive(
+            updateGame(
                 event.data
             );
 
@@ -451,12 +490,15 @@ if (
 
 
 
-/* =====================================================
-   INITIAL MESSAGE
-===================================================== */
+/* =================================================
+   START WITH DEMO BOARD
+================================================= */
+
+createDemoBoard();
+
 
 console.log(
-    "DIONLYONEE LIVE SCREEN READY"
+    "DIONLYONEE LIVE DISPLAY READY"
 );
 
 
