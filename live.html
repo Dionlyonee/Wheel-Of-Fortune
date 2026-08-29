@@ -1,0 +1,469 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dionlyonee LIVE Game</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body class="live-page">
+
+
+<div class="live-game">
+
+
+    <!-- =================================================
+         TOP BRAND
+    ================================================== -->
+
+    <div class="live-header">
+
+        <div class="live-logo">
+            D
+        </div>
+
+
+        <div class="live-title">
+
+            <h1>
+                DIONLYONEE PLAYGROUND
+            </h1>
+
+            <p>
+                WHEEL OF FORTUNE
+            </p>
+
+        </div>
+
+
+        <div class="live-badge">
+
+            <span class="live-dot"></span>
+
+            LIVE
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CATEGORY
+    ================================================== -->
+
+    <div class="live-category-area">
+
+        <div class="live-label">
+            CATEGORY
+        </div>
+
+
+        <div
+            id="liveCategory"
+            class="live-category"
+        >
+            WAITING FOR GAME
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PUZZLE
+    ================================================== -->
+
+    <div
+        id="livePuzzle"
+        class="live-puzzle"
+    >
+
+        <div class="live-waiting">
+            GET READY!
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TIMER
+    ================================================== -->
+
+    <div class="live-timer-area">
+
+
+        <div class="live-label">
+            NEXT LETTER
+        </div>
+
+
+        <div
+            id="liveTimer"
+            class="live-timer"
+        >
+            —
+        </div>
+
+
+        <div class="live-seconds">
+            SECONDS
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         MESSAGE
+    ================================================== -->
+
+    <div
+        id="liveMessage"
+        class="live-message"
+    >
+        WAITING FOR THE HOST
+    </div>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <div class="live-footer">
+
+        <span>
+            GUESS IN THE CHAT
+        </span>
+
+        <span>
+            •
+        </span>
+
+        <span>
+            DIONLYONEE
+        </span>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   DIONLYONEE PLAYGROUND
+   LIVE SCREEN
+===================================================== */
+
+
+/* =====================================================
+   CONNECT TO HOST
+===================================================== */
+
+let gameChannel = null;
+
+
+if (
+    "BroadcastChannel" in window
+) {
+
+    gameChannel =
+        new BroadcastChannel(
+            "dionlyonee-wheel-game"
+        );
+
+}
+
+
+
+/* =====================================================
+   PAGE ELEMENTS
+===================================================== */
+
+const categoryElement =
+    document.getElementById(
+        "liveCategory"
+    );
+
+
+const puzzleElement =
+    document.getElementById(
+        "livePuzzle"
+    );
+
+
+const timerElement =
+    document.getElementById(
+        "liveTimer"
+    );
+
+
+const messageElement =
+    document.getElementById(
+        "liveMessage"
+    );
+
+
+
+/* =====================================================
+   DRAW PUZZLE
+===================================================== */
+
+function drawPuzzle(
+    answer,
+    revealed
+) {
+
+
+    puzzleElement.innerHTML =
+        "";
+
+
+    if (
+        !answer
+    ) {
+
+        puzzleElement.innerHTML =
+            '<div class="live-waiting">GET READY!</div>';
+
+        return;
+
+    }
+
+
+
+    /*
+       Create a box for every letter.
+    */
+
+    for (
+        let i = 0;
+        i < answer.length;
+        i++
+    ) {
+
+
+        const character =
+            answer[i];
+
+
+
+        /* ---------------------------------------------
+           WORD SPACE
+        --------------------------------------------- */
+
+        if (
+            character === " "
+        ) {
+
+
+            const space =
+                document.createElement(
+                    "div"
+                );
+
+
+            space.className =
+                "live-space";
+
+
+            puzzleElement.appendChild(
+                space
+            );
+
+
+            continue;
+
+        }
+
+
+
+        /* ---------------------------------------------
+           LETTER BOX
+        --------------------------------------------- */
+
+        const box =
+            document.createElement(
+                "div"
+            );
+
+
+        box.className =
+            "live-letter";
+
+
+
+        /*
+           Only show letters the Host
+           has revealed.
+        */
+
+        if (
+            Array.isArray(
+                revealed
+            )
+            &&
+            revealed.includes(
+                character
+            )
+        ) {
+
+
+            box.textContent =
+                character;
+
+
+            box.classList.add(
+                "live-letter-revealed"
+            );
+
+        }
+
+
+        puzzleElement.appendChild(
+            box
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   UPDATE LIVE SCREEN
+===================================================== */
+
+function updateLive(
+    state
+) {
+
+
+    if (
+        !state
+    ) {
+
+        return;
+
+    }
+
+
+
+    /* CATEGORY */
+
+    categoryElement.textContent =
+        state.category ||
+        "WAITING FOR GAME";
+
+
+
+    /* PUZZLE */
+
+    drawPuzzle(
+
+        state.answer || "",
+
+        state.revealed || []
+
+    );
+
+
+
+    /* TIMER */
+
+    if (
+        state.running
+    ) {
+
+
+        timerElement.textContent =
+            state.seconds;
+
+
+        messageElement.textContent =
+            "GUESS THE ANSWER IN CHAT";
+
+
+    }
+
+    else {
+
+
+        timerElement.textContent =
+            "—";
+
+
+        messageElement.textContent =
+            "WAITING FOR THE NEXT GAME";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RECEIVE HOST UPDATES
+===================================================== */
+
+if (
+    gameChannel
+) {
+
+
+    gameChannel.onmessage =
+        function(event) {
+
+
+            console.log(
+                "LIVE UPDATE",
+                event.data
+            );
+
+
+            updateLive(
+                event.data
+            );
+
+        };
+
+}
+
+
+
+/* =====================================================
+   INITIAL MESSAGE
+===================================================== */
+
+console.log(
+    "DIONLYONEE LIVE SCREEN READY"
+);
+
+
+</script>
+
+
+</body>
+
+</html>
+```
