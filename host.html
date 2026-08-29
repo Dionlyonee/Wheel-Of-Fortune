@@ -3,246 +3,301 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dionlyonee Playground — Host</title>
+<meta charset="UTF-8">
 
-    <style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * {
-            box-sizing: border-box;
-        }
+<title>Dionlyonee Playground - Host</title>
 
-        body {
-            margin: 0;
-            min-height: 100vh;
 
-            background: #050505;
-            color: white;
+<style>
 
-            font-family: Arial, Helvetica, sans-serif;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .host-container {
-            width: 100%;
-            max-width: 900px;
 
-            margin: auto;
-            padding: 40px 20px;
+body {
 
-            text-align: center;
-        }
+    margin: 0;
 
-        h1 {
-            margin: 0;
+    min-height: 100vh;
 
-            color: #d4af37;
+    background: #050505;
 
-            font-size: 32px;
-            letter-spacing: 3px;
-        }
+    color: white;
 
-        .subtitle {
-            margin-top: 8px;
+    font-family: Arial, Helvetica, sans-serif;
 
-            color: #888;
+}
 
-            font-size: 13px;
-            letter-spacing: 2px;
-        }
 
+.host-container {
 
-        /* GAME INFORMATION */
+    width: 100%;
 
-        .game-panel {
-            margin-top: 35px;
+    max-width: 900px;
 
-            padding: 35px;
+    margin: auto;
 
-            background: #111;
+    padding: 40px 20px;
 
-            border: 1px solid #333;
+    text-align: center;
 
-            border-radius: 16px;
-        }
+}
 
 
-        .label {
-            margin-top: 20px;
-            margin-bottom: 8px;
+h1 {
 
-            color: #777;
+    margin: 0;
 
-            font-size: 12px;
-            font-weight: bold;
+    color: #d4af37;
 
-            letter-spacing: 2px;
-        }
+    font-size: 32px;
 
+    letter-spacing: 3px;
 
-        #category {
-            color: #d4af37;
+}
 
-            font-size: 26px;
-            font-weight: bold;
-        }
 
+.subtitle {
 
-        #answer {
-            color: white;
+    margin-top: 8px;
 
-            font-size: 30px;
-            font-weight: bold;
+    color: #888;
 
-            letter-spacing: 3px;
-        }
+    font-size: 13px;
 
+    letter-spacing: 2px;
 
-        #timer {
-            margin-top: 5px;
+}
 
-            color: #d4af37;
 
-            font-size: 65px;
-            font-weight: bold;
-        }
+.game-panel {
 
+    margin-top: 35px;
 
-        /* TIME CONTROLS */
+    padding: 35px;
 
-        .section-title {
-            margin-top: 35px;
-            margin-bottom: 15px;
+    background: #111;
 
-            color: #888;
+    border: 1px solid #333;
 
-            font-size: 12px;
-            font-weight: bold;
+    border-radius: 16px;
 
-            letter-spacing: 2px;
-        }
+}
 
 
-        .time-buttons {
-            display: flex;
+.label {
 
-            justify-content: center;
+    margin-top: 20px;
 
-            gap: 10px;
+    margin-bottom: 8px;
 
-            flex-wrap: wrap;
-        }
+    color: #777;
 
+    font-size: 12px;
 
-        .time-button {
-            min-width: 110px;
+    font-weight: bold;
 
-            padding: 14px 20px;
+    letter-spacing: 2px;
 
-            border: 1px solid #555;
+}
 
-            border-radius: 8px;
 
-            background: #151515;
+#category {
 
-            color: white;
+    color: #d4af37;
 
-            font-size: 15px;
-            font-weight: bold;
+    font-size: 26px;
 
-            cursor: pointer;
-        }
+    font-weight: bold;
 
+}
 
-        .time-button:hover {
-            border-color: #d4af37;
 
-            color: #d4af37;
-        }
+#answer {
 
+    color: white;
 
-        .time-button.selected {
-            background: #d4af37;
+    font-size: 30px;
 
-            color: #000;
+    font-weight: bold;
 
-            border-color: #d4af37;
-        }
+    letter-spacing: 3px;
 
+}
 
-        /* MAIN CONTROLS */
 
-        .controls {
-            margin-top: 35px;
+#timer {
 
-            display: flex;
+    color: #d4af37;
 
-            justify-content: center;
+    font-size: 65px;
 
-            gap: 15px;
+    font-weight: bold;
 
-            flex-wrap: wrap;
-        }
+}
 
 
-        .control-button {
-            min-width: 180px;
+.section-title {
 
-            padding: 18px 25px;
+    margin-top: 35px;
 
-            border-radius: 9px;
+    margin-bottom: 15px;
 
-            font-size: 17px;
+    color: #888;
 
-            font-weight: bold;
+    font-size: 12px;
 
-            cursor: pointer;
-        }
+    font-weight: bold;
 
+    letter-spacing: 2px;
 
-        #startButton {
-            background: #d4af37;
+}
 
-            color: #000;
 
-            border: 2px solid #d4af37;
-        }
+.time-buttons {
 
+    display: flex;
 
-        #startButton:hover {
-            background: #f0d76a;
-        }
+    justify-content: center;
 
+    gap: 10px;
 
-        #nextButton {
-            background: #111;
+    flex-wrap: wrap;
 
-            color: #d4af37;
+}
 
-            border: 2px solid #d4af37;
-        }
 
+.time-button {
 
-        #nextButton:hover {
-            background: #d4af37;
+    min-width: 110px;
 
-            color: #000;
-        }
+    padding: 14px 20px;
 
+    border: 1px solid #555;
 
-        #message {
-            margin-top: 25px;
+    border-radius: 8px;
 
-            color: #888;
+    background: #151515;
 
-            font-size: 14px;
+    color: white;
 
-            min-height: 20px;
-        }
+    font-size: 15px;
 
+    font-weight: bold;
 
-    </style>
+    cursor: pointer;
+
+}
+
+
+.time-button:hover {
+
+    border-color: #d4af37;
+
+    color: #d4af37;
+
+}
+
+
+.time-button.selected {
+
+    background: #d4af37;
+
+    color: #000;
+
+    border-color: #d4af37;
+
+}
+
+
+.controls {
+
+    margin-top: 35px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.control-button {
+
+    min-width: 180px;
+
+    padding: 18px 25px;
+
+    border-radius: 9px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+#startButton {
+
+    background: #d4af37;
+
+    color: #000;
+
+    border: 2px solid #d4af37;
+
+}
+
+
+#startButton:hover {
+
+    background: #f0d76a;
+
+}
+
+
+#nextButton {
+
+    background: #111;
+
+    color: #d4af37;
+
+    border: 2px solid #d4af37;
+
+}
+
+
+#nextButton:hover {
+
+    background: #d4af37;
+
+    color: #000;
+
+}
+
+
+#message {
+
+    margin-top: 25px;
+
+    color: #888;
+
+    font-size: 14px;
+
+    min-height: 20px;
+
+}
+
+</style>
+
 </head>
 
 
@@ -251,112 +306,169 @@
 
 <div class="host-container">
 
-    <h1>DIONLYONEE PLAYGROUND</h1>
 
-    <div class="subtitle">
-        HOST CONTROL
-    </div>
+<h1>
 
+DIONLYONEE PLAYGROUND
 
-    <div class="game-panel">
+</h1>
 
 
-        <div class="label">
-            CATEGORY
-        </div>
+<div class="subtitle">
 
-        <div id="category">
-            READY
-        </div>
+HOST CONTROL
+
+</div>
 
 
-        <div class="label">
-            ANSWER
-        </div>
 
-        <div id="answer">
-            —
-        </div>
+<div class="game-panel">
 
 
-        <div class="label">
-            NEXT LETTER IN
-        </div>
+<div class="label">
 
-        <div id="timer">
-            30
-        </div>
+CATEGORY
+
+</div>
 
 
-        <div class="section-title">
-            LETTER REVEAL SPEED
-        </div>
+<div id="category">
+
+READY
+
+</div>
 
 
-        <div class="time-buttons">
 
-            <button
-                id="time15"
-                class="time-button"
-                type="button">
+<div class="label">
 
-                15 SEC
+ANSWER
 
-            </button>
+</div>
 
 
-            <button
-                id="time30"
-                class="time-button selected"
-                type="button">
+<div id="answer">
 
-                30 SEC
+—
 
-            </button>
+</div>
 
 
-            <button
-                id="time60"
-                class="time-button"
-                type="button">
 
-                1 MIN
+<div class="label">
 
-            </button>
+NEXT LETTER IN
 
-        </div>
+</div>
 
 
-        <div class="controls">
+<div id="timer">
 
-            <button
-                id="startButton"
-                class="control-button"
-                type="button">
+30
 
-                START GAME
-
-            </button>
+</div>
 
 
-            <button
-                id="nextButton"
-                class="control-button"
-                type="button">
 
-                NEXT PUZZLE
+<div class="section-title">
 
-            </button>
+LETTER REVEAL SPEED
 
-        </div>
+</div>
 
 
-        <div id="message">
-            READY TO START
-        </div>
+
+<div class="time-buttons">
 
 
-    </div>
+<button
+
+id="time15"
+
+class="time-button"
+
+type="button">
+
+15 SEC
+
+</button>
+
+
+
+<button
+
+id="time30"
+
+class="time-button selected"
+
+type="button">
+
+30 SEC
+
+</button>
+
+
+
+<button
+
+id="time60"
+
+class="time-button"
+
+type="button">
+
+1 MIN
+
+</button>
+
+
+</div>
+
+
+
+<div class="controls">
+
+
+<button
+
+id="startButton"
+
+class="control-button"
+
+type="button">
+
+START GAME
+
+</button>
+
+
+
+<button
+
+id="nextButton"
+
+class="control-button"
+
+type="button">
+
+NEXT PUZZLE
+
+</button>
+
+
+</div>
+
+
+
+<div id="message">
+
+HOST READY
+
+</div>
+
+
+</div>
+
 
 </div>
 
@@ -364,605 +476,953 @@
 
 <script>
 
-/* =====================================================
+
+/* =========================================
    PUZZLES
-===================================================== */
+========================================= */
+
 
 const puzzles = {
 
-    Countries: [
-        "JAMAICA",
-        "CANADA",
-        "BRAZIL",
-        "JAPAN",
-        "MEXICO",
-        "BAHAMAS",
-        "BARBADOS",
-        "FRANCE",
-        "GERMANY",
-        "AUSTRALIA",
-        "UNITED STATES",
-        "UNITED KINGDOM",
-        "SPAIN",
-        "ITALY",
-        "PORTUGAL",
-        "ARGENTINA",
-        "CHILE",
-        "COLOMBIA",
-        "CUBA",
-        "DOMINICAN REPUBLIC",
-        "HAITI",
-        "TRINIDAD AND TOBAGO",
-        "GUYANA",
-        "COSTA RICA",
-        "PANAMA",
-        "BELIZE",
-        "SOUTH AFRICA",
-        "NIGERIA",
-        "GHANA",
-        "KENYA",
-        "EGYPT",
-        "MOROCCO",
-        "INDIA",
-        "CHINA",
-        "SOUTH KOREA",
-        "THAILAND",
-        "PHILIPPINES",
-        "INDONESIA",
-        "NEW ZEALAND",
-        "IRELAND",
-        "GREECE",
-        "TURKEY"
-    ],
+
+Countries: [
+
+"JAMAICA",
+
+"CANADA",
+
+"BRAZIL",
+
+"JAPAN",
+
+"MEXICO",
+
+"BAHAMAS",
+
+"BARBADOS",
+
+"FRANCE",
+
+"GERMANY",
+
+"AUSTRALIA",
+
+"UNITED STATES",
+
+"UNITED KINGDOM",
+
+"SPAIN",
+
+"ITALY",
+
+"PORTUGAL",
+
+"ARGENTINA",
+
+"CHILE",
+
+"COLOMBIA",
+
+"CUBA",
+
+"DOMINICAN REPUBLIC",
+
+"HAITI",
+
+"TRINIDAD AND TOBAGO",
+
+"GUYANA",
+
+"COSTA RICA",
+
+"PANAMA",
+
+"BELIZE",
+
+"SOUTH AFRICA",
+
+"NIGERIA",
+
+"GHANA",
+
+"KENYA",
+
+"EGYPT",
+
+"MOROCCO",
+
+"TANZANIA",
+
+"INDIA",
+
+"CHINA",
+
+"SOUTH KOREA",
+
+"THAILAND",
+
+"PHILIPPINES",
+
+"INDONESIA",
+
+"NEW ZEALAND",
+
+"FIJI",
+
+"IRELAND",
+
+"GREECE",
+
+"TURKEY"
+
+],
 
 
-    Animals: [
-        "ELEPHANT",
-        "GIRAFFE",
-        "MONKEY",
-        "DOLPHIN",
-        "CROCODILE",
-        "KANGAROO",
-        "TIGER",
-        "GORILLA",
-        "PENGUIN",
-        "ZEBRA",
-        "LION",
-        "CHEETAH",
-        "LEOPARD",
-        "POLAR BEAR",
-        "WOLF",
-        "FOX",
-        "RABBIT",
-        "HORSE",
-        "DONKEY",
-        "GOAT",
-        "SHEEP",
-        "COW",
-        "PIG",
-        "CHICKEN",
-        "EAGLE",
-        "PARROT",
-        "OWL",
-        "FLAMINGO",
-        "PEACOCK",
-        "OSTRICH",
-        "SNAKE",
-        "LIZARD",
-        "TURTLE",
-        "FROG",
-        "SHARK",
-        "WHALE",
-        "OCTOPUS",
-        "SEAL",
-        "BUTTERFLY",
-        "SPIDER"
-    ],
+
+Animals: [
+
+"ELEPHANT",
+
+"GIRAFFE",
+
+"MONKEY",
+
+"DOLPHIN",
+
+"CROCODILE",
+
+"KANGAROO",
+
+"TIGER",
+
+"GORILLA",
+
+"PENGUIN",
+
+"ZEBRA",
+
+"LION",
+
+"CHEETAH",
+
+"LEOPARD",
+
+"BEAR",
+
+"POLAR BEAR",
+
+"WOLF",
+
+"FOX",
+
+"DEER",
+
+"RABBIT",
+
+"HORSE",
+
+"DONKEY",
+
+"GOAT",
+
+"SHEEP",
+
+"COW",
+
+"PIG",
+
+"CHICKEN",
+
+"ROOSTER",
+
+"EAGLE",
+
+"PARROT",
+
+"OWL",
+
+"FLAMINGO",
+
+"PEACOCK",
+
+"OSTRICH",
+
+"SNAKE",
+
+"LIZARD",
+
+"TURTLE",
+
+"FROG",
+
+"SHARK",
+
+"WHALE",
+
+"OCTOPUS",
+
+"SEAL",
+
+"WALRUS",
+
+"BUTTERFLY",
+
+"BEE",
+
+"SPIDER",
+
+"ANT",
+
+"CRAB",
+
+"LOBSTER",
+
+"JELLYFISH",
+
+"BAT"
+
+],
 
 
-    "Jamaican Phrases": [
-        "WAH GWAAN",
-        "WEH YUH A SEH",
-        "MI DEH YA",
-        "EVERYTING IRIE",
-        "BIG UP",
-        "WALK GOOD",
-        "NO PROBLEM",
-        "MEK WE GO",
-        "YEAH MON",
-        "MI SOON COME",
-        "WEH DI DEAL",
-        "HOW YUH MEAN",
-        "MI NUH KNOW",
-        "MI NUH CARE",
-        "NO WORRIES",
-        "ONE LOVE",
-        "RESPECT",
-        "BLESS UP",
-        "GIVE THANKS",
-        "NUFF RESPECT",
-        "IRIE VIBES",
-        "COME YA",
-        "TEK TIME",
-        "HOLD A FAITH",
-        "MEK IT GO",
-        "WHA YUH A DO",
-        "HOW TING DEH",
-        "MI GOOD",
-        "YUH GOOD",
-        "SEEN",
-        "FI REAL",
-        "NO LIE",
-        "MI TELL YUH",
-        "WAH FI DO",
-        "MI A COME",
-        "MI A GO",
-        "MEK WE LINK"
-    ],
+
+"Jamaican Phrases": [
+
+"WAH GWAAN",
+
+"WEH YUH A SEH",
+
+"MI DEH YA",
+
+"EVERYTING IRIE",
+
+"BIG UP",
+
+"WALK GOOD",
+
+"NO PROBLEM",
+
+"MEK WE GO",
+
+"YEAH MON",
+
+"MI SOON COME",
+
+"WEH DI DEAL",
+
+"HOW YUH MEAN",
+
+"MI NUH KNOW",
+
+"MI NUH CARE",
+
+"NO WORRIES",
+
+"ONE LOVE",
+
+"RESPECT",
+
+"BLESS UP",
+
+"GIVE THANKS",
+
+"NUFF RESPECT",
+
+"IRIE VIBES",
+
+"COME YA",
+
+"TEK TIME",
+
+"HOLD A FAITH",
+
+"MEK IT GO",
+
+"WHA YUH A DO",
+
+"HOW TING DEH",
+
+"MI GOOD",
+
+"YUH GOOD",
+
+"SEEN",
+
+"FI REAL",
+
+"NO LIE",
+
+"MI TELL YUH",
+
+"WAH FI DO",
+
+"MI A COME",
+
+"MI A GO",
+
+"MEK WE LINK"
+
+],
 
 
-    Food: [
-        "JERK CHICKEN",
-        "RICE AND PEAS",
-        "PIZZA",
-        "HAMBURGER",
-        "ICE CREAM",
-        "FRIED CHICKEN",
-        "CURRY GOAT",
-        "OXTAIL",
-        "BROWN STEW CHICKEN",
-        "ESCOVITCH FISH",
-        "ACKEE AND SALTFISH",
-        "FESTIVAL",
-        "FRIED DUMPLING",
-        "BAMMY",
-        "CALLALOO",
-        "PEPPER POT SOUP",
-        "GOAT SOUP",
-        "CHICKEN SOUP",
-        "RED PEA SOUP",
-        "BEEF PATTY",
-        "COCO BREAD",
-        "CURRY CHICKEN",
-        "STEAMED FISH",
-        "JERK PORK",
-        "JERK SHRIMP",
-        "MAC AND CHEESE",
-        "FRIED FISH",
-        "FRENCH FRIES",
-        "TACOS",
-        "BURRITO",
-        "HOT DOG",
-        "CHEESEBURGER",
-        "PANCAKES",
-        "WAFFLES",
-        "CHOCOLATE CAKE",
-        "CHEESECAKE",
-        "DONUTS",
-        "COOKIES",
-        "POPCORN",
-        "CHICKEN WINGS",
-        "SPAGHETTI",
-        "LASAGNA",
-        "FRIED RICE",
-        "NOODLES",
-        "RAMEN",
-        "SUSHI"
-    ],
+
+Food: [
+
+"JERK CHICKEN",
+
+"RICE AND PEAS",
+
+"PIZZA",
+
+"HAMBURGER",
+
+"ICE CREAM",
+
+"FRIED CHICKEN",
+
+"CURRY GOAT",
+
+"OXTAIL",
+
+"BROWN STEW CHICKEN",
+
+"ESCOVITCH FISH",
+
+"ACKEE AND SALTFISH",
+
+"FESTIVAL",
+
+"FRIED DUMPLING",
+
+"BAMMY",
+
+"CALLALOO",
+
+"PEPPER POT SOUP",
+
+"GOAT SOUP",
+
+"CHICKEN SOUP",
+
+"RED PEA SOUP",
+
+"BEEF PATTY",
+
+"COCO BREAD",
+
+"CURRY CHICKEN",
+
+"STEAMED FISH",
+
+"JERK PORK",
+
+"JERK SHRIMP",
+
+"MAC AND CHEESE",
+
+"FRIED FISH",
+
+"FRENCH FRIES",
+
+"TACOS",
+
+"BURRITO",
+
+"HOT DOG",
+
+"CHEESEBURGER",
+
+"PANCAKES",
+
+"WAFFLES",
+
+"CHOCOLATE CAKE",
+
+"CHEESECAKE",
+
+"DONUTS",
+
+"COOKIES",
+
+"POPCORN",
+
+"CHICKEN WINGS",
+
+"SPAGHETTI",
+
+"LASAGNA",
+
+"FRIED RICE",
+
+"NOODLES",
+
+"RAMEN",
+
+"SUSHI"
+
+],
 
 
-    "Things You Do": [
-        "WATCH TV",
-        "PLAY VIDEO GAMES",
-        "GO SHOPPING",
-        "GO TO THE BEACH",
-        "WATCH A MOVIE",
-        "LISTEN TO MUSIC",
-        "GO TO SCHOOL",
-        "GO TO WORK",
-        "TAKE A NAP",
-        "GO TO SLEEP",
-        "BRUSH YOUR TEETH",
-        "TAKE A SHOWER",
-        "COOK DINNER",
-        "ORDER FOOD",
-        "GO TO THE GYM",
-        "PLAY BASKETBALL",
-        "PLAY FOOTBALL",
-        "PLAY SOCCER",
-        "GO SWIMMING",
-        "GO FOR A WALK",
-        "DRIVE A CAR",
-        "TAKE A FLIGHT",
-        "GO ON VACATION",
-        "CLEAN THE HOUSE",
-        "WASH THE DISHES",
-        "MAKE BREAKFAST",
-        "DRINK COFFEE",
-        "DRINK WATER",
-        "READ A BOOK",
-        "USE YOUR PHONE",
-        "TAKE A SELFIE",
-        "GO TO A PARTY",
-        "HANG OUT WITH FRIENDS",
-        "CALL YOUR FAMILY",
-        "GO TO THE STORE",
-        "GO TO THE MOVIES",
-        "GO TO A CONCERT"
-    ],
+
+"Things You Do": [
+
+"WATCH TV",
+
+"PLAY VIDEO GAMES",
+
+"GO SHOPPING",
+
+"GO TO THE BEACH",
+
+"WATCH A MOVIE",
+
+"LISTEN TO MUSIC",
+
+"GO TO SCHOOL",
+
+"GO TO WORK",
+
+"TAKE A NAP",
+
+"GO TO SLEEP",
+
+"BRUSH YOUR TEETH",
+
+"TAKE A SHOWER",
+
+"COOK DINNER",
+
+"ORDER FOOD",
+
+"GO TO THE GYM",
+
+"PLAY BASKETBALL",
+
+"PLAY FOOTBALL",
+
+"PLAY SOCCER",
+
+"GO SWIMMING",
+
+"GO FOR A WALK",
+
+"DRIVE A CAR",
+
+"TAKE A FLIGHT",
+
+"GO ON VACATION",
+
+"CLEAN THE HOUSE",
+
+"DO LAUNDRY",
+
+"WASH THE DISHES",
+
+"TAKE OUT THE TRASH",
+
+"MAKE BREAKFAST",
+
+"DRINK COFFEE",
+
+"DRINK WATER",
+
+"READ A BOOK",
+
+"USE YOUR PHONE",
+
+"TAKE A SELFIE",
+
+"GO TO A PARTY",
+
+"HANG OUT WITH FRIENDS",
+
+"CALL YOUR FAMILY",
+
+"GO TO THE STORE",
+
+"GO TO THE MOVIES",
+
+"GO TO A CONCERT"
+
+],
 
 
-    Music: [
-        "REGGAE MUSIC",
-        "DANCEHALL MUSIC",
-        "HIP HOP",
-        "RHYTHM AND BLUES",
-        "COUNTRY MUSIC",
-        "ROCK AND ROLL",
-        "POP MUSIC",
-        "GOSPEL MUSIC",
-        "JAZZ MUSIC",
-        "CLASSICAL MUSIC",
-        "REGGAETON",
-        "AFROBEATS",
-        "SOCA MUSIC",
-        "CALYPSO MUSIC",
-        "LIVE CONCERT",
-        "MUSIC VIDEO",
-        "DJ PARTY",
-        "SOUND SYSTEM",
-        "MUSIC FESTIVAL",
-        "DANCE FLOOR"
-    ],
+
+Music: [
+
+"REGGAE MUSIC",
+
+"DANCEHALL MUSIC",
+
+"HIP HOP",
+
+"RHYTHM AND BLUES",
+
+"COUNTRY MUSIC",
+
+"ROCK AND ROLL",
+
+"POP MUSIC",
+
+"GOSPEL MUSIC",
+
+"JAZZ MUSIC",
+
+"CLASSICAL MUSIC",
+
+"REGGAETON",
+
+"AFROBEATS",
+
+"SOCA MUSIC",
+
+"CALYPSO MUSIC",
+
+"LIVE CONCERT",
+
+"MUSIC VIDEO",
+
+"DJ PARTY",
+
+"SOUND SYSTEM",
+
+"MUSIC FESTIVAL",
+
+"DANCE FLOOR"
+
+],
 
 
-    Sports: [
-        "BASKETBALL",
-        "FOOTBALL",
-        "SOCCER",
-        "BASEBALL",
-        "CRICKET",
-        "TENNIS",
-        "GOLF",
-        "VOLLEYBALL",
-        "BOXING",
-        "WRESTLING",
-        "SWIMMING",
-        "TRACK AND FIELD",
-        "TABLE TENNIS",
-        "BADMINTON",
-        "HOCKEY",
-        "SKATEBOARDING",
-        "SURFING",
-        "CYCLING",
-        "BOWLING",
-        "GYMNASTICS",
-        "MARATHON",
-        "FORMULA ONE",
-        "CAR RACING",
-        "HORSE RACING",
-        "DARTS",
-        "KICKBOXING",
-        "MMA",
-        "STREET BASKETBALL"
-    ]
+
+Sports: [
+
+"BASKETBALL",
+
+"FOOTBALL",
+
+"SOCCER",
+
+"BASEBALL",
+
+"CRICKET",
+
+"TENNIS",
+
+"GOLF",
+
+"VOLLEYBALL",
+
+"BOXING",
+
+"WRESTLING",
+
+"SWIMMING",
+
+"TRACK AND FIELD",
+
+"TABLE TENNIS",
+
+"BADMINTON",
+
+"HOCKEY",
+
+"SKATEBOARDING",
+
+"SURFING",
+
+"CYCLING",
+
+"BOWLING",
+
+"GYMNASTICS",
+
+"MARATHON",
+
+"FORMULA ONE",
+
+"CAR RACING",
+
+"HORSE RACING",
+
+"DARTS",
+
+"KICKBOXING",
+
+"MMA",
+
+"STREET BASKETBALL"
+
+]
 
 };
 
 
-/* =====================================================
-   GAME VARIABLES
-===================================================== */
+
+/* =========================================
+   GAME SETTINGS
+========================================= */
+
 
 let revealTime = 30;
 
 let seconds = 30;
 
-let timer = null;
-
-let currentAnswer = "";
-
-let currentCategory = "";
+let gameTimer = null;
 
 let gameRunning = false;
 
 
-/* =====================================================
-   GET ELEMENTS
-===================================================== */
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
 
 const categoryElement =
-    document.getElementById("category");
+document.getElementById("category");
+
 
 const answerElement =
-    document.getElementById("answer");
+document.getElementById("answer");
+
 
 const timerElement =
-    document.getElementById("timer");
+document.getElementById("timer");
+
 
 const messageElement =
-    document.getElementById("message");
+document.getElementById("message");
+
 
 const startButton =
-    document.getElementById("startButton");
+document.getElementById("startButton");
+
 
 const nextButton =
-    document.getElementById("nextButton");
+document.getElementById("nextButton");
 
 
-/* =====================================================
+const time15 =
+document.getElementById("time15");
+
+
+const time30 =
+document.getElementById("time30");
+
+
+const time60 =
+document.getElementById("time60");
+
+
+
+/* =========================================
+   GET RANDOM PUZZLE
+========================================= */
+
+
+function getPuzzle() {
+
+
+const categories =
+Object.keys(puzzles);
+
+
+const randomCategory =
+categories[
+Math.floor(
+Math.random() *
+categories.length
+)
+];
+
+
+const words =
+puzzles[randomCategory];
+
+
+const randomWord =
+words[
+Math.floor(
+Math.random() *
+words.length
+)
+];
+
+
+return {
+
+category: randomCategory,
+
+answer: randomWord
+
+};
+
+}
+
+
+
+/* =========================================
    START GAME
-===================================================== */
+========================================= */
+
 
 function startGame() {
 
-    console.log("START GAME CLICKED");
 
-    clearInterval(timer);
-
-    gameRunning = true;
+clearInterval(gameTimer);
 
 
-    const categories =
-        Object.keys(puzzles);
+const puzzle =
+getPuzzle();
 
 
-    currentCategory =
-        categories[
-            Math.floor(
-                Math.random() * categories.length
-            )
-        ];
+categoryElement.textContent =
+puzzle.category;
 
 
-    const words =
-        puzzles[currentCategory];
+answerElement.textContent =
+puzzle.answer;
 
 
-    currentAnswer =
-        words[
-            Math.floor(
-                Math.random() * words.length
-            )
-        ];
+seconds =
+revealTime;
 
 
-    seconds = revealTime;
+timerElement.textContent =
+seconds;
 
 
-    categoryElement.textContent =
-        currentCategory;
+messageElement.textContent =
+"GAME IS LIVE";
 
 
-    answerElement.textContent =
-        currentAnswer;
+gameRunning = true;
 
 
-    timerElement.textContent =
-        seconds;
+gameTimer =
+setInterval(
+
+function() {
 
 
-    messageElement.textContent =
-        "GAME IS RUNNING";
+seconds--;
 
 
-    timer = setInterval(
-        countdown,
-        1000
-    );
+timerElement.textContent =
+seconds;
+
+
+if (seconds <= 0) {
+
+
+clearInterval(gameTimer);
+
+
+messageElement.textContent =
+"NEXT LETTER REVEAL";
+
+
+seconds =
+revealTime;
+
+
+timerElement.textContent =
+seconds;
+
+
+gameTimer =
+setInterval(
+
+function() {
+
+
+seconds--;
+
+
+timerElement.textContent =
+seconds;
+
+
+if (seconds <= 0) {
+
+seconds =
+revealTime;
+
+timerElement.textContent =
+seconds;
+
+}
+
+},
+
+1000
+
+);
+
+
+}
+
+},
+
+1000
+
+);
 
 }
 
 
-/* =====================================================
-   COUNTDOWN
-===================================================== */
 
-function countdown() {
-
-    seconds--;
-
-    timerElement.textContent =
-        seconds;
-
-
-    if (seconds <= 0) {
-
-        clearInterval(timer);
-
-        messageElement.textContent =
-            "NEXT LETTER REVEALING";
-
-        setTimeout(
-            startNextCountdown,
-            1000
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   NEXT COUNTDOWN
-===================================================== */
-
-function startNextCountdown() {
-
-    seconds = revealTime;
-
-    timerElement.textContent =
-        seconds;
-
-    messageElement.textContent =
-        "GAME IS RUNNING";
-
-    timer = setInterval(
-        countdown,
-        1000
-    );
-
-}
-
-
-/* =====================================================
+/* =========================================
    NEXT PUZZLE
-===================================================== */
-
-function nextGame() {
-
-    console.log("NEXT PUZZLE CLICKED");
-
-    startGame();
-
-}
+========================================= */
 
 
-/* =====================================================
-   TIME BUTTONS
-===================================================== */
+function nextPuzzle() {
 
-function selectTime(time) {
-
-    console.log(
-        "TIME SELECTED:",
-        time
-    );
-
-
-    revealTime = time;
-
-    seconds = time;
-
-    timerElement.textContent =
-        time;
-
-
-    document
-        .querySelectorAll(".time-button")
-        .forEach(function(button) {
-
-            button.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-    if (time === 15) {
-
-        document
-            .getElementById("time15")
-            .classList.add("selected");
-
-    }
-
-
-    if (time === 30) {
-
-        document
-            .getElementById("time30")
-            .classList.add("selected");
-
-    }
-
-
-    if (time === 60) {
-
-        document
-            .getElementById("time60")
-            .classList.add("selected");
-
-    }
-
-
-    messageElement.textContent =
-        "REVEAL TIME: " +
-        time +
-        " SECONDS";
+startGame();
 
 }
 
 
-/* =====================================================
-   CONNECT BUTTONS
-===================================================== */
 
-startButton.addEventListener(
-    "click",
-    startGame
-);
+/* =========================================
+   CHANGE TIME
+========================================= */
 
 
-nextButton.addEventListener(
-    "click",
-    nextGame
-);
+function changeTime(time) {
 
 
-document
-    .getElementById("time15")
-    .addEventListener(
-        "click",
-        function() {
-
-            selectTime(15);
-
-        }
-    );
+revealTime =
+time;
 
 
-document
-    .getElementById("time30")
-    .addEventListener(
-        "click",
-        function() {
-
-            selectTime(30);
-
-        }
-    );
+seconds =
+time;
 
 
-document
-    .getElementById("time60")
-    .addEventListener(
-        "click",
-        function() {
-
-            selectTime(60);
-
-        }
-    );
+timerElement.textContent =
+time;
 
 
-/* =====================================================
+time15.classList.remove("selected");
+
+time30.classList.remove("selected");
+
+time60.classList.remove("selected");
+
+
+if (time === 15) {
+
+time15.classList.add("selected");
+
+}
+
+
+if (time === 30) {
+
+time30.classList.add("selected");
+
+}
+
+
+if (time === 60) {
+
+time60.classList.add("selected");
+
+}
+
+
+messageElement.textContent =
+"REVEAL TIME: " +
+time +
+" SECONDS";
+
+}
+
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+
+startButton.onclick =
+function() {
+
+startGame();
+
+};
+
+
+nextButton.onclick =
+function() {
+
+nextPuzzle();
+
+};
+
+
+time15.onclick =
+function() {
+
+changeTime(15);
+
+};
+
+
+time30.onclick =
+function() {
+
+changeTime(30);
+
+};
+
+
+time60.onclick =
+function() {
+
+changeTime(60);
+
+};
+
+
+
+/* =========================================
    ENTER KEY
-===================================================== */
+========================================= */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
 
-        if (
-            event.key === "Enter" &&
-            !gameRunning
-        ) {
+document.onkeydown =
+function(event) {
 
-            startGame();
 
-        }
+if (
+event.key === "Enter"
+) {
 
-    }
-);
+startGame();
+
+}
+
+};
+
+
+
+/* =========================================
+   READY
+========================================= */
 
 
 console.log(
-    "HOST JAVASCRIPT LOADED SUCCESSFULLY"
+"DIONLYONEE HOST READY"
 );
+
 
 </script>
 
+
 </body>
+
 </html>
 ```
+
