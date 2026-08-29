@@ -1,17 +1,20 @@
 ```javascript
-/* =====================================================
+/* ==================================================
    DIONLYONEE PLAYGROUND
    WHEEL OF FORTUNE
-===================================================== */
+
+   AUTOMATIC STREAM GAME
+================================================== */
 
 
-/* =====================================================
-   GAME DATA
-===================================================== */
+/* ==================================================
+   PUZZLES
+================================================== */
 
 const puzzles = {
 
     "ANIMALS": [
+
         "ELEPHANT",
         "GIRAFFE",
         "LION",
@@ -21,10 +24,15 @@ const puzzles = {
         "CROCODILE",
         "KANGAROO",
         "CHEETAH",
-        "GORILLA"
+        "GORILLA",
+        "ZEBRA",
+        "HIPPOPOTAMUS"
+
     ],
 
+
     "COUNTRIES": [
+
         "JAMAICA",
         "CANADA",
         "BRAZIL",
@@ -34,10 +42,15 @@ const puzzles = {
         "BARBADOS",
         "AUSTRALIA",
         "GERMANY",
-        "FRANCE"
+        "FRANCE",
+        "ITALY",
+        "SOUTH AFRICA"
+
     ],
 
+
     "JAMAICAN PHRASES": [
+
         "WAH GWAAN",
         "WEH YUH A SEH",
         "MI DEH YA",
@@ -47,10 +60,15 @@ const puzzles = {
         "YEAH MON",
         "WALK GOOD",
         "MI SOON COME",
-        "IRIE VIBES"
+        "NUH WORRY YUHSELF",
+        "IRIE VIBES",
+        "WE A RUN TINGS"
+
     ],
 
+
     "FOOD": [
+
         "JERK CHICKEN",
         "RICE AND PEAS",
         "FRIED CHICKEN",
@@ -58,10 +76,15 @@ const puzzles = {
         "HAMBURGER",
         "ICE CREAM",
         "FRENCH FRIES",
-        "PANCAKES"
+        "PANCAKES",
+        "CHOCOLATE CAKE",
+        "CHEESEBURGER"
+
     ],
 
+
     "MOVIES": [
+
         "THE LION KING",
         "BLACK PANTHER",
         "HOME ALONE",
@@ -69,402 +92,369 @@ const puzzles = {
         "THE MATRIX",
         "AVATAR",
         "JURASSIC PARK",
-        "BAD BOYS"
+        "BAD BOYS",
+        "MEN IN BLACK",
+        "COMING TO AMERICA"
+
     ],
 
+
     "MUSIC": [
+
         "ONE LOVE",
         "THRILLER",
         "PURPLE RAIN",
         "BILLIE JEAN",
         "ISLAND IN THE SUN",
-        "THREE LITTLE BIRDS"
+        "THREE LITTLE BIRDS",
+        "RED RED WINE",
+        "COULD YOU BE LOVED"
+
+    ],
+
+
+    "SPORTS": [
+
+        "BASKETBALL",
+        "FOOTBALL",
+        "CRICKET",
+        "BASEBALL",
+        "TENNIS",
+        "BOXING",
+        "GOLF",
+        "SWIMMING",
+        "VOLLEYBALL"
+
+    ],
+
+
+    "PLACES": [
+
+        "NEW YORK CITY",
+        "KINGSTON",
+        "MONTEGO BAY",
+        "MIAMI",
+        "LOS ANGELES",
+        "LONDON",
+        "PARIS",
+        "TOKYO",
+        "LAS VEGAS",
+        "ORLANDO"
+
     ]
 
 };
 
 
-/* =====================================================
+/* ==================================================
    SETTINGS
-===================================================== */
+================================================== */
 
 let revealTime = 30;
+
 let cooldownTime = 10;
 
 
-/* =====================================================
+/* ==================================================
    GAME STATE
-===================================================== */
+================================================== */
 
-let answer = "";
-let category = "";
-let revealed = [];
+let currentAnswer = "";
+
+let currentCategory = "";
+
+let revealedLetters = [];
 
 let seconds = 30;
 
-let playing = false;
+let gameRunning = false;
 
-let timer = null;
+let gameTimer = null;
+
 let cooldownTimer = null;
 
 
-/* =====================================================
+/* ==================================================
    HTML ELEMENTS
-===================================================== */
-
-const startButton =
-    document.getElementById("startGameButton");
-
-const topButton =
-    document.getElementById("topStartButton");
-
-const categoryBox =
-    document.getElementById("categoryDisplay");
-
-const puzzleBox =
-    document.getElementById("puzzleDisplay");
-
-const timerBox =
-    document.getElementById("timerDisplay");
-
-const messageBox =
-    document.getElementById("gameMessage");
-
-const settings =
-    document.getElementById("settingsPanel");
-
-const cooldownBox =
-    document.getElementById("cooldownDisplay");
-
-const cooldownTimerBox =
-    document.getElementById("cooldownTimer");
-
-
-/* =====================================================
-   TIME BUTTONS
-===================================================== */
-
-const timeButtons =
-    document.querySelectorAll(".time-button");
-
-
-timeButtons.forEach(function(button) {
-
-    button.addEventListener("click", function(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        console.log(
-            "TIME BUTTON CLICKED:",
-            button.dataset.time
-        );
-
-
-        /* Don't change settings during a game */
-
-        if (playing) {
-            return;
-        }
-
-
-        /* Remove active from all */
-
-        timeButtons.forEach(function(item) {
-
-            item.classList.remove("active");
-
-        });
-
-
-        /* Make this one active */
-
-        button.classList.add("active");
-
-
-        /* Save time */
-
-        revealTime =
-            Number(button.dataset.time);
-
-
-        /* Update timer */
-
-        seconds =
-            revealTime;
-
-
-        timerBox.textContent =
-            revealTime;
-
-
-        messageBox.textContent =
-            `LETTERS REVEAL EVERY ${revealTime} SECONDS`;
-
-
-        console.log(
-            "Reveal time set to:",
-            revealTime
-        );
-
-    });
-
-});
-
-
-/* =====================================================
-   COOLDOWN BUTTONS
-===================================================== */
-
-const cooldownButtons =
-    document.querySelectorAll(".cooldown-button");
-
-
-cooldownButtons.forEach(function(button) {
-
-    button.addEventListener("click", function(event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        console.log(
-            "COOLDOWN BUTTON CLICKED:",
-            button.dataset.cooldown
-        );
-
-
-        /* Don't change during game */
-
-        if (playing) {
-            return;
-        }
-
-
-        /* Remove active */
-
-        cooldownButtons.forEach(function(item) {
-
-            item.classList.remove("active");
-
-        });
-
-
-        /* Activate selected */
-
-        button.classList.add("active");
-
-
-        /* Save cooldown */
-
-        cooldownTime =
-            Number(button.dataset.cooldown);
-
-
-        messageBox.textContent =
-            `NEXT ROUND COOLDOWN: ${cooldownTime} SECONDS`;
-
-
-        console.log(
-            "Cooldown set to:",
-            cooldownTime
-        );
-
-    });
-
-});
-
-
-/* =====================================================
-   RANDOM CATEGORY
-===================================================== */
-
-function getRandomCategory() {
+================================================== */
+
+const startGameButton =
+    document.getElementById(
+        "startGame"
+    );
+
+const startTopButton =
+    document.getElementById(
+        "startTop"
+    );
+
+const categoryElement =
+    document.getElementById(
+        "category"
+    );
+
+const puzzleElement =
+    document.getElementById(
+        "puzzle"
+    );
+
+const timerElement =
+    document.getElementById(
+        "timer"
+    );
+
+const messageElement =
+    document.getElementById(
+        "message"
+    );
+
+const controlsElement =
+    document.getElementById(
+        "controls"
+    );
+
+const cooldownElement =
+    document.getElementById(
+        "cooldown"
+    );
+
+const cooldownNumberElement =
+    document.getElementById(
+        "cooldownNumber"
+    );
+
+
+/* ==================================================
+   GET RANDOM CATEGORY
+================================================== */
+
+function randomCategory() {
 
     const categories =
-        Object.keys(puzzles);
+        Object.keys(
+            puzzles
+        );
 
-    return categories[
+
+    const randomIndex =
         Math.floor(
             Math.random() *
             categories.length
-        )
+        );
+
+
+    return categories[
+        randomIndex
     ];
 
 }
 
 
-/* =====================================================
-   RANDOM ANSWER
-===================================================== */
+/* ==================================================
+   GET RANDOM ANSWER
+================================================== */
 
-function getRandomAnswer(categoryName) {
+function randomAnswer(category) {
 
     const list =
-        puzzles[categoryName];
+        puzzles[
+            category
+        ];
 
-    return list[
+
+    const randomIndex =
         Math.floor(
             Math.random() *
             list.length
-        )
+        );
+
+
+    return list[
+        randomIndex
     ];
 
 }
 
 
-/* =====================================================
+/* ==================================================
    START GAME
-===================================================== */
+================================================== */
 
 function startGame() {
 
-    console.log("================================");
-    console.log("STARTING GAME");
-    console.log("Reveal time:", revealTime);
-    console.log("Cooldown:", cooldownTime);
-    console.log("================================");
+    console.log(
+        "Starting game..."
+    );
 
 
-    clearInterval(timer);
-    clearInterval(cooldownTimer);
+    /* Stop existing timers */
+
+    clearInterval(
+        gameTimer
+    );
+
+    clearInterval(
+        cooldownTimer
+    );
+
+
+    /* Hide cooldown */
+
+    cooldownElement.classList.add(
+        "hidden"
+    );
 
 
     /* Pick category */
 
-    category =
-        getRandomCategory();
+    currentCategory =
+        randomCategory();
 
 
     /* Pick answer */
 
-    answer =
-        getRandomAnswer(category);
+    currentAnswer =
+        randomAnswer(
+            currentCategory
+        );
 
 
-    /* Reset */
+    /* Reset letters */
 
-    revealed = [];
-
-    seconds = revealTime;
-
-    playing = true;
+    revealedLetters = [];
 
 
-    /* Category */
+    /* Reset timer */
 
-    categoryBox.textContent =
-        category;
+    seconds =
+        revealTime;
 
 
-    /* Timer */
+    /* Game active */
 
-    timerBox.textContent =
+    gameRunning = true;
+
+
+    /* Update category */
+
+    categoryElement.textContent =
+        currentCategory;
+
+
+    /* Update timer */
+
+    timerElement.textContent =
         seconds;
 
 
-    /* Message */
+    timerElement.classList.remove(
+        "warning"
+    );
 
-    messageBox.textContent =
+
+    /* Update message */
+
+    messageElement.textContent =
         "GUESS THE ANSWER IN CHAT!";
 
 
-    /* Hide settings */
+    /* Hide controls */
 
-    settings.style.display =
+    controlsElement.style.display =
         "none";
 
 
-    /* Draw */
+    /* Draw puzzle */
 
     drawPuzzle();
 
 
-    /* Start */
+    /* Start countdown */
 
     startTimer();
 
 }
 
 
-/* =====================================================
+/* ==================================================
    DRAW PUZZLE
-===================================================== */
+================================================== */
 
 function drawPuzzle() {
 
-    puzzleBox.innerHTML = "";
+    puzzleElement.innerHTML =
+        "";
 
 
     for (
         let i = 0;
-        i < answer.length;
+        i < currentAnswer.length;
         i++
     ) {
 
         const character =
-            answer[i];
+            currentAnswer[i];
 
 
         /* WORD SPACE */
 
-        if (character === " ") {
+        if (
+            character === " "
+        ) {
 
             const space =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             space.className =
                 "word-space";
 
-            puzzleBox.appendChild(
+
+            puzzleElement.appendChild(
                 space
             );
+
 
             continue;
 
         }
 
 
-        /* LETTER BOX */
+        /* LETTER */
 
-        const box =
-            document.createElement("div");
+        const letter =
+            document.createElement(
+                "div"
+            );
 
-        box.className =
-            "letter-box";
+
+        letter.className =
+            "letter";
 
 
-        /* Revealed */
+        /* Is revealed? */
 
         if (
-            revealed.includes(character)
+            revealedLetters.includes(
+                character
+            )
         ) {
 
-            box.classList.add(
+            letter.textContent =
+                character;
+
+
+            letter.classList.add(
                 "revealed"
             );
 
-            box.textContent =
-                character;
-
         }
 
 
-        /* Hidden */
-
-        else {
-
-            box.classList.add(
-                "hidden"
-            );
-
-            box.textContent =
-                "";
-
-        }
-
-
-        puzzleBox.appendChild(
-            box
+        puzzleElement.appendChild(
+            letter
         );
 
     }
@@ -472,79 +462,98 @@ function drawPuzzle() {
 }
 
 
-/* =====================================================
-   TIMER
-===================================================== */
+/* ==================================================
+   START TIMER
+================================================== */
 
 function startTimer() {
 
-    clearInterval(timer);
+    clearInterval(
+        gameTimer
+    );
 
 
-    timer =
-        setInterval(function() {
+    gameTimer =
+        setInterval(
+            function() {
 
-            seconds--;
-
-
-            timerBox.textContent =
-                seconds;
+                seconds--;
 
 
-            if (seconds <= 5) {
-
-                timerBox.classList.add(
-                    "warning"
-                );
-
-            }
+                timerElement.textContent =
+                    seconds;
 
 
-            if (seconds <= 0) {
+                /* Warning */
 
-                timerBox.classList.remove(
-                    "warning"
-                );
+                if (
+                    seconds <= 5
+                ) {
 
-                revealLetter();
+                    timerElement.classList.add(
+                        "warning"
+                    );
 
-            }
+                }
 
-        }, 1000);
+
+                /* Reveal */
+
+                if (
+                    seconds <= 0
+                ) {
+
+                    revealLetter();
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
-/* =====================================================
+/* ==================================================
    REVEAL LETTER
-===================================================== */
+================================================== */
 
 function revealLetter() {
 
-    clearInterval(timer);
+    clearInterval(
+        gameTimer
+    );
 
+
+    /* Find hidden letters */
 
     const hiddenLetters =
         [
             ...new Set(
 
-                answer
+                currentAnswer
                     .split("")
-                    .filter(function(letter) {
+                    .filter(
+                        function(letter) {
 
-                        return (
-                            /[A-Z0-9]/.test(letter)
-                            &&
-                            !revealed.includes(letter)
-                        );
+                            return (
+                                /[A-Z0-9]/.test(
+                                    letter
+                                )
+                                &&
+                                !revealedLetters.includes(
+                                    letter
+                                )
+                            );
 
-                    })
+                        }
+                    )
 
             )
         ];
 
 
-    /* No letters left */
+    /* No letters remaining */
 
     if (
         hiddenLetters.length === 0
@@ -557,7 +566,7 @@ function revealLetter() {
     }
 
 
-    /* Random letter */
+    /* Pick random letter */
 
     const randomIndex =
         Math.floor(
@@ -567,30 +576,34 @@ function revealLetter() {
 
 
     const letter =
-        hiddenLetters[randomIndex];
+        hiddenLetters[
+            randomIndex
+        ];
 
 
-    /* Save */
+    /* Reveal */
 
-    revealed.push(letter);
-
-
-    console.log(
-        "Revealed:",
+    revealedLetters.push(
         letter
     );
 
 
-    /* Update */
+    console.log(
+        "Letter revealed:",
+        letter
+    );
+
+
+    /* Redraw */
 
     drawPuzzle();
 
 
-    messageBox.textContent =
+    messageElement.textContent =
         "A LETTER HAS BEEN REVEALED!";
 
 
-    /* Check */
+    /* Check if complete */
 
     if (
         puzzleComplete()
@@ -609,18 +622,25 @@ function revealLetter() {
         revealTime;
 
 
-    timerBox.textContent =
+    timerElement.textContent =
         seconds;
 
+
+    timerElement.classList.remove(
+        "warning"
+    );
+
+
+    /* Continue */
 
     startTimer();
 
 }
 
 
-/* =====================================================
-   CHECK COMPLETE
-===================================================== */
+/* ==================================================
+   CHECK PUZZLE
+================================================== */
 
 function puzzleComplete() {
 
@@ -628,56 +648,66 @@ function puzzleComplete() {
         [
             ...new Set(
 
-                answer
+                currentAnswer
                     .split("")
-                    .filter(function(character) {
+                    .filter(
+                        function(character) {
 
-                        return /[A-Z0-9]/.test(
-                            character
-                        );
+                            return /[A-Z0-9]/.test(
+                                character
+                            );
 
-                    })
+                        }
+                    )
 
             )
         ];
 
 
-    return letters.every(function(letter) {
+    return letters.every(
+        function(letter) {
 
-        return revealed.includes(letter);
+            return revealedLetters.includes(
+                letter
+            );
 
-    });
+        }
+    );
 
 }
 
 
-/* =====================================================
+/* ==================================================
    FINISH GAME
-===================================================== */
+================================================== */
 
 function finishGame() {
 
-    clearInterval(timer);
+    clearInterval(
+        gameTimer
+    );
 
 
-    playing = false;
+    gameRunning = false;
 
 
-    /* Reveal all */
+    /* Reveal entire answer */
 
-    revealed =
+    revealedLetters =
         [
             ...new Set(
 
-                answer
+                currentAnswer
                     .split("")
-                    .filter(function(character) {
+                    .filter(
+                        function(character) {
 
-                        return /[A-Z0-9]/.test(
-                            character
-                        );
+                            return /[A-Z0-9]/.test(
+                                character
+                            );
 
-                    })
+                        }
+                    )
 
             )
         ];
@@ -686,22 +716,29 @@ function finishGame() {
     drawPuzzle();
 
 
-    timerBox.textContent =
+    timerElement.classList.remove(
+        "warning"
+    );
+
+
+    timerElement.textContent =
         "✓";
 
 
-    messageBox.textContent =
+    messageElement.textContent =
         "ANSWER REVEALED!";
 
+
+    /* Start cooldown */
 
     startCooldown();
 
 }
 
 
-/* =====================================================
+/* ==================================================
    COOLDOWN
-===================================================== */
+================================================== */
 
 function startCooldown() {
 
@@ -709,12 +746,12 @@ function startCooldown() {
         cooldownTime;
 
 
-    cooldownBox.classList.remove(
+    cooldownElement.classList.remove(
         "hidden"
     );
 
 
-    cooldownTimerBox.textContent =
+    cooldownNumberElement.textContent =
         remaining;
 
 
@@ -724,87 +761,210 @@ function startCooldown() {
 
 
     cooldownTimer =
-        setInterval(function() {
+        setInterval(
+            function() {
 
-            remaining--;
-
-
-            cooldownTimerBox.textContent =
-                remaining;
+                remaining--;
 
 
-            if (remaining <= 0) {
-
-                clearInterval(
-                    cooldownTimer
-                );
+                cooldownNumberElement.textContent =
+                    remaining;
 
 
-                cooldownBox.classList.add(
-                    "hidden"
-                );
+                if (
+                    remaining <= 0
+                ) {
+
+                    clearInterval(
+                        cooldownTimer
+                    );
 
 
-                startGame();
+                    cooldownElement.classList.add(
+                        "hidden"
+                    );
 
-            }
 
-        }, 1000);
+                    startGame();
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
-/* =====================================================
-   START BUTTON
-===================================================== */
+/* ==================================================
+   TIME BUTTONS
+================================================== */
 
-startButton.addEventListener(
-    "click",
-    function(event) {
+const timeButtons =
+    document.querySelectorAll(
+        ".time-option"
+    );
 
-        event.preventDefault();
 
-        console.log(
-            "MAIN START BUTTON CLICKED"
+timeButtons.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    gameRunning
+                ) {
+
+                    return;
+
+                }
+
+
+                /* Remove selection */
+
+                timeButtons.forEach(
+                    function(item) {
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                /* Select button */
+
+                button.classList.add(
+                    "selected"
+                );
+
+
+                /* Save time */
+
+                revealTime =
+                    Number(
+                        button.dataset.time
+                    );
+
+
+                /* Update timer */
+
+                seconds =
+                    revealTime;
+
+
+                timerElement.textContent =
+                    revealTime;
+
+
+                messageElement.textContent =
+                    `LETTERS REVEAL EVERY ${revealTime} SECONDS`;
+
+            }
         );
-
-        if (!playing) {
-
-            startGame();
-
-        }
 
     }
 );
 
 
-/* =====================================================
+/* ==================================================
+   COOLDOWN BUTTONS
+================================================== */
+
+const cooldownButtons =
+    document.querySelectorAll(
+        ".cooldown-option"
+    );
+
+
+cooldownButtons.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    gameRunning
+                ) {
+
+                    return;
+
+                }
+
+
+                /* Remove selection */
+
+                cooldownButtons.forEach(
+                    function(item) {
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                /* Select */
+
+                button.classList.add(
+                    "selected"
+                );
+
+
+                /* Save */
+
+                cooldownTime =
+                    Number(
+                        button.dataset.cooldown
+                    );
+
+
+                messageElement.textContent =
+                    `NEXT PUZZLE IN ${cooldownTime} SECONDS AFTER EACH ROUND`;
+
+            }
+        );
+
+    }
+);
+
+
+/* ==================================================
+   START GAME BUTTON
+================================================== */
+
+startGameButton.addEventListener(
+    "click",
+    function() {
+
+        startGame();
+
+    }
+);
+
+
+/* ==================================================
    TOP START BUTTON
-===================================================== */
+================================================== */
 
-topButton.addEventListener(
+startTopButton.addEventListener(
     "click",
-    function(event) {
+    function() {
 
-        event.preventDefault();
-
-        console.log(
-            "TOP START BUTTON CLICKED"
-        );
-
-        if (!playing) {
-
-            startGame();
-
-        }
+        startGame();
 
     }
 );
 
 
-/* =====================================================
+/* ==================================================
    ENTER KEY
-===================================================== */
+================================================== */
 
 document.addEventListener(
     "keydown",
@@ -817,12 +977,9 @@ document.addEventListener(
             event.preventDefault();
 
 
-            console.log(
-                "ENTER KEY PRESSED"
-            );
-
-
-            if (!playing) {
+            if (
+                !gameRunning
+            ) {
 
                 startGame();
 
@@ -834,33 +991,37 @@ document.addEventListener(
 );
 
 
-/* =====================================================
-   INITIAL STATE
-===================================================== */
+/* ==================================================
+   INITIAL SCREEN
+================================================== */
 
-categoryBox.textContent =
-    "GET READY!";
-
-
-timerBox.textContent =
+timerElement.textContent =
     revealTime;
 
 
-messageBox.textContent =
-    "CHOOSE YOUR SETTINGS AND PRESS ENTER";
+messageElement.textContent =
+    "CHOOSE YOUR TIME AND PRESS ENTER";
 
+
+console.log(
+    "================================="
+);
 
 console.log(
     "DIONLYONEE PLAYGROUND READY"
 );
 
 console.log(
-    "Time buttons found:",
-    timeButtons.length
+    "Reveal time:",
+    revealTime
 );
 
 console.log(
-    "Cooldown buttons found:",
-    cooldownButtons.length
+    "Cooldown:",
+    cooldownTime
+);
+
+console.log(
+    "================================="
 );
 ```
