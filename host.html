@@ -27,8 +27,6 @@
 <div class="game">
 
 
-    <!-- HEADER -->
-
     <header>
 
         <div class="logo">
@@ -54,8 +52,6 @@
     <main>
 
 
-        <!-- CATEGORY -->
-
         <div class="category-label">
             CURRENT CATEGORY
         </div>
@@ -69,8 +65,6 @@
         </div>
 
 
-
-        <!-- ANSWER -->
 
         <div class="category-label">
             ANSWER
@@ -86,8 +80,6 @@
 
 
 
-        <!-- LETTERS -->
-
         <div class="category-label">
             REVEALED LETTERS
         </div>
@@ -101,8 +93,6 @@
         </div>
 
 
-
-        <!-- TIMER -->
 
         <div class="timer-label">
             NEXT LETTER
@@ -123,8 +113,6 @@
 
 
 
-        <!-- STATUS -->
-
         <div
             id="hostMessage"
             class="message"
@@ -133,8 +121,6 @@
         </div>
 
 
-
-        <!-- SETTINGS -->
 
         <section class="host-settings">
 
@@ -210,8 +196,6 @@
 
 
 
-        <!-- MAIN CONTROLS -->
-
         <div class="controls">
 
 
@@ -235,8 +219,6 @@
 
 
 
-        <!-- LIVE STATUS -->
-
         <div class="live-status">
 
             <span
@@ -244,7 +226,7 @@
                 class="connection-dot"
             ></span>
 
-            LIVE SCREEN CONNECTED
+            LIVE SCREEN READY
 
         </div>
 
@@ -353,6 +335,70 @@ let gameRunning = false;
 
 
 /* =================================================
+   BROADCAST CHANNEL
+================================================= */
+
+const gameChannel =
+    new BroadcastChannel(
+        "dionlyonee-live-game"
+    );
+
+
+/* =================================================
+   SEND STATE TO LIVE SCREEN
+================================================= */
+
+function sendGameState() {
+
+
+    const state = {
+
+        answer: answer,
+
+        category: category,
+
+        revealed: revealed,
+
+        seconds: seconds,
+
+        revealTime: revealTime,
+
+        cooldownTime: cooldownTime,
+
+        running: gameRunning
+
+    };
+
+
+    /*
+    Send the game state directly
+    to the LIVE browser tab.
+    */
+
+    gameChannel.postMessage(
+        state
+    );
+
+
+    /*
+    Keep localStorage as backup.
+    */
+
+    localStorage.setItem(
+
+        "dionlyoneeGameState",
+
+        JSON.stringify(
+            state
+        )
+
+    );
+
+}
+
+
+
+/* =================================================
    ELEMENTS
 ================================================= */
 
@@ -398,50 +444,9 @@ const hostNext =
     );
 
 
-/* =================================================
-   SAVE STATE
-================================================= */
-
-function saveGameState() {
-
-
-    const state = {
-
-        answer: answer,
-
-        category: category,
-
-        revealed: revealed,
-
-        seconds: seconds,
-
-        revealTime: revealTime,
-
-        cooldownTime: cooldownTime,
-
-        running: gameRunning,
-
-        timestamp: Date.now()
-
-    };
-
-
-    localStorage.setItem(
-
-        "dionlyoneeGameState",
-
-        JSON.stringify(
-            state
-        )
-
-    );
-
-
-}
-
 
 /* =================================================
-   LETTER REVEAL SETTINGS
+   REVEAL TIME
 ================================================= */
 
 document
@@ -457,9 +462,7 @@ document
 
 
                 if (gameRunning) {
-
                     return;
-
                 }
 
 
@@ -501,7 +504,7 @@ document
                     " SECONDS";
 
 
-                saveGameState();
+                sendGameState();
 
             }
         );
@@ -511,7 +514,7 @@ document
 
 
 /* =================================================
-   COOLDOWN SETTINGS
+   COOLDOWN
 ================================================= */
 
 document
@@ -527,9 +530,7 @@ document
 
 
                 if (gameRunning) {
-
                     return;
-
                 }
 
 
@@ -563,7 +564,7 @@ document
                     " SECONDS";
 
 
-                saveGameState();
+                sendGameState();
 
             }
         );
@@ -573,7 +574,7 @@ document
 
 
 /* =================================================
-   START BUTTON
+   START
 ================================================= */
 
 hostStart.addEventListener(
@@ -588,7 +589,7 @@ hostStart.addEventListener(
 
 
 /* =================================================
-   ENTER KEY
+   ENTER
 ================================================= */
 
 document.addEventListener(
@@ -683,7 +684,7 @@ function startGame() {
         "GAME LIVE — WATCH THE CHAT";
 
 
-    saveGameState();
+    sendGameState();
 
 
     timer =
@@ -710,7 +711,7 @@ function countdown() {
         seconds;
 
 
-    saveGameState();
+    sendGameState();
 
 
     if (
@@ -798,7 +799,7 @@ function revealLetter() {
         randomLetter;
 
 
-    saveGameState();
+    sendGameState();
 
 
     if (
@@ -820,6 +821,9 @@ function revealLetter() {
         seconds;
 
 
+    sendGameState();
+
+
     timer =
         setInterval(
             countdown,
@@ -831,7 +835,7 @@ function revealLetter() {
 
 
 /* =================================================
-   UPDATE LETTERS
+   LETTER DISPLAY
 ================================================= */
 
 function updateLetters() {
@@ -859,7 +863,7 @@ function updateLetters() {
 
 
 /* =================================================
-   CHECK COMPLETE
+   COMPLETE
 ================================================= */
 
 function puzzleComplete() {
@@ -924,11 +928,10 @@ function finishGame() {
 
 
     hostMessage.textContent =
-        "PUZZLE COMPLETE — ANSWER: " +
-        answer;
+        "PUZZLE COMPLETE";
 
 
-    saveGameState();
+    sendGameState();
 
 
     setTimeout(
@@ -962,11 +965,11 @@ hostNext.addEventListener(
    INITIAL STATE
 ================================================= */
 
-saveGameState();
+sendGameState();
 
 
 console.log(
-    "DIONLYONEE HOST CONTROLLER READY"
+    "DIONLYONEE HOST CONNECTED"
 );
 
 
