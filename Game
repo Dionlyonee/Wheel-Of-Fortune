@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dionlyonee Playground - Wheel of Fortune</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="stream-page">
+
+    <div class="stream-container">
+
+        <div class="stream-logo">
+            🎮 DIONLYONEE PLAYGROUND
+        </div>
+
+
+        <div class="game-name">
+            🎡 WHEEL OF FORTUNE
+        </div>
+
+
+        <div class="category-display">
+            <span>CATEGORY</span>
+            <h2 id="streamCategory">WAITING FOR GAME</h2>
+        </div>
+
+
+        <div id="streamPuzzle" class="stream-puzzle">
+            _ _ _ _ _ _ _
+        </div>
+
+
+        <div class="stream-timer-container">
+
+            <div class="stream-timer-label">
+                NEXT LETTER IN
+            </div>
+
+            <div id="streamTimer" class="stream-timer">
+                60
+            </div>
+
+        </div>
+
+
+        <div id="streamMessage" class="stream-message">
+            GUESS THE ANSWER!
+        </div>
+
+
+        <div id="winnerDisplay" class="winner-display hidden">
+
+            <div class="winner-title">
+                🎉 WE HAVE A WINNER!
+            </div>
+
+            <div id="streamWinner">
+                @PLAYER
+            </div>
+
+            <div id="winningAnswer">
+                ANSWER
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="game.js"></script>
+
+</body>
+</html>
