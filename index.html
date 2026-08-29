@@ -11,7 +11,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Dionlyonee Playground | Wheel of Fortune</title>
+    <title>Dionlyonee Playground - Wheel of Fortune</title>
 
     <link
         rel="stylesheet"
@@ -26,16 +26,13 @@
     <main class="game-screen">
 
 
-        <!-- =====================================
-             HEADER
-        ====================================== -->
+        <!-- HEADER -->
 
         <header class="game-header">
 
             <div class="logo">
                 🎮
             </div>
-
 
             <div class="brand">
 
@@ -49,7 +46,6 @@
 
             </div>
 
-
             <button
                 id="topStartButton"
                 class="top-start-button"
@@ -62,14 +58,9 @@
 
 
 
-        <!-- =====================================
-             GAME AREA
-        ====================================== -->
+        <!-- GAME -->
 
         <section class="game-area">
-
-
-            <!-- CATEGORY -->
 
             <div class="category-section">
 
@@ -84,54 +75,19 @@
             </div>
 
 
-
-            <!-- PUZZLE -->
-
             <div
                 id="puzzleDisplay"
                 class="puzzle-display"
             >
 
-                <div class="letter-box hidden">
-                    A
-                </div>
-
-                <div class="letter-box hidden">
-                    B
-                </div>
-
-                <div class="letter-box hidden">
-                    C
-                </div>
-
-                <div class="letter-box hidden">
-                    D
-                </div>
-
-                <div class="letter-box hidden">
-                    E
-                </div>
-
-                <div class="letter-box hidden">
-                    F
-                </div>
-
-                <div class="letter-box hidden">
-                    G
-                </div>
-
             </div>
 
-
-
-            <!-- TIMER -->
 
             <div class="timer-section">
 
                 <div class="timer-label">
                     NEXT LETTER
                 </div>
-
 
                 <div
                     id="timerDisplay"
@@ -140,7 +96,6 @@
                     30
                 </div>
 
-
                 <div class="timer-seconds">
                     SECONDS
                 </div>
@@ -148,24 +103,18 @@
             </div>
 
 
-
-            <!-- MESSAGE -->
-
             <div
                 id="gameMessage"
                 class="game-message"
             >
-                CHOOSE YOUR SETTINGS AND START
+                CHOOSE YOUR SETTINGS AND PRESS ENTER
             </div>
-
 
         </section>
 
 
 
-        <!-- =====================================
-             SETTINGS
-        ====================================== -->
+        <!-- SETTINGS -->
 
         <section
             id="settingsPanel"
@@ -185,15 +134,13 @@
             </div>
 
 
-
-            <!-- LETTER REVEAL -->
+            <!-- LETTER TIME -->
 
             <div class="setting-group">
 
                 <label>
                     LETTER REVEAL TIME
                 </label>
-
 
                 <div class="setting-buttons">
 
@@ -205,7 +152,6 @@
                         15 SEC
                     </button>
 
-
                     <button
                         type="button"
                         class="time-button active"
@@ -213,7 +159,6 @@
                     >
                         30 SEC
                     </button>
-
 
                     <button
                         type="button"
@@ -237,7 +182,6 @@
                     NEXT ROUND COOLDOWN
                 </label>
 
-
                 <div class="setting-buttons">
 
                     <button
@@ -248,7 +192,6 @@
                         5 SEC
                     </button>
 
-
                     <button
                         type="button"
                         class="cooldown-button active"
@@ -256,7 +199,6 @@
                     >
                         10 SEC
                     </button>
-
 
                     <button
                         type="button"
@@ -272,7 +214,7 @@
 
 
 
-            <!-- MAIN START BUTTON -->
+            <!-- START -->
 
             <button
                 id="startGameButton"
@@ -286,9 +228,7 @@
 
 
 
-        <!-- =====================================
-             COOLDOWN
-        ====================================== -->
+        <!-- COOLDOWN -->
 
         <div
             id="cooldownDisplay"
@@ -298,7 +238,6 @@
             <div class="cooldown-title">
                 NEXT PUZZLE
             </div>
-
 
             <div
                 id="cooldownTimer"
@@ -313,11 +252,10 @@
     </main>
 
 
-    <!-- =====================================
-         JAVASCRIPT
-    ====================================== -->
+    <!-- IMPORTANT:
+         JAVASCRIPT IS LOADED LAST -->
 
-    <script src="game.js"></script>
+    <script src="./game.js"></script>
 
 </body>
 
