@@ -1,188 +1,271 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dionlyonee Playground Host</title>
+    <title>Dionlyonee Playground — Host</title>
 
-<style>
-* {
-    box-sizing: border-box;
-}
+    <style>
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    background: #050505;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-.host {
-    max-width: 900px;
-    margin: auto;
-    padding: 30px;
-    text-align: center;
-}
+        body {
+            margin: 0;
+            min-height: 100vh;
 
-.logo {
-    width: 65px;
-    height: 65px;
-    margin: 0 auto 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            background: #050505;
+            color: white;
 
-    border: 2px solid #d4af37;
-    border-radius: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    color: #d4af37;
-    font-size: 34px;
-    font-weight: bold;
-}
+        .host-container {
+            width: 100%;
+            max-width: 900px;
 
-h1 {
-    margin: 0;
-    color: #d4af37;
-    letter-spacing: 3px;
-}
+            margin: auto;
+            padding: 40px 20px;
 
-.subtitle {
-    margin-top: 8px;
-    color: #777;
-    letter-spacing: 3px;
-    font-size: 12px;
-}
+            text-align: center;
+        }
 
-.panel {
-    margin-top: 35px;
-    padding: 30px;
+        h1 {
+            margin: 0;
 
-    background: #111;
-    border: 1px solid #333;
-    border-radius: 15px;
-}
+            color: #d4af37;
 
-.label {
-    margin-top: 25px;
-    margin-bottom: 8px;
+            font-size: 32px;
+            letter-spacing: 3px;
+        }
 
-    color: #777;
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 3px;
-}
+        .subtitle {
+            margin-top: 8px;
 
-.category {
-    color: #d4af37;
-    font-size: 26px;
-    font-weight: bold;
-}
+            color: #888;
 
-.answer {
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    letter-spacing: 3px;
-}
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
 
-.timer {
-    color: #d4af37;
-    font-size: 70px;
-    font-weight: bold;
-}
 
-.settings {
-    margin-top: 30px;
+        /* GAME INFORMATION */
 
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+        .game-panel {
+            margin-top: 35px;
 
-button {
-    padding: 14px 22px;
+            padding: 35px;
 
-    border-radius: 7px;
+            background: #111;
 
-    font-weight: bold;
-    font-size: 14px;
+            border: 1px solid #333;
 
-    cursor: pointer;
-}
+            border-radius: 16px;
+        }
 
-.time {
-    background: #111;
-    color: #aaa;
-    border: 1px solid #555;
-}
 
-.time.active {
-    background: #d4af37;
-    color: #000;
-    border-color: #d4af37;
-}
+        .label {
+            margin-top: 20px;
+            margin-bottom: 8px;
 
-.controls {
-    margin-top: 35px;
+            color: #777;
 
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
+            font-size: 12px;
+            font-weight: bold;
 
-.start {
-    background: #d4af37;
-    color: #000;
-    border: none;
-    font-size: 17px;
-    padding: 18px 40px;
-}
+            letter-spacing: 2px;
+        }
 
-.next {
-    background: #111;
-    color: #d4af37;
-    border: 1px solid #d4af37;
-    font-size: 17px;
-    padding: 18px 40px;
-}
 
-.message {
-    margin-top: 25px;
-    color: #999;
-}
+        #category {
+            color: #d4af37;
 
-#test {
-    margin-top: 20px;
-    color: #555;
-    font-size: 12px;
-}
-</style>
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+
+        #answer {
+            color: white;
+
+            font-size: 30px;
+            font-weight: bold;
+
+            letter-spacing: 3px;
+        }
+
+
+        #timer {
+            margin-top: 5px;
+
+            color: #d4af37;
+
+            font-size: 65px;
+            font-weight: bold;
+        }
+
+
+        /* TIME CONTROLS */
+
+        .section-title {
+            margin-top: 35px;
+            margin-bottom: 15px;
+
+            color: #888;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            letter-spacing: 2px;
+        }
+
+
+        .time-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .time-button {
+            min-width: 110px;
+
+            padding: 14px 20px;
+
+            border: 1px solid #555;
+
+            border-radius: 8px;
+
+            background: #151515;
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .time-button:hover {
+            border-color: #d4af37;
+
+            color: #d4af37;
+        }
+
+
+        .time-button.selected {
+            background: #d4af37;
+
+            color: #000;
+
+            border-color: #d4af37;
+        }
+
+
+        /* MAIN CONTROLS */
+
+        .controls {
+            margin-top: 35px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .control-button {
+            min-width: 180px;
+
+            padding: 18px 25px;
+
+            border-radius: 9px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        #startButton {
+            background: #d4af37;
+
+            color: #000;
+
+            border: 2px solid #d4af37;
+        }
+
+
+        #startButton:hover {
+            background: #f0d76a;
+        }
+
+
+        #nextButton {
+            background: #111;
+
+            color: #d4af37;
+
+            border: 2px solid #d4af37;
+        }
+
+
+        #nextButton:hover {
+            background: #d4af37;
+
+            color: #000;
+        }
+
+
+        #message {
+            margin-top: 25px;
+
+            color: #888;
+
+            font-size: 14px;
+
+            min-height: 20px;
+        }
+
+
+    </style>
 </head>
+
 
 <body>
 
-<div class="host">
 
-    <div class="logo">D</div>
+<div class="host-container">
 
     <h1>DIONLYONEE PLAYGROUND</h1>
 
     <div class="subtitle">
-        WHEEL OF FORTUNE — HOST
+        HOST CONTROL
     </div>
 
 
-    <div class="panel">
+    <div class="game-panel">
+
 
         <div class="label">
             CATEGORY
         </div>
 
-        <div id="category" class="category">
+        <div id="category">
             READY
         </div>
 
@@ -191,41 +274,54 @@ button {
             ANSWER
         </div>
 
-        <div id="answer" class="answer">
+        <div id="answer">
             —
         </div>
 
 
         <div class="label">
-            NEXT LETTER
+            NEXT LETTER IN
         </div>
 
-        <div id="timer" class="timer">
+        <div id="timer">
             30
         </div>
 
 
-        <div class="settings">
+        <div class="section-title">
+            LETTER REVEAL SPEED
+        </div>
+
+
+        <div class="time-buttons">
 
             <button
-                class="time"
                 id="time15"
-                onclick="setTime(15)">
+                class="time-button"
+                type="button">
+
                 15 SEC
+
             </button>
 
+
             <button
-                class="time active"
                 id="time30"
-                onclick="setTime(30)">
+                class="time-button selected"
+                type="button">
+
                 30 SEC
+
             </button>
 
+
             <button
-                class="time"
                 id="time60"
-                onclick="setTime(60)">
+                class="time-button"
+                type="button">
+
                 1 MIN
+
             </button>
 
         </div>
@@ -234,38 +330,43 @@ button {
         <div class="controls">
 
             <button
-                class="start"
-                onclick="startGame()">
+                id="startButton"
+                class="control-button"
+                type="button">
+
                 START GAME
+
             </button>
 
+
             <button
-                class="next"
-                onclick="nextGame()">
+                id="nextButton"
+                class="control-button"
+                type="button">
+
                 NEXT PUZZLE
+
             </button>
 
         </div>
 
 
-        <div id="message" class="message">
+        <div id="message">
             READY TO START
         </div>
 
-        <div id="test">
-            Game system loaded
-        </div>
 
     </div>
 
 </div>
 
 
+
 <script>
 
-/* =========================================
+/* =====================================================
    PUZZLES
-========================================= */
+===================================================== */
 
 const puzzles = {
 
@@ -314,6 +415,7 @@ const puzzles = {
         "TURKEY"
     ],
 
+
     Animals: [
         "ELEPHANT",
         "GIRAFFE",
@@ -357,6 +459,7 @@ const puzzles = {
         "SPIDER"
     ],
 
+
     "Jamaican Phrases": [
         "WAH GWAAN",
         "WEH YUH A SEH",
@@ -396,6 +499,7 @@ const puzzles = {
         "MI A GO",
         "MEK WE LINK"
     ],
+
 
     Food: [
         "JERK CHICKEN",
@@ -446,6 +550,7 @@ const puzzles = {
         "SUSHI"
     ],
 
+
     "Things You Do": [
         "WATCH TV",
         "PLAY VIDEO GAMES",
@@ -471,9 +576,7 @@ const puzzles = {
         "TAKE A FLIGHT",
         "GO ON VACATION",
         "CLEAN THE HOUSE",
-        "DO LAUNDRY",
         "WASH THE DISHES",
-        "TAKE OUT THE TRASH",
         "MAKE BREAKFAST",
         "DRINK COFFEE",
         "DRINK WATER",
@@ -487,6 +590,7 @@ const puzzles = {
         "GO TO THE MOVIES",
         "GO TO A CONCERT"
     ],
+
 
     Music: [
         "REGGAE MUSIC",
@@ -510,6 +614,7 @@ const puzzles = {
         "MUSIC FESTIVAL",
         "DANCE FLOOR"
     ],
+
 
     Sports: [
         "BASKETBALL",
@@ -545,60 +650,74 @@ const puzzles = {
 };
 
 
-/* =========================================
+/* =====================================================
    GAME VARIABLES
-========================================= */
+===================================================== */
 
 let revealTime = 30;
 
-let timer = null;
-
 let seconds = 30;
 
-let running = false;
+let timer = null;
 
 let currentAnswer = "";
 
+let currentCategory = "";
 
-/* =========================================
-   ELEMENTS
-========================================= */
+let gameRunning = false;
 
-const categoryDisplay =
+
+/* =====================================================
+   GET ELEMENTS
+===================================================== */
+
+const categoryElement =
     document.getElementById("category");
 
-const answerDisplay =
+const answerElement =
     document.getElementById("answer");
 
-const timerDisplay =
+const timerElement =
     document.getElementById("timer");
 
-const messageDisplay =
+const messageElement =
     document.getElementById("message");
 
+const startButton =
+    document.getElementById("startButton");
 
-/* =========================================
+const nextButton =
+    document.getElementById("nextButton");
+
+
+/* =====================================================
    START GAME
-========================================= */
+===================================================== */
 
 function startGame() {
 
+    console.log("START GAME CLICKED");
+
     clearInterval(timer);
 
-    running = true;
+    gameRunning = true;
+
 
     const categories =
         Object.keys(puzzles);
 
-    const randomCategory =
+
+    currentCategory =
         categories[
             Math.floor(
                 Math.random() * categories.length
             )
         ];
 
+
     const words =
-        puzzles[randomCategory];
+        puzzles[currentCategory];
+
 
     currentAnswer =
         words[
@@ -607,96 +726,125 @@ function startGame() {
             )
         ];
 
+
     seconds = revealTime;
 
-    categoryDisplay.textContent =
-        randomCategory;
 
-    answerDisplay.textContent =
+    categoryElement.textContent =
+        currentCategory;
+
+
+    answerElement.textContent =
         currentAnswer;
 
-    timerDisplay.textContent =
+
+    timerElement.textContent =
         seconds;
 
-    messageDisplay.textContent =
-        "GAME IS LIVE";
 
-    timer =
-        setInterval(function() {
+    messageElement.textContent =
+        "GAME IS RUNNING";
 
-            seconds--;
 
-            timerDisplay.textContent =
-                seconds;
-
-            if (seconds <= 0) {
-
-                clearInterval(timer);
-
-                messageDisplay.textContent =
-                    "LETTER REVEAL";
-
-                seconds = revealTime;
-
-                timerDisplay.textContent =
-                    seconds;
-
-                timer =
-                    setInterval(function() {
-
-                        seconds--;
-
-                        timerDisplay.textContent =
-                            seconds;
-
-                    }, 1000);
-
-            }
-
-        }, 1000);
+    timer = setInterval(
+        countdown,
+        1000
+    );
 
 }
 
 
-/* =========================================
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+function countdown() {
+
+    seconds--;
+
+    timerElement.textContent =
+        seconds;
+
+
+    if (seconds <= 0) {
+
+        clearInterval(timer);
+
+        messageElement.textContent =
+            "NEXT LETTER REVEALING";
+
+        setTimeout(
+            startNextCountdown,
+            1000
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   NEXT COUNTDOWN
+===================================================== */
+
+function startNextCountdown() {
+
+    seconds = revealTime;
+
+    timerElement.textContent =
+        seconds;
+
+    messageElement.textContent =
+        "GAME IS RUNNING";
+
+    timer = setInterval(
+        countdown,
+        1000
+    );
+
+}
+
+
+/* =====================================================
    NEXT PUZZLE
-========================================= */
+===================================================== */
 
 function nextGame() {
+
+    console.log("NEXT PUZZLE CLICKED");
 
     startGame();
 
 }
 
 
-/* =========================================
-   CHANGE TIME
-========================================= */
+/* =====================================================
+   TIME BUTTONS
+===================================================== */
 
-function setTime(time) {
+function selectTime(time) {
 
-    if (running) {
+    console.log(
+        "TIME SELECTED:",
+        time
+    );
 
-        messageDisplay.textContent =
-            "STOP THE CURRENT GAME BEFORE CHANGING TIME";
-
-        return;
-
-    }
 
     revealTime = time;
 
     seconds = time;
 
-    timerDisplay.textContent =
+    timerElement.textContent =
         time;
 
 
     document
-        .querySelectorAll(".time")
+        .querySelectorAll(".time-button")
         .forEach(function(button) {
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "selected"
+            );
 
         });
 
@@ -705,32 +853,92 @@ function setTime(time) {
 
         document
             .getElementById("time15")
-            .classList.add("active");
+            .classList.add("selected");
 
     }
+
 
     if (time === 30) {
 
         document
             .getElementById("time30")
-            .classList.add("active");
+            .classList.add("selected");
 
     }
+
 
     if (time === 60) {
 
         document
             .getElementById("time60")
-            .classList.add("active");
+            .classList.add("selected");
 
     }
+
+
+    messageElement.textContent =
+        "REVEAL TIME: " +
+        time +
+        " SECONDS";
 
 }
 
 
-/* =========================================
+/* =====================================================
+   CONNECT BUTTONS
+===================================================== */
+
+startButton.addEventListener(
+    "click",
+    startGame
+);
+
+
+nextButton.addEventListener(
+    "click",
+    nextGame
+);
+
+
+document
+    .getElementById("time15")
+    .addEventListener(
+        "click",
+        function() {
+
+            selectTime(15);
+
+        }
+    );
+
+
+document
+    .getElementById("time30")
+    .addEventListener(
+        "click",
+        function() {
+
+            selectTime(30);
+
+        }
+    );
+
+
+document
+    .getElementById("time60")
+    .addEventListener(
+        "click",
+        function() {
+
+            selectTime(60);
+
+        }
+    );
+
+
+/* =====================================================
    ENTER KEY
-========================================= */
+===================================================== */
 
 document.addEventListener(
     "keydown",
@@ -738,7 +946,7 @@ document.addEventListener(
 
         if (
             event.key === "Enter" &&
-            !running
+            !gameRunning
         ) {
 
             startGame();
@@ -746,6 +954,11 @@ document.addEventListener(
         }
 
     }
+);
+
+
+console.log(
+    "HOST JAVASCRIPT LOADED SUCCESSFULLY"
 );
 
 </script>
