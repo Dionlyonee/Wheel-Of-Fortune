@@ -11,7 +11,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Dionlyonee LIVE — Host Control</title>
+    <title>Dionlyonee LIVE — HOST</title>
 
     <link
         rel="stylesheet"
@@ -27,7 +27,7 @@
 <div class="game">
 
 
-    <!-- HOST HEADER -->
+    <!-- HEADER -->
 
     <header>
 
@@ -54,7 +54,7 @@
     <main>
 
 
-        <!-- GAME STATUS -->
+        <!-- CATEGORY -->
 
         <div class="category-label">
             CURRENT CATEGORY
@@ -86,7 +86,7 @@
 
 
 
-        <!-- REVEALED LETTERS -->
+        <!-- LETTERS -->
 
         <div class="category-label">
             REVEALED LETTERS
@@ -134,12 +134,10 @@
 
 
 
-        <!-- CONTROLS -->
+        <!-- SETTINGS -->
 
-        <div class="controls">
+        <section class="host-settings">
 
-
-            <!-- LETTER REVEAL -->
 
             <div class="setting">
 
@@ -175,8 +173,6 @@
 
 
 
-            <!-- COOLDOWN -->
-
             <div class="setting">
 
                 <h3>
@@ -210,8 +206,14 @@
             </div>
 
 
+        </section>
 
-            <!-- START -->
+
+
+        <!-- MAIN CONTROLS -->
+
+        <div class="controls">
+
 
             <button
                 id="hostStart"
@@ -221,8 +223,6 @@
             </button>
 
 
-            <!-- NEXT PUZZLE -->
-
             <button
                 id="hostNext"
                 class="host-next-button"
@@ -230,6 +230,21 @@
                 NEXT PUZZLE
             </button>
 
+
+        </div>
+
+
+
+        <!-- LIVE STATUS -->
+
+        <div class="live-status">
+
+            <span
+                id="connectionDot"
+                class="connection-dot"
+            ></span>
+
+            LIVE SCREEN CONNECTED
 
         </div>
 
@@ -259,7 +274,9 @@ const puzzles = {
         "CROCODILE",
         "KANGAROO",
         "TIGER",
-        "GORILLA"
+        "GORILLA",
+        "PENGUIN",
+        "ZEBRA"
 
     ],
 
@@ -273,7 +290,9 @@ const puzzles = {
         "MEXICO",
         "BAHAMAS",
         "BARBADOS",
-        "FRANCE"
+        "FRANCE",
+        "GERMANY",
+        "AUSTRALIA"
 
     ],
 
@@ -285,7 +304,9 @@ const puzzles = {
         "MI DEH YA",
         "EVERYTING IRIE",
         "BIG UP",
-        "WALK GOOD"
+        "WALK GOOD",
+        "NO PROBLEM",
+        "MEK WE GO"
 
     ],
 
@@ -296,7 +317,9 @@ const puzzles = {
         "RICE AND PEAS",
         "PIZZA",
         "HAMBURGER",
-        "ICE CREAM"
+        "ICE CREAM",
+        "FRIED CHICKEN",
+        "CURRY GOAT"
 
     ]
 
@@ -330,7 +353,7 @@ let gameRunning = false;
 
 
 /* =================================================
-   HTML ELEMENTS
+   ELEMENTS
 ================================================= */
 
 const hostCategory =
@@ -376,7 +399,49 @@ const hostNext =
 
 
 /* =================================================
-   LETTER TIME BUTTONS
+   SAVE STATE
+================================================= */
+
+function saveGameState() {
+
+
+    const state = {
+
+        answer: answer,
+
+        category: category,
+
+        revealed: revealed,
+
+        seconds: seconds,
+
+        revealTime: revealTime,
+
+        cooldownTime: cooldownTime,
+
+        running: gameRunning,
+
+        timestamp: Date.now()
+
+    };
+
+
+    localStorage.setItem(
+
+        "dionlyoneeGameState",
+
+        JSON.stringify(
+            state
+        )
+
+    );
+
+
+}
+
+
+/* =================================================
+   LETTER REVEAL SETTINGS
 ================================================= */
 
 document
@@ -392,7 +457,9 @@ document
 
 
                 if (gameRunning) {
+
                     return;
+
                 }
 
 
@@ -433,6 +500,9 @@ document
                     revealTime +
                     " SECONDS";
 
+
+                saveGameState();
+
             }
         );
 
@@ -441,7 +511,7 @@ document
 
 
 /* =================================================
-   COOLDOWN BUTTONS
+   COOLDOWN SETTINGS
 ================================================= */
 
 document
@@ -457,7 +527,9 @@ document
 
 
                 if (gameRunning) {
+
                     return;
+
                 }
 
 
@@ -490,6 +562,9 @@ document
                     cooldownTime +
                     " SECONDS";
 
+
+                saveGameState();
+
             }
         );
 
@@ -498,7 +573,7 @@ document
 
 
 /* =================================================
-   START GAME
+   START BUTTON
 ================================================= */
 
 hostStart.addEventListener(
@@ -520,6 +595,7 @@ document.addEventListener(
     "keydown",
     function(event) {
 
+
         if (
             event.key === "Enter"
             &&
@@ -536,7 +612,7 @@ document.addEventListener(
 
 
 /* =================================================
-   START GAME FUNCTION
+   START GAME
 ================================================= */
 
 function startGame() {
@@ -553,16 +629,12 @@ function startGame() {
         );
 
 
-    const categoryIndex =
-        Math.floor(
-            Math.random() *
-            categories.length
-        );
-
-
     category =
         categories[
-            categoryIndex
+            Math.floor(
+                Math.random() *
+                categories.length
+            )
         ];
 
 
@@ -572,16 +644,12 @@ function startGame() {
         ];
 
 
-    const wordIndex =
-        Math.floor(
-            Math.random() *
-            words.length
-        );
-
-
     answer =
         words[
-            wordIndex
+            Math.floor(
+                Math.random() *
+                words.length
+            )
         ];
 
 
@@ -612,7 +680,10 @@ function startGame() {
 
 
     hostMessage.textContent =
-        "GAME IS LIVE — WATCH THE CHAT!";
+        "GAME LIVE — WATCH THE CHAT";
+
+
+    saveGameState();
 
 
     timer =
@@ -620,9 +691,6 @@ function startGame() {
             countdown,
             1000
         );
-
-
-    saveGame();
 
 }
 
@@ -642,7 +710,7 @@ function countdown() {
         seconds;
 
 
-    saveGame();
+    saveGameState();
 
 
     if (
@@ -679,11 +747,15 @@ function revealLetter() {
                         function(letter) {
 
                             return (
+
                                 letter !== " "
+
                                 &&
+
                                 !revealed.includes(
                                     letter
                                 )
+
                             );
 
                         }
@@ -704,25 +776,29 @@ function revealLetter() {
     }
 
 
-    const randomIndex =
-        Math.floor(
-            Math.random() *
-            hiddenLetters.length
-        );
-
-
-    const letter =
+    const randomLetter =
         hiddenLetters[
-            randomIndex
+            Math.floor(
+                Math.random() *
+                hiddenLetters.length
+            )
         ];
 
 
     revealed.push(
-        letter
+        randomLetter
     );
 
 
-    updateHostLetters();
+    updateLetters();
+
+
+    hostMessage.textContent =
+        "LETTER REVEALED: " +
+        randomLetter;
+
+
+    saveGameState();
 
 
     if (
@@ -750,18 +826,15 @@ function revealLetter() {
             1000
         );
 
-
-    saveGame();
-
 }
 
 
 
 /* =================================================
-   UPDATE REVEALED LETTERS
+   UPDATE LETTERS
 ================================================= */
 
-function updateHostLetters() {
+function updateLetters() {
 
 
     if (
@@ -786,7 +859,7 @@ function updateHostLetters() {
 
 
 /* =================================================
-   PUZZLE COMPLETE
+   CHECK COMPLETE
 ================================================= */
 
 function puzzleComplete() {
@@ -799,12 +872,12 @@ function puzzleComplete() {
     ) {
 
 
-        const character =
+        const letter =
             answer[i];
 
 
         if (
-            character === " "
+            letter === " "
         ) {
 
             continue;
@@ -814,7 +887,7 @@ function puzzleComplete() {
 
         if (
             !revealed.includes(
-                character
+                letter
             )
         ) {
 
@@ -832,7 +905,7 @@ function puzzleComplete() {
 
 
 /* =================================================
-   FINISH GAME
+   FINISH
 ================================================= */
 
 function finishGame() {
@@ -851,11 +924,11 @@ function finishGame() {
 
 
     hostMessage.textContent =
-        "ANSWER: " +
+        "PUZZLE COMPLETE — ANSWER: " +
         answer;
 
 
-    saveGame();
+    saveGameState();
 
 
     setTimeout(
@@ -872,7 +945,7 @@ function finishGame() {
 
 
 /* =================================================
-   NEXT PUZZLE BUTTON
+   NEXT PUZZLE
 ================================================= */
 
 hostNext.addEventListener(
@@ -885,45 +958,15 @@ hostNext.addEventListener(
 );
 
 
-
 /* =================================================
-   SAVE GAME STATE
+   INITIAL STATE
 ================================================= */
 
-function saveGame() {
-
-
-    const gameState = {
-
-        answer: answer,
-
-        category: category,
-
-        revealed: revealed,
-
-        seconds: seconds,
-
-        running: gameRunning,
-
-        revealTime: revealTime,
-
-        cooldownTime: cooldownTime
-
-    };
-
-
-    localStorage.setItem(
-        "dionlyoneeGameState",
-        JSON.stringify(
-            gameState
-        )
-    );
-
-}
+saveGameState();
 
 
 console.log(
-    "DIONLYONEE HOST CONTROL READY"
+    "DIONLYONEE HOST CONTROLLER READY"
 );
 
 
