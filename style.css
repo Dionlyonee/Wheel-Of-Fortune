@@ -1,4 +1,9 @@
 ```css
+/* =========================================================
+   DIONLYONEE PLAYGROUND
+   GOLD + BLACK THEME
+========================================================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,145 +11,200 @@
 }
 
 
+html,
 body {
-
-    min-height: 100vh;
-
-    background: #050505;
-
-    color: white;
-
-    font-family: Arial, sans-serif;
-
+    width: 100%;
+    min-height: 100%;
 }
 
 
-.game {
-
-    min-height: 100vh;
-
-    padding: 30px;
-
+body {
     background:
         radial-gradient(
             circle at top,
-            #222 0%,
-            #050505 60%
+            #252525 0%,
+            #0d0d0d 45%,
+            #050505 100%
         );
 
+    color: #ffffff;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    min-height: 100vh;
 }
 
 
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.game {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 header {
-
-    max-width: 1200px;
-
-    margin: auto;
+    width: 100%;
 
     display: flex;
-
     align-items: center;
 
-    gap: 20px;
+    gap: 18px;
 
-    padding-bottom: 25px;
+    padding: 25px 35px;
 
     border-bottom:
-        1px solid #6e591b;
+        1px solid rgba(
+            212,
+            175,
+            55,
+            0.35
+        );
 
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.55
+        );
 }
 
 
 .logo {
-
-    width: 60px;
-
-    height: 60px;
+    width: 58px;
+    height: 58px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    border: 2px solid #d4af37;
+    border:
+        2px solid #d4af37;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
-    color: #f5d76e;
+    color: #d4af37;
 
     font-size: 32px;
-
     font-weight: 900;
 
+    box-shadow:
+        0 0 18px
+        rgba(
+            212,
+            175,
+            55,
+            0.25
+        );
 }
 
 
-h1 {
+header h1 {
+    color: #d4af37;
 
-    color: #f5d76e;
-
-    font-size: 32px;
+    font-size: 22px;
 
     letter-spacing: 3px;
 
+    font-weight: 900;
 }
 
 
 header p {
-
     margin-top: 5px;
 
-    color: #999;
+    color: #aaa;
 
-    letter-spacing: 4px;
+    font-size: 12px;
 
+    letter-spacing: 3px;
 }
 
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 main {
+    width: 100%;
+    max-width: 1100px;
 
-    max-width: 1200px;
+    margin: 0 auto;
 
-    margin: auto;
+    padding: 45px 30px 60px;
 
     text-align: center;
-
 }
 
 
-.category-label {
+/* =========================================================
+   LABELS
+========================================================= */
 
-    margin-top: 45px;
-
+.category-label,
+.timer-label {
     color: #d4af37;
 
     font-size: 13px;
 
-    font-weight: bold;
+    font-weight: 800;
 
     letter-spacing: 4px;
 
+    margin-bottom: 10px;
 }
 
+
+/* =========================================================
+   CATEGORY
+========================================================= */
 
 .category {
+    display: inline-block;
 
-    margin-top: 10px;
+    padding: 10px 28px;
 
-    font-size: 42px;
+    margin-bottom: 35px;
 
-    font-weight: 900;
+    border:
+        1px solid #d4af37;
 
+    border-radius: 30px;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    background:
+        rgba(
+            212,
+            175,
+            55,
+            0.08
+        );
 }
 
 
-.puzzle {
+/* =========================================================
+   PUZZLE
+========================================================= */
 
-    min-height: 120px;
-
-    margin-top: 50px;
-
+.puzzle,
+.live-puzzle {
     display: flex;
 
     justify-content: center;
@@ -153,20 +213,20 @@ main {
 
     flex-wrap: wrap;
 
-    gap: 8px;
+    gap: 9px;
 
+    min-height: 110px;
+
+    margin:
+        15px auto
+        35px;
 }
 
 
-.letter {
-
-    width: 60px;
-
-    height: 75px;
-
-    border: 2px solid #d4af37;
-
-    border-radius: 6px;
+.letter,
+.live-letter {
+    width: 58px;
+    height: 70px;
 
     display: flex;
 
@@ -174,223 +234,973 @@ main {
 
     justify-content: center;
 
-    background: #080808;
+    background:
+        linear-gradient(
+            145deg,
+            #181818,
+            #080808
+        );
 
-    font-size: 40px;
+    border:
+        2px solid #d4af37;
 
-    font-weight: bold;
+    border-radius: 6px;
 
-}
+    color: #ffffff;
 
-
-.letter.revealed {
-
-    background: #d4af37;
-
-    color: #050505;
-
-}
-
-
-.space {
-
-    width: 25px;
-
-}
-
-
-.timer-label {
-
-    margin-top: 25px;
-
-    color: #999;
-
-    font-size: 12px;
-
-    letter-spacing: 3px;
-
-}
-
-
-.timer {
-
-    margin-top: 5px;
-
-    color: #f5d76e;
-
-    font-size: 90px;
+    font-size: 32px;
 
     font-weight: 900;
 
+    box-shadow:
+        0 4px 15px
+        rgba(
+            0,
+            0,
+            0,
+            0.6
+        );
+
+    transition:
+        all 0.25s ease;
+}
+
+
+.letter.revealed,
+.live-letter-revealed {
+    background:
+        linear-gradient(
+            145deg,
+            #d4af37,
+            #9d7c18
+        );
+
+    color: #000000;
+
+    box-shadow:
+        0 0 25px
+        rgba(
+            212,
+            175,
+            55,
+            0.5
+        );
+}
+
+
+.space,
+.live-space {
+    width: 25px;
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+.timer {
+    color: #d4af37;
+
+    font-size: 72px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    margin: 5px 0;
 }
 
 
 .seconds {
+    color: #888;
 
-    color: #777;
+    font-size: 12px;
 
-    font-size: 11px;
+    letter-spacing: 4px;
 
-    letter-spacing: 3px;
-
+    margin-bottom: 20px;
 }
 
+
+/* =========================================================
+   MESSAGE
+========================================================= */
 
 .message {
+    display: inline-block;
 
-    margin-top: 25px;
+    padding: 12px 25px;
 
-    color: #d4af37;
+    border-radius: 30px;
 
-    font-weight: bold;
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.05
+        );
 
-    min-height: 20px;
+    border:
+        1px solid
+        rgba(
+            212,
+            175,
+            55,
+            0.25
+        );
 
+    color: #ddd;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
 }
 
 
-.controls {
+/* =========================================================
+   HOST ANSWER
+========================================================= */
 
-    max-width: 700px;
+.host-answer {
+    color: #ffffff;
 
-    margin: 30px auto;
+    font-size: 30px;
 
-    padding: 25px;
+    font-weight: 900;
 
-    background: #101010;
+    letter-spacing: 5px;
 
-    border: 1px solid #4c3c13;
+    margin-bottom: 30px;
+}
 
-    border-radius: 12px;
 
+.host-letters {
+    color: #d4af37;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   HOST SETTINGS
+========================================================= */
+
+.host-settings {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    flex-wrap: wrap;
+
+    margin-top: 35px;
 }
 
 
 .setting {
+    padding: 22px;
 
-    margin-bottom: 25px;
+    min-width: 280px;
 
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.035
+        );
+
+    border:
+        1px solid
+        rgba(
+            212,
+            175,
+            55,
+            0.25
+        );
+
+    border-radius: 14px;
 }
 
 
 .setting h3 {
+    color: #d4af37;
 
-    margin-bottom: 10px;
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button {
+    cursor: pointer;
+
+    border: none;
+
+    font-family: inherit;
+}
+
+
+.host-time-button,
+.host-cooldown-button {
+    padding: 10px 15px;
+
+    margin: 4px;
+
+    border:
+        1px solid #555;
+
+    border-radius: 7px;
+
+    background: #111;
+
+    color: #aaa;
+
+    font-weight: 800;
+
+    transition:
+        0.2s ease;
+}
+
+
+.host-time-button:hover,
+.host-cooldown-button:hover {
+    border-color: #d4af37;
+
+    color: #d4af37;
+}
+
+
+.host-time-button.active,
+.host-cooldown-button.active {
+    background: #d4af37;
+
+    border-color: #d4af37;
+
+    color: #000000;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    margin-top: 35px;
+}
+
+
+.start-button,
+.host-next-button {
+    padding: 16px 30px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.start-button {
+    background:
+        linear-gradient(
+            135deg,
+            #d4af37,
+            #a67c18
+        );
+
+    color: #000000;
+
+    box-shadow:
+        0 5px 20px
+        rgba(
+            212,
+            175,
+            55,
+            0.25
+        );
+}
+
+
+.host-next-button {
+    background: #191919;
+
+    border:
+        1px solid #d4af37;
+
+    color: #d4af37;
+}
+
+
+.start-button:hover,
+.host-next-button:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            212,
+            175,
+            55,
+            0.3
+        );
+}
+
+
+/* =========================================================
+   CONNECTION / LIVE STATUS
+========================================================= */
+
+.live-status {
+    margin-top: 30px;
 
     color: #999;
 
     font-size: 12px;
 
     letter-spacing: 2px;
-
 }
 
 
-button {
+.connection-dot,
+.live-dot {
+    display: inline-block;
 
-    padding: 13px 20px;
+    width: 9px;
+    height: 9px;
 
-    margin: 4px;
+    margin-right: 7px;
 
-    border: 1px solid #555;
-
-    border-radius: 6px;
-
-    background: #080808;
-
-    color: white;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-
-button:hover {
-
-    border-color: #d4af37;
-
-}
-
-
-button.active {
+    border-radius: 50%;
 
     background: #d4af37;
 
-    color: #050505;
-
-    border-color: #f5d76e;
-
+    box-shadow:
+        0 0 10px
+        rgba(
+            212,
+            175,
+            55,
+            0.8
+        );
 }
 
 
-.start-button {
+/* =========================================================
+   LAUNCH SCREEN
+========================================================= */
 
-    width: 100%;
+.launch-screen {
+    padding-top: 90px;
+}
 
+
+.launch-screen h2 {
     margin-top: 10px;
 
-    padding: 18px;
+    color: #ffffff;
 
-    background: #d4af37;
+    font-size: 42px;
 
-    color: #050505;
+    letter-spacing: 2px;
+}
 
-    border: none;
+
+.launch-description {
+    margin-top: 12px;
+
+    color: #999;
 
     font-size: 16px;
-
 }
 
 
-.start-button:hover {
+.launch-buttons {
+    display: flex;
 
-    background: #f5d76e;
+    justify-content: center;
 
+    gap: 30px;
+
+    flex-wrap: wrap;
+
+    margin-top: 50px;
 }
 
 
-@media (max-width: 700px) {
+.launch-button {
+    width: 280px;
 
-    .game {
+    min-height: 200px;
 
-        padding: 15px;
+    display: flex;
 
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    border-radius: 18px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.launch-button span:not(.button-icon) {
+    font-size: 22px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+.launch-button small {
+    color: #999;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+}
+
+
+.button-icon {
+    font-size: 42px;
+}
+
+
+.live-button {
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #080808
+        );
+
+    border:
+        2px solid #d4af37;
+
+    color: #d4af37;
+}
+
+
+.host-button {
+    background:
+        linear-gradient(
+            145deg,
+            #d4af37,
+            #9d7418
+        );
+
+    color: #000000;
+
+    border:
+        2px solid #d4af37;
+}
+
+
+.host-button small {
+    color: #201800;
+}
+
+
+.launch-button:hover {
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 15px 40px
+        rgba(
+            212,
+            175,
+            55,
+            0.25
+        );
+}
+
+
+.launch-note {
+    margin-top: 45px;
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+.launch-note strong {
+    color: #d4af37;
+}
+
+
+/* =========================================================
+   LIVE STREAM PAGE
+========================================================= */
+
+.live-page {
+    background:
+        radial-gradient(
+            circle at center,
+            #202020 0%,
+            #090909 55%,
+            #000000 100%
+        );
+}
+
+
+.live-game {
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding:
+        35px 45px
+        45px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   LIVE HEADER
+========================================================= */
+
+.live-header {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    position: relative;
+
+    padding-bottom: 25px;
+
+    border-bottom:
+        1px solid
+        rgba(
+            212,
+            175,
+            55,
+            0.3
+        );
+}
+
+
+.live-logo {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        2px solid #d4af37;
+
+    border-radius: 12px;
+
+    color: #d4af37;
+
+    font-size: 30px;
+
+    font-weight: 900;
+}
+
+
+.live-title {
+    text-align: left;
+}
+
+
+.live-title h1 {
+    color: #d4af37;
+
+    font-size: 22px;
+
+    letter-spacing: 3px;
+}
+
+
+.live-title p {
+    margin-top: 4px;
+
+    color: #999;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+}
+
+
+.live-badge {
+    position: absolute;
+
+    right: 0;
+
+    top: 10px;
+
+    padding:
+        8px 14px;
+
+    border:
+        1px solid #d4af37;
+
+    border-radius: 20px;
+
+    color: #d4af37;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   LIVE CATEGORY
+========================================================= */
+
+.live-category-area {
+    margin-top: 45px;
+}
+
+
+.live-label {
+    color: #d4af37;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 12px;
+}
+
+
+.live-category {
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   LIVE PUZZLE
+========================================================= */
+
+.live-puzzle {
+    width: 100%;
+
+    max-width: 1050px;
+
+    min-height: 150px;
+
+    margin-top: 35px;
+
+    margin-bottom: 35px;
+}
+
+
+.live-letter {
+    width: 68px;
+    height: 82px;
+
+    border:
+        2px solid #d4af37;
+
+    font-size: 38px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #202020,
+            #080808
+        );
+}
+
+
+.live-letter-revealed {
+    background:
+        linear-gradient(
+            145deg,
+            #e1c45b,
+            #a47c1d
+        );
+
+    color: #000000;
+}
+
+
+.live-space {
+    width: 35px;
+}
+
+
+/* =========================================================
+   LIVE TIMER
+========================================================= */
+
+.live-timer-area {
+    margin-top: 15px;
+}
+
+
+.live-timer {
+    color: #d4af37;
+
+    font-size: 86px;
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    text-shadow:
+        0 0 25px
+        rgba(
+            212,
+            175,
+            55,
+            0.25
+        );
+}
+
+
+.live-seconds {
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+}
+
+
+/* =========================================================
+   LIVE MESSAGE
+========================================================= */
+
+.live-message {
+    margin-top: 30px;
+
+    padding:
+        13px 28px;
+
+    border:
+        1px solid
+        rgba(
+            212,
+            175,
+            55,
+            0.35
+        );
+
+    border-radius: 30px;
+
+    background:
+        rgba(
+            212,
+            175,
+            55,
+            0.05
+        );
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   LIVE WAITING
+========================================================= */
+
+.live-waiting,
+.waiting {
+    color: #777;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   LIVE FOOTER
+========================================================= */
+
+.live-footer {
+    margin-top: auto;
+
+    padding-top: 35px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+
+.live-footer span:nth-child(2) {
+    color: #d4af37;
+
+    margin:
+        0 12px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 700px
+) {
+
+    header {
+        padding: 20px;
     }
 
 
-    h1 {
+    header h1 {
+        font-size: 16px;
 
-        font-size: 18px;
-
-        letter-spacing: 1px;
-
+        letter-spacing: 2px;
     }
 
 
-    .category {
-
-        font-size: 28px;
-
+    header p {
+        font-size: 9px;
     }
 
 
-    .letter {
+    main {
+        padding:
+            35px 15px;
+    }
 
-        width: 42px;
+
+    .letter,
+    .live-letter {
+        width: 43px;
 
         height: 55px;
 
-        font-size: 28px;
-
+        font-size: 24px;
     }
 
 
-    .timer {
+    .live-letter {
+        width: 48px;
 
-        font-size: 70px;
+        height: 60px;
+    }
 
+
+    .timer,
+    .live-timer {
+        font-size: 60px;
+    }
+
+
+    .launch-screen h2 {
+        font-size: 30px;
+    }
+
+
+    .launch-button {
+        width: 90%;
+
+        max-width: 320px;
+    }
+
+
+    .live-game {
+        padding:
+            20px 15px;
+    }
+
+
+    .live-header {
+        justify-content: flex-start;
+    }
+
+
+    .live-badge {
+        position: static;
+
+        margin-left: auto;
+    }
+
+
+    .live-title h1 {
+        font-size: 15px;
+    }
+
+
+    .live-title p {
+        font-size: 8px;
     }
 
 }
