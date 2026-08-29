@@ -6,153 +6,97 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Dionlyonee Playground</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
-
 
 <body>
 
 
-<div class="game">
+<div class="launcher">
 
 
-    <!-- LOGO / TITLE -->
-
-    <header>
-
-        <div class="logo">
-            D
-        </div>
-
-        <div>
-
-            <h1>
-                DIONLYONEE PLAYGROUND
-            </h1>
-
-            <p>
-                LIVE GAME CENTER
-            </p>
-
-        </div>
-
-    </header>
+    <div class="launcher-logo">
+        D
+    </div>
 
 
-
-    <!-- LAUNCH SCREEN -->
-
-    <main class="launch-screen">
-
-
-        <div class="category-label">
-            WHEEL OF FORTUNE
-        </div>
+    <h1>
+        DIONLYONEE PLAYGROUND
+    </h1>
 
 
-        <h2>
-            READY TO PLAY?
-        </h2>
+    <div class="launcher-subtitle">
+        WHEEL OF FORTUNE
+    </div>
 
 
-        <p class="launch-description">
-            Choose which screen you want to open.
-        </p>
+    <p class="launcher-description">
+        Choose your screen
+    </p>
 
 
-
-        <!-- BUTTONS -->
-
-        <div class="launch-buttons">
+    <div class="launcher-buttons">
 
 
-            <!-- LIVE -->
+        <button
+            class="launcher-button live-launch"
+            onclick="openLive()"
+        >
 
-            <button
-                class="launch-button live-button"
-                onclick="openLive()"
-            >
-
-                <span class="button-icon">
-                    📺
-                </span>
-
-                <span>
-                    LIVE GAME
-                </span>
-
-                <small>
-                    Stream this screen
-                </small>
-
-            </button>
-
-
-
-            <!-- HOST -->
-
-            <button
-                class="launch-button host-button"
-                onclick="openHost()"
-            >
-
-                <span class="button-icon">
-                    🎤
-                </span>
-
-                <span>
-                    HOST PANEL
-                </span>
-
-                <small>
-                    Control the game
-                </small>
-
-            </button>
-
-
-        </div>
-
-
-
-        <div class="launch-note">
-
-            Open both screens in separate tabs.
-
-            <br>
+            <span class="launcher-icon">
+                📺
+            </span>
 
             <strong>
                 LIVE GAME
             </strong>
-            is the screen you capture in Streamlabs.
 
-        </div>
+            <small>
+                Stream this screen
+            </small>
+
+        </button>
 
 
-    </main>
+        <button
+            class="launcher-button host-launch"
+            onclick="openHost()"
+        >
+
+            <span class="launcher-icon">
+                🎤
+            </span>
+
+            <strong>
+                HOST PANEL
+            </strong>
+
+            <small>
+                Control the game
+            </small>
+
+        </button>
+
+
+    </div>
+
+
+    <div class="launcher-footer">
+        DIONLYONEE PLAYGROUND
+    </div>
 
 
 </div>
 
 
-
 <script>
-
-
-/* =================================================
-   OPEN LIVE
-================================================= */
 
 function openLive() {
 
@@ -164,11 +108,6 @@ function openLive() {
 }
 
 
-
-/* =================================================
-   OPEN HOST
-================================================= */
-
 function openHost() {
 
     window.open(
@@ -177,7 +116,6 @@ function openHost() {
     );
 
 }
-
 
 </script>
 
