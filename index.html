@@ -3,94 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dionlyonee Playground - Host</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="host-page">
 
     <header class="top-bar">
+
         <div class="brand">
-            <span class="brand-icon">🎮</span>
+
+            <div class="brand-icon">
+                🎮
+            </div>
+
             <div>
                 <h1>Dionlyonee Playground</h1>
                 <p>Host Dashboard</p>
             </div>
+
         </div>
 
+
         <div class="status">
+
             <span class="status-dot"></span>
-            GAME READY
+
+            <span id="connectionStatus">
+                READY
+            </span>
+
         </div>
+
     </header>
 
 
     <main class="host-container">
 
-        <!-- GAME TITLE -->
+
+        <!-- GAME HEADER -->
+
         <section class="game-header">
+
             <div>
-                <p class="eyebrow">CURRENT GAME</p>
-                <h2>🎡 Wheel of Fortune</h2>
-                <p class="description">
-                    Give your stream a minute to guess before revealing the next letter.
+
+                <p class="eyebrow">
+                    CURRENT GAME
                 </p>
+
+                <h2>
+                    🎡 Wheel of Fortune
+                </h2>
+
+                <p class="description">
+                    Give your stream one minute to guess before the next letter is revealed.
+                </p>
+
             </div>
 
-            <a href="game.html" target="_blank" class="stream-button">
+
+            <a
+                href="game.html"
+                target="_blank"
+                class="stream-button"
+            >
                 📺 OPEN STREAM SCREEN
             </a>
+
         </section>
 
 
-        <!-- SETUP -->
+
+        <!-- GAME SETUP -->
+
         <section class="panel">
 
             <div class="panel-title">
-                <h3>Game Setup</h3>
-                <span>STEP 1</span>
+
+                <h3>
+                    Game Setup
+                </h3>
+
+                <span>
+                    SETUP
+                </span>
+
             </div>
+
 
             <div class="setup-grid">
 
+
+                <!-- CATEGORY -->
+
                 <div class="input-group">
-                    <label for="category">Category</label>
+
+                    <label for="category">
+                        CATEGORY
+                    </label>
 
                     <select id="category">
-                        <option value="Animals">🐶 Animals</option>
-                        <option value="Countries">🌎 Countries</option>
-                        <option value="Jamaican Phrases">🇯🇲 Jamaican Phrases</option>
-                        <option value="Food">🍔 Food</option>
-                        <option value="Movies">🎬 Movies</option>
-                        <option value="Music">🎵 Music</option>
-                        <option value="Video Games">🎮 Video Games</option>
-                        <option value="Sports">🏆 Sports</option>
-                        <option value="Places">📍 Places</option>
-                        <option value="Random">🎲 Random</option>
+
+                        <option value="Animals">
+                            🐶 Animals
+                        </option>
+
+                        <option value="Countries">
+                            🌎 Countries
+                        </option>
+
+                        <option value="Jamaican Phrases">
+                            🇯🇲 Jamaican Phrases
+                        </option>
+
+                        <option value="Food">
+                            🍔 Food
+                        </option>
+
+                        <option value="Movies">
+                            🎬 Movies
+                        </option>
+
+                        <option value="Music">
+                            🎵 Music
+                        </option>
+
+                        <option value="Video Games">
+                            🎮 Video Games
+                        </option>
+
+                        <option value="Sports">
+                            🏆 Sports
+                        </option>
+
+                        <option value="Places">
+                            📍 Places
+                        </option>
+
+                        <option value="Random">
+                            🎲 Random
+                        </option>
+
                     </select>
+
                 </div>
 
 
+
+                <!-- PUZZLE -->
+
                 <div class="input-group">
-                    <label for="customAnswer">Custom Answer</label>
+
+                    <label for="customAnswer">
+                        PUZZLE / ANSWER
+                    </label>
 
                     <input
                         type="text"
                         id="customAnswer"
-                        placeholder="Optional - type your own puzzle"
+                        placeholder="Enter the answer"
+                        autocomplete="off"
                     >
+
                 </div>
 
             </div>
 
 
+
             <div class="setup-actions">
 
-                <button id="randomPuzzleBtn" class="secondary-button">
+                <button
+                    id="randomPuzzleBtn"
+                    class="secondary-button"
+                    type="button"
+                >
                     🎲 RANDOM PUZZLE
                 </button>
 
-                <button id="startBtn" class="primary-button">
+
+                <button
+                    id="startBtn"
+                    class="primary-button"
+                    type="button"
+                >
                     ▶ START ROUND
                 </button>
 
@@ -99,34 +197,68 @@
         </section>
 
 
-        <!-- CURRENT PUZZLE -->
+
+        <!-- CURRENT GAME -->
+
         <section class="panel puzzle-panel">
 
             <div class="panel-title">
-                <h3>Current Puzzle</h3>
-                <span id="gameStatus">WAITING</span>
+
+                <h3>
+                    Current Puzzle
+                </h3>
+
+                <span id="gameStatus">
+                    WAITING
+                </span>
+
             </div>
+
 
 
             <div class="puzzle-info">
 
                 <div>
-                    <span class="info-label">CATEGORY</span>
-                    <strong id="displayCategory">---</strong>
+
+                    <span class="info-label">
+                        CATEGORY
+                    </span>
+
+                    <strong id="displayCategory">
+                        ---
+                    </strong>
+
                 </div>
 
+
                 <div>
-                    <span class="info-label">ANSWER</span>
-                    <strong id="hostAnswer">---</strong>
+
+                    <span class="info-label">
+                        ANSWER
+                    </span>
+
+                    <strong id="hostAnswer">
+                        ---
+                    </strong>
+
                 </div>
 
             </div>
 
 
-            <div class="host-puzzle" id="hostPuzzle">
+
+            <!-- PUZZLE -->
+
+            <div
+                class="host-puzzle"
+                id="hostPuzzle"
+            >
                 _ _ _ _ _ _ _
             </div>
 
+
+
+            <!-- TIMER -->
 
             <div class="timer-area">
 
@@ -134,9 +266,14 @@
                     NEXT LETTER IN
                 </div>
 
-                <div id="timer" class="timer">
+
+                <div
+                    id="timer"
+                    class="timer"
+                >
                     60
                 </div>
+
 
                 <div class="seconds">
                     SECONDS
@@ -145,48 +282,49 @@
             </div>
 
 
+
             <!-- CONTROLS -->
+
             <div class="game-controls">
 
-                <button id="revealLetterBtn" class="control-button reveal">
+
+                <button
+                    id="revealLetterBtn"
+                    class="control-button reveal"
+                    type="button"
+                >
                     🔤 REVEAL LETTER
                 </button>
 
-                <button id="pauseBtn" class="control-button">
+
+                <button
+                    id="pauseBtn"
+                    class="control-button"
+                    type="button"
+                >
                     ⏸ PAUSE
                 </button>
 
-                <button id="revealAnswerBtn" class="control-button answer">
+
+                <button
+                    id="revealAnswerBtn"
+                    class="control-button answer"
+                    type="button"
+                >
                     👀 REVEAL ANSWER
                 </button>
 
             </div>
 
 
-            <div class="winner-area">
 
-                <label for="winnerName">
-                    WINNER
-                </label>
+            <!-- NEW ROUND -->
 
-                <div class="winner-input">
-
-                    <input
-                        type="text"
-                        id="winnerName"
-                        placeholder="Enter winner's name"
-                    >
-
-                    <button id="winnerBtn">
-                        🏆 WINNER
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <button id="newRoundBtn" class="new-round-button">
+            <button
+                id="newRoundBtn"
+                class="new-round-button"
+                type="button"
+            >
                 🔄 NEW ROUND
             </button>
 
@@ -195,12 +333,15 @@
     </main>
 
 
+
     <footer>
         Dionlyonee Playground • Wheel of Fortune
     </footer>
 
 
+
     <script src="puzzles.js"></script>
+
     <script src="game.js"></script>
 
 </body>
