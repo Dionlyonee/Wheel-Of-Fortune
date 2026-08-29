@@ -2,168 +2,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dionlyonee Playground - Host</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+<title>Dionlyonee Playground Host</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #050505;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.host {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+}
+
+.logo {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #d4af37;
+    border-radius: 15px;
+
+    color: #d4af37;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+h1 {
+    margin: 0;
+    color: #d4af37;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    margin-top: 8px;
+    color: #777;
+    letter-spacing: 3px;
+    font-size: 12px;
+}
+
+.panel {
+    margin-top: 35px;
+    padding: 30px;
+
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 15px;
+}
+
+.label {
+    margin-top: 25px;
+    margin-bottom: 8px;
+
+    color: #777;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.category {
+    color: #d4af37;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.answer {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.timer {
+    color: #d4af37;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+.settings {
+    margin-top: 30px;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 14px 22px;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.time {
+    background: #111;
+    color: #aaa;
+    border: 1px solid #555;
+}
+
+.time.active {
+    background: #d4af37;
+    color: #000;
+    border-color: #d4af37;
+}
+
+.controls {
+    margin-top: 35px;
+
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.start {
+    background: #d4af37;
+    color: #000;
+    border: none;
+    font-size: 17px;
+    padding: 18px 40px;
+}
+
+.next {
+    background: #111;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    font-size: 17px;
+    padding: 18px 40px;
+}
+
+.message {
+    margin-top: 25px;
+    color: #999;
+}
+
+#test {
+    margin-top: 20px;
+    color: #555;
+    font-size: 12px;
+}
+</style>
 </head>
 
 <body>
 
-<div class="host-screen">
+<div class="host">
 
-    <header class="host-header">
+    <div class="logo">D</div>
 
-        <div class="host-logo">D</div>
+    <h1>DIONLYONEE PLAYGROUND</h1>
 
-        <div>
-            <h1>DIONLYONEE PLAYGROUND</h1>
-            <p>HOST CONTROL PANEL</p>
-        </div>
-
-    </header>
+    <div class="subtitle">
+        WHEEL OF FORTUNE — HOST
+    </div>
 
 
-    <main class="host-main">
+    <div class="panel">
 
-        <div class="host-status">
-            HOST CONTROL
-        </div>
-
-
-        <div class="host-label">
+        <div class="label">
             CATEGORY
         </div>
 
-        <div id="hostCategory" class="host-category">
+        <div id="category" class="category">
             READY
         </div>
 
 
-        <div class="host-label">
+        <div class="label">
             ANSWER
         </div>
 
-        <div id="answer" class="host-answer">
+        <div id="answer" class="answer">
             —
         </div>
 
 
-        <div class="host-label">
-            REVEALED LETTERS
-        </div>
-
-        <div id="revealed" class="host-revealed">
-            NONE
-        </div>
-
-
-        <div class="host-label">
+        <div class="label">
             NEXT LETTER
         </div>
 
-        <div id="hostTimer" class="host-timer">
+        <div id="timer" class="timer">
             30
         </div>
 
 
-        <!-- SETTINGS -->
+        <div class="settings">
 
-        <section class="host-settings">
+            <button
+                class="time"
+                id="time15"
+                onclick="setTime(15)">
+                15 SEC
+            </button>
 
-            <div class="host-setting">
+            <button
+                class="time active"
+                id="time30"
+                onclick="setTime(30)">
+                30 SEC
+            </button>
 
-                <h3>LETTER REVEAL</h3>
+            <button
+                class="time"
+                id="time60"
+                onclick="setTime(60)">
+                1 MIN
+            </button>
 
-                <button class="time-button"
-                        data-time="15">
-                    15 SEC
-                </button>
-
-                <button class="time-button active"
-                        data-time="30">
-                    30 SEC
-                </button>
-
-                <button class="time-button"
-                        data-time="60">
-                    1 MIN
-                </button>
-
-            </div>
-
-
-            <div class="host-setting">
-
-                <h3>NEXT PUZZLE COOLDOWN</h3>
-
-                <button class="cooldown-button"
-                        data-time="5">
-                    5 SEC
-                </button>
-
-                <button class="cooldown-button active"
-                        data-time="10">
-                    10 SEC
-                </button>
-
-                <button class="cooldown-button"
-                        data-time="15">
-                    15 SEC
-                </button>
-
-            </div>
-
-        </section>
+        </div>
 
 
-        <!-- GAME BUTTONS -->
+        <div class="controls">
 
-        <div class="host-controls">
-
-            <button id="start"
-                    class="start-game">
+            <button
+                class="start"
+                onclick="startGame()">
                 START GAME
             </button>
 
-            <button id="next"
-                    class="next-game">
+            <button
+                class="next"
+                onclick="nextGame()">
                 NEXT PUZZLE
             </button>
 
         </div>
 
 
-        <div id="hostMessage"
-             class="host-message">
+        <div id="message" class="message">
             READY TO START
         </div>
 
-    </main>
+        <div id="test">
+            Game system loaded
+        </div>
+
+    </div>
 
 </div>
 
 
 <script>
 
-/* =========================================================
-   GAME CONNECTION
-========================================================= */
-
-const channel = new BroadcastChannel(
-    "dionlyonee-wheel-game"
-);
-
-
-/* =========================================================
-   PUZZLE DATABASE
-========================================================= */
+/* =========================================
+   PUZZLES
+========================================= */
 
 const puzzles = {
 
     Countries: [
-
         "JAMAICA",
         "CANADA",
         "BRAZIL",
@@ -187,7 +293,6 @@ const puzzles = {
         "HAITI",
         "TRINIDAD AND TOBAGO",
         "GUYANA",
-        "SURINAME",
         "COSTA RICA",
         "PANAMA",
         "BELIZE",
@@ -197,7 +302,6 @@ const puzzles = {
         "KENYA",
         "EGYPT",
         "MOROCCO",
-        "TANZANIA",
         "INDIA",
         "CHINA",
         "SOUTH KOREA",
@@ -205,22 +309,12 @@ const puzzles = {
         "PHILIPPINES",
         "INDONESIA",
         "NEW ZEALAND",
-        "FIJI",
-        "ICELAND",
-        "NORWAY",
-        "SWEDEN",
-        "DENMARK",
         "IRELAND",
-        "SWITZERLAND",
-        "NETHERLANDS",
         "GREECE",
         "TURKEY"
-
     ],
 
-
     Animals: [
-
         "ELEPHANT",
         "GIRAFFE",
         "MONKEY",
@@ -234,11 +328,9 @@ const puzzles = {
         "LION",
         "CHEETAH",
         "LEOPARD",
-        "BEAR",
         "POLAR BEAR",
         "WOLF",
         "FOX",
-        "DEER",
         "RABBIT",
         "HORSE",
         "DONKEY",
@@ -247,7 +339,6 @@ const puzzles = {
         "COW",
         "PIG",
         "CHICKEN",
-        "ROOSTER",
         "EAGLE",
         "PARROT",
         "OWL",
@@ -262,21 +353,11 @@ const puzzles = {
         "WHALE",
         "OCTOPUS",
         "SEAL",
-        "WALRUS",
         "BUTTERFLY",
-        "BEE",
-        "SPIDER",
-        "ANT",
-        "CRAB",
-        "LOBSTER",
-        "JELLYFISH",
-        "BAT"
-
+        "SPIDER"
     ],
 
-
     "Jamaican Phrases": [
-
         "WAH GWAAN",
         "WEH YUH A SEH",
         "MI DEH YA",
@@ -298,39 +379,25 @@ const puzzles = {
         "GIVE THANKS",
         "NUFF RESPECT",
         "IRIE VIBES",
-        "YUH MAD",
-        "MI TIRED",
-        "MI HUNGRY",
         "COME YA",
         "TEK TIME",
         "HOLD A FAITH",
         "MEK IT GO",
-        "NO BWOY",
         "WHA YUH A DO",
         "HOW TING DEH",
         "MI GOOD",
         "YUH GOOD",
-        "EVERYTING CRISS",
-        "CRISS AND CLEAN",
-        "DEH PON IT",
-        "MI DEH PON IT",
         "SEEN",
-        "ZIM",
         "FI REAL",
-        "TRUE",
         "NO LIE",
         "MI TELL YUH",
-        "YUH ZIM",
         "WAH FI DO",
         "MI A COME",
         "MI A GO",
         "MEK WE LINK"
-
     ],
 
-
     Food: [
-
         "JERK CHICKEN",
         "RICE AND PEAS",
         "PIZZA",
@@ -352,7 +419,6 @@ const puzzles = {
         "RED PEA SOUP",
         "BEEF PATTY",
         "COCO BREAD",
-        "JAMAICAN PATTY",
         "CURRY CHICKEN",
         "STEAMED FISH",
         "JERK PORK",
@@ -370,7 +436,6 @@ const puzzles = {
         "CHEESECAKE",
         "DONUTS",
         "COOKIES",
-        "COTTON CANDY",
         "POPCORN",
         "CHICKEN WINGS",
         "SPAGHETTI",
@@ -378,15 +443,10 @@ const puzzles = {
         "FRIED RICE",
         "NOODLES",
         "RAMEN",
-        "SUSHI",
-        "DUMPLINGS",
-        "ICE CREAM SUNDAE"
-
+        "SUSHI"
     ],
 
-
     "Things You Do": [
-
         "WATCH TV",
         "PLAY VIDEO GAMES",
         "GO SHOPPING",
@@ -420,59 +480,15 @@ const puzzles = {
         "READ A BOOK",
         "USE YOUR PHONE",
         "TAKE A SELFIE",
-        "POST ON SOCIAL MEDIA",
         "GO TO A PARTY",
         "HANG OUT WITH FRIENDS",
         "CALL YOUR FAMILY",
         "GO TO THE STORE",
         "GO TO THE MOVIES",
         "GO TO A CONCERT"
-
     ],
-
-
-    "Famous Places": [
-
-        "TIMES SQUARE",
-        "STATUE OF LIBERTY",
-        "EMPIRE STATE BUILDING",
-        "CENTRAL PARK",
-        "EIFFEL TOWER",
-        "BIG BEN",
-        "BUCKINGHAM PALACE",
-        "GREAT WALL OF CHINA",
-        "TAJ MAHAL",
-        "PYRAMIDS OF GIZA",
-        "MOUNT EVEREST",
-        "NIAGARA FALLS",
-        "GRAND CANYON",
-        "DISNEY WORLD",
-        "HOLLYWOOD",
-        "LAS VEGAS",
-        "MIAMI BEACH",
-        "WAIKIKI BEACH",
-        "DUNNS RIVER FALLS",
-        "SEVEN MILE BEACH",
-        "BLUE MOUNTAINS",
-        "BOB MARLEY MUSEUM",
-        "MONTEGO BAY",
-        "OCHO RIOS",
-        "NEGRIL",
-        "KINGSTON JAMAICA",
-        "PARIS FRANCE",
-        "LONDON ENGLAND",
-        "NEW YORK CITY",
-        "LOS ANGELES",
-        "TOKYO JAPAN",
-        "ROME ITALY",
-        "DUBAI",
-        "SYDNEY OPERA HOUSE"
-
-    ],
-
 
     Music: [
-
         "REGGAE MUSIC",
         "DANCEHALL MUSIC",
         "HIP HOP",
@@ -493,58 +509,9 @@ const puzzles = {
         "SOUND SYSTEM",
         "MUSIC FESTIVAL",
         "DANCE FLOOR"
-
     ],
-
-
-    "Everyday Objects": [
-
-        "CELL PHONE",
-        "TELEVISION",
-        "COMPUTER",
-        "LAPTOP",
-        "KEYBOARD",
-        "HEADPHONES",
-        "REMOTE CONTROL",
-        "TOOTHBRUSH",
-        "TOOTHPASTE",
-        "BACKPACK",
-        "WALLET",
-        "KEYS",
-        "SUNGLASSES",
-        "WATCH",
-        "UMBRELLA",
-        "WATER BOTTLE",
-        "COFFEE CUP",
-        "PLATE",
-        "SPOON",
-        "FORK",
-        "KNIFE",
-        "REFRIGERATOR",
-        "MICROWAVE",
-        "OVEN",
-        "SOFA",
-        "BED",
-        "PILLOW",
-        "BLANKET",
-        "LAMP",
-        "FAN",
-        "CAMERA",
-        "MICROPHONE",
-        "GAME CONTROLLER",
-        "VIDEO CAMERA",
-        "SMART WATCH",
-        "CHARGER",
-        "USB CABLE",
-        "CAR KEYS",
-        "DOOR KEY",
-        "SHOPPING BAG"
-
-    ],
-
 
     Sports: [
-
         "BASKETBALL",
         "FOOTBALL",
         "SOCCER",
@@ -572,399 +539,202 @@ const puzzles = {
         "DARTS",
         "KICKBOXING",
         "MMA",
-        "BEACH VOLLEYBALL",
-        "COLLEGE FOOTBALL",
         "STREET BASKETBALL"
-
-    ],
-
-
-    "Things at the Beach": [
-
-        "BEACH BALL",
-        "SURFBOARD",
-        "SAND CASTLE",
-        "BEACH TOWEL",
-        "SUNSCREEN",
-        "SUNGLASSES",
-        "SWIMSUIT",
-        "FLIP FLOPS",
-        "BEACH CHAIR",
-        "BEACH UMBRELLA",
-        "COCONUT",
-        "PALM TREE",
-        "OCEAN WAVES",
-        "LIFEGUARD",
-        "SNORKEL",
-        "DIVING MASK",
-        "SEA SHELL",
-        "CRAB",
-        "STARFISH",
-        "BEACH PARTY",
-        "TROPICAL ISLAND",
-        "OCEAN BREEZE",
-        "SUNSET"
-
-    ],
-
-
-    "Random Things": [
-
-        "BIRTHDAY PARTY",
-        "FAMILY REUNION",
-        "ROAD TRIP",
-        "SUMMER VACATION",
-        "SCHOOL BUS",
-        "FIRST DATE",
-        "MOVIE NIGHT",
-        "GAME NIGHT",
-        "BARBECUE",
-        "POOL PARTY",
-        "HOUSE PARTY",
-        "SURPRISE PARTY",
-        "SHOPPING SPREE",
-        "WEEKEND PLANS",
-        "MORNING COFFEE",
-        "LATE NIGHT",
-        "EARLY MORNING",
-        "RAINY DAY",
-        "SUNNY DAY",
-        "FRIDAY NIGHT",
-        "SATURDAY NIGHT",
-        "SUNDAY MORNING",
-        "NEW YEAR PARTY",
-        "BIRTHDAY CAKE",
-        "FAMILY DINNER",
-        "ROAD TRIP MUSIC",
-        "BEACH DAY",
-        "LAZY SUNDAY",
-        "WEEKEND VIBES",
-        "GOOD TIMES"
-
     ]
 
 };
 
 
-/* =========================================================
+/* =========================================
    GAME VARIABLES
-========================================================= */
+========================================= */
 
 let revealTime = 30;
 
-let cooldownTime = 10;
-
-let answer = "";
-
-let category = "";
-
-let revealed = [];
+let timer = null;
 
 let seconds = 30;
 
 let running = false;
 
-let timer = null;
+let currentAnswer = "";
 
 
-/* =========================================================
-   HTML ELEMENTS
-========================================================= */
+/* =========================================
+   ELEMENTS
+========================================= */
 
-const hostCategory =
-    document.getElementById("hostCategory");
+const categoryDisplay =
+    document.getElementById("category");
 
-const answerElement =
+const answerDisplay =
     document.getElementById("answer");
 
-const revealedElement =
-    document.getElementById("revealed");
+const timerDisplay =
+    document.getElementById("timer");
 
-const timerElement =
-    document.getElementById("hostTimer");
-
-const messageElement =
-    document.getElementById("hostMessage");
+const messageDisplay =
+    document.getElementById("message");
 
 
-/* =========================================================
-   SEND GAME TO LIVE SCREEN
-========================================================= */
-
-function sendGame() {
-
-    channel.postMessage({
-
-        category: category,
-
-        answer: answer,
-
-        revealed: revealed,
-
-        seconds: seconds,
-
-        running: running
-
-    });
-
-}
-
-
-/* =========================================================
+/* =========================================
    START GAME
-========================================================= */
+========================================= */
 
 function startGame() {
 
     clearInterval(timer);
 
+    running = true;
 
     const categories =
         Object.keys(puzzles);
 
-
-    category =
+    const randomCategory =
         categories[
             Math.floor(
                 Math.random() * categories.length
             )
         ];
 
-
     const words =
-        puzzles[category];
+        puzzles[randomCategory];
 
-
-    answer =
+    currentAnswer =
         words[
             Math.floor(
                 Math.random() * words.length
             )
         ];
 
-
-    revealed = [];
-
-
     seconds = revealTime;
 
+    categoryDisplay.textContent =
+        randomCategory;
 
-    running = true;
+    answerDisplay.textContent =
+        currentAnswer;
 
-
-    hostCategory.textContent =
-        category;
-
-
-    answerElement.textContent =
-        answer;
-
-
-    revealedElement.textContent =
-        "NONE";
-
-
-    timerElement.textContent =
+    timerDisplay.textContent =
         seconds;
 
-
-    messageElement.textContent =
+    messageDisplay.textContent =
         "GAME IS LIVE";
 
-
-    sendGame();
-
-
     timer =
-        setInterval(tick, 1000);
+        setInterval(function() {
+
+            seconds--;
+
+            timerDisplay.textContent =
+                seconds;
+
+            if (seconds <= 0) {
+
+                clearInterval(timer);
+
+                messageDisplay.textContent =
+                    "LETTER REVEAL";
+
+                seconds = revealTime;
+
+                timerDisplay.textContent =
+                    seconds;
+
+                timer =
+                    setInterval(function() {
+
+                        seconds--;
+
+                        timerDisplay.textContent =
+                            seconds;
+
+                    }, 1000);
+
+            }
+
+        }, 1000);
 
 }
 
 
-/* =========================================================
-   TIMER
-========================================================= */
+/* =========================================
+   NEXT PUZZLE
+========================================= */
 
-function tick() {
+function nextGame() {
 
-    seconds--;
-
-    timerElement.textContent =
-        seconds;
-
-
-    sendGame();
-
-
-    if (seconds <= 0) {
-
-        revealLetter();
-
-    }
+    startGame();
 
 }
 
 
-/* =========================================================
-   REVEAL LETTER
-========================================================= */
+/* =========================================
+   CHANGE TIME
+========================================= */
 
-function revealLetter() {
+function setTime(time) {
 
-    clearInterval(timer);
+    if (running) {
 
-
-    const hidden =
-        [
-            ...new Set(
-
-                answer
-                    .split("")
-                    .filter(letter =>
-                        letter !== " " &&
-                        !revealed.includes(letter)
-                    )
-
-            )
-        ];
-
-
-    if (!hidden.length) {
-
-        finishGame();
+        messageDisplay.textContent =
+            "STOP THE CURRENT GAME BEFORE CHANGING TIME";
 
         return;
 
     }
 
+    revealTime = time;
 
-    const letter =
-        hidden[
-            Math.floor(
-                Math.random() * hidden.length
-            )
-        ];
+    seconds = time;
 
-
-    revealed.push(letter);
+    timerDisplay.textContent =
+        time;
 
 
-    revealedElement.textContent =
-        revealed.join(" • ");
+    document
+        .querySelectorAll(".time")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
 
 
-    messageElement.textContent =
-        "REVEALED: " + letter;
+    if (time === 15) {
 
-
-    seconds =
-        revealTime;
-
-
-    timerElement.textContent =
-        seconds;
-
-
-    sendGame();
-
-
-    if (puzzleComplete()) {
-
-        finishGame();
-
-        return;
+        document
+            .getElementById("time15")
+            .classList.add("active");
 
     }
 
+    if (time === 30) {
 
-    timer =
-        setInterval(tick, 1000);
-
-}
-
-
-/* =========================================================
-   CHECK PUZZLE
-========================================================= */
-
-function puzzleComplete() {
-
-    for (const letter of answer) {
-
-        if (
-            letter !== " " &&
-            !revealed.includes(letter)
-        ) {
-
-            return false;
-
-        }
+        document
+            .getElementById("time30")
+            .classList.add("active");
 
     }
 
-    return true;
+    if (time === 60) {
+
+        document
+            .getElementById("time60")
+            .classList.add("active");
+
+    }
 
 }
 
 
-/* =========================================================
-   FINISH GAME
-========================================================= */
-
-function finishGame() {
-
-    clearInterval(timer);
-
-
-    running = false;
-
-
-    messageElement.textContent =
-        "PUZZLE COMPLETE";
-
-
-    timerElement.textContent =
-        "✓";
-
-
-    sendGame();
-
-
-    setTimeout(
-        startGame,
-        cooldownTime * 1000
-    );
-
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-document
-    .getElementById("start")
-    .addEventListener(
-        "click",
-        startGame
-    );
-
-
-document
-    .getElementById("next")
-    .addEventListener(
-        "click",
-        startGame
-    );
-
-
-/* =========================================================
+/* =========================================
    ENTER KEY
-========================================================= */
+========================================= */
 
 document.addEventListener(
     "keydown",
-    event => {
+    function(event) {
 
         if (
             event.key === "Enter" &&
@@ -977,86 +747,6 @@ document.addEventListener(
 
     }
 );
-
-
-/* =========================================================
-   REVEAL TIME BUTTONS
-========================================================= */
-
-document
-    .querySelectorAll(".time-button")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                if (running) return;
-
-
-                document
-                    .querySelectorAll(".time-button")
-                    .forEach(item =>
-                        item.classList.remove("active")
-                    );
-
-
-                button.classList.add("active");
-
-
-                revealTime =
-                    Number(
-                        button.dataset.time
-                    );
-
-
-                seconds =
-                    revealTime;
-
-
-                timerElement.textContent =
-                    seconds;
-
-            }
-        );
-
-    });
-
-
-/* =========================================================
-   COOLDOWN BUTTONS
-========================================================= */
-
-document
-    .querySelectorAll(".cooldown-button")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                if (running) return;
-
-
-                document
-                    .querySelectorAll(".cooldown-button")
-                    .forEach(item =>
-                        item.classList.remove("active")
-                    );
-
-
-                button.classList.add("active");
-
-
-                cooldownTime =
-                    Number(
-                        button.dataset.time
-                    );
-
-            }
-        );
-
-    });
 
 </script>
 
