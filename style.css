@@ -1,69 +1,87 @@
 ```css
-/* =========================================================
+/* =====================================================
    DIONLYONEE PLAYGROUND
-   GOLD + BLACK THEME
-========================================================= */
+   WHEEL OF FORTUNE
+   GOLD + BLACK
+===================================================== */
+
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 
 html,
 body {
+    margin: 0;
+
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+
+    overflow: hidden;
 }
 
 
 body {
-    background:
-        radial-gradient(
-            circle at top,
-            #252525 0%,
-            #0d0d0d 45%,
-            #050505 100%
-        );
-
-    color: #ffffff;
-
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    min-height: 100vh;
+    background: #050505;
+
+    color: white;
 }
 
 
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
+/* =====================================================
+   LIVE SCREEN
+===================================================== */
 
-.game {
-    width: 100%;
-    min-height: 100vh;
+.live-screen {
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 35%,
+            #242424 0%,
+            #111111 35%,
+            #050505 75%,
+            #000000 100%
+        );
+
 }
 
 
-/* =========================================================
-   HEADER
-========================================================= */
+/* =====================================================
+   TOP BAR
+===================================================== */
 
-header {
+.live-topbar {
+
+    height: 95px;
+
     width: 100%;
 
     display: flex;
+
     align-items: center;
 
-    gap: 18px;
+    justify-content: space-between;
 
-    padding: 25px 35px;
+    padding:
+        0 45px;
 
     border-bottom:
-        1px solid rgba(
+        2px solid
+        rgba(
             212,
             175,
             55,
@@ -75,17 +93,37 @@ header {
             0,
             0,
             0,
-            0.55
+            0.45
         );
+
 }
 
 
-.logo {
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+}
+
+
+.brand-logo {
+
     width: 58px;
+
     height: 58px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     border:
@@ -96,570 +134,108 @@ header {
     color: #d4af37;
 
     font-size: 32px;
+
     font-weight: 900;
 
     box-shadow:
-        0 0 18px
+
+        0 0 20px
         rgba(
             212,
             175,
             55,
-            0.25
+            0.18
         );
+
 }
 
 
-header h1 {
+.brand-name {
+
     color: #d4af37;
 
     font-size: 22px;
 
+    font-weight: 900;
+
     letter-spacing: 3px;
 
-    font-weight: 900;
 }
 
 
-header p {
+.brand-game {
+
     margin-top: 5px;
 
-    color: #aaa;
+    color: #888;
 
-    font-size: 12px;
+    font-size: 11px;
 
-    letter-spacing: 3px;
+    letter-spacing: 4px;
+
 }
 
 
-/* =========================================================
-   MAIN
-========================================================= */
+/* =====================================================
+   LIVE INDICATOR
+===================================================== */
 
-main {
-    width: 100%;
-    max-width: 1100px;
+.live-indicator {
 
-    margin: 0 auto;
+    display: flex;
 
-    padding: 45px 30px 60px;
+    align-items: center;
 
-    text-align: center;
-}
+    gap: 8px;
 
+    padding:
+        10px 18px;
 
-/* =========================================================
-   LABELS
-========================================================= */
+    border:
+        1px solid #d4af37;
 
-.category-label,
-.timer-label {
+    border-radius: 25px;
+
     color: #d4af37;
 
     font-size: 13px;
 
-    font-weight: 800;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 10px;
-}
-
-
-/* =========================================================
-   CATEGORY
-========================================================= */
-
-.category {
-    display: inline-block;
-
-    padding: 10px 28px;
-
-    margin-bottom: 35px;
-
-    border:
-        1px solid #d4af37;
-
-    border-radius: 30px;
-
-    color: #ffffff;
-
-    font-size: 18px;
-
-    font-weight: 800;
+    font-weight: 900;
 
     letter-spacing: 2px;
 
-    background:
-        rgba(
-            212,
-            175,
-            55,
-            0.08
-        );
 }
 
 
-/* =========================================================
-   PUZZLE
-========================================================= */
+.live-light {
 
-.puzzle,
-.live-puzzle {
-    display: flex;
+    width: 10px;
 
-    justify-content: center;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 9px;
-
-    min-height: 110px;
-
-    margin:
-        15px auto
-        35px;
-}
-
-
-.letter,
-.live-letter {
-    width: 58px;
-    height: 70px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #181818,
-            #080808
-        );
-
-    border:
-        2px solid #d4af37;
-
-    border-radius: 6px;
-
-    color: #ffffff;
-
-    font-size: 32px;
-
-    font-weight: 900;
-
-    box-shadow:
-        0 4px 15px
-        rgba(
-            0,
-            0,
-            0,
-            0.6
-        );
-
-    transition:
-        all 0.25s ease;
-}
-
-
-.letter.revealed,
-.live-letter-revealed {
-    background:
-        linear-gradient(
-            145deg,
-            #d4af37,
-            #9d7c18
-        );
-
-    color: #000000;
-
-    box-shadow:
-        0 0 25px
-        rgba(
-            212,
-            175,
-            55,
-            0.5
-        );
-}
-
-
-.space,
-.live-space {
-    width: 25px;
-}
-
-
-/* =========================================================
-   TIMER
-========================================================= */
-
-.timer {
-    color: #d4af37;
-
-    font-size: 72px;
-
-    line-height: 1;
-
-    font-weight: 900;
-
-    margin: 5px 0;
-}
-
-
-.seconds {
-    color: #888;
-
-    font-size: 12px;
-
-    letter-spacing: 4px;
-
-    margin-bottom: 20px;
-}
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-.message {
-    display: inline-block;
-
-    padding: 12px 25px;
-
-    border-radius: 30px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.05
-        );
-
-    border:
-        1px solid
-        rgba(
-            212,
-            175,
-            55,
-            0.25
-        );
-
-    color: #ddd;
-
-    font-size: 14px;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================================================
-   HOST ANSWER
-========================================================= */
-
-.host-answer {
-    color: #ffffff;
-
-    font-size: 30px;
-
-    font-weight: 900;
-
-    letter-spacing: 5px;
-
-    margin-bottom: 30px;
-}
-
-
-.host-letters {
-    color: #d4af37;
-
-    font-size: 20px;
-
-    font-weight: 800;
-
-    margin-bottom: 30px;
-}
-
-
-/* =========================================================
-   HOST SETTINGS
-========================================================= */
-
-.host-settings {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 25px;
-
-    flex-wrap: wrap;
-
-    margin-top: 35px;
-}
-
-
-.setting {
-    padding: 22px;
-
-    min-width: 280px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.035
-        );
-
-    border:
-        1px solid
-        rgba(
-            212,
-            175,
-            55,
-            0.25
-        );
-
-    border-radius: 14px;
-}
-
-
-.setting h3 {
-    color: #d4af37;
-
-    font-size: 12px;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 15px;
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-button {
-    cursor: pointer;
-
-    border: none;
-
-    font-family: inherit;
-}
-
-
-.host-time-button,
-.host-cooldown-button {
-    padding: 10px 15px;
-
-    margin: 4px;
-
-    border:
-        1px solid #555;
-
-    border-radius: 7px;
-
-    background: #111;
-
-    color: #aaa;
-
-    font-weight: 800;
-
-    transition:
-        0.2s ease;
-}
-
-
-.host-time-button:hover,
-.host-cooldown-button:hover {
-    border-color: #d4af37;
-
-    color: #d4af37;
-}
-
-
-.host-time-button.active,
-.host-cooldown-button.active {
-    background: #d4af37;
-
-    border-color: #d4af37;
-
-    color: #000000;
-}
-
-
-/* =========================================================
-   CONTROLS
-========================================================= */
-
-.controls {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 15px;
-
-    flex-wrap: wrap;
-
-    margin-top: 35px;
-}
-
-
-.start-button,
-.host-next-button {
-    padding: 16px 30px;
-
-    border-radius: 8px;
-
-    font-size: 15px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-.start-button {
-    background:
-        linear-gradient(
-            135deg,
-            #d4af37,
-            #a67c18
-        );
-
-    color: #000000;
-
-    box-shadow:
-        0 5px 20px
-        rgba(
-            212,
-            175,
-            55,
-            0.25
-        );
-}
-
-
-.host-next-button {
-    background: #191919;
-
-    border:
-        1px solid #d4af37;
-
-    color: #d4af37;
-}
-
-
-.start-button:hover,
-.host-next-button:hover {
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(
-            212,
-            175,
-            55,
-            0.3
-        );
-}
-
-
-/* =========================================================
-   CONNECTION / LIVE STATUS
-========================================================= */
-
-.live-status {
-    margin-top: 30px;
-
-    color: #999;
-
-    font-size: 12px;
-
-    letter-spacing: 2px;
-}
-
-
-.connection-dot,
-.live-dot {
-    display: inline-block;
-
-    width: 9px;
-    height: 9px;
-
-    margin-right: 7px;
+    height: 10px;
 
     border-radius: 50%;
 
     background: #d4af37;
 
     box-shadow:
-        0 0 10px
+        0 0 14px
         rgba(
             212,
             175,
             55,
-            0.8
+            0.9
         );
+
 }
 
 
-/* =========================================================
-   LAUNCH SCREEN
-========================================================= */
+/* =====================================================
+   GAME BOARD
+===================================================== */
 
-.launch-screen {
-    padding-top: 90px;
-}
+.game-board {
 
-
-.launch-screen h2 {
-    margin-top: 10px;
-
-    color: #ffffff;
-
-    font-size: 42px;
-
-    letter-spacing: 2px;
-}
-
-
-.launch-description {
-    margin-top: 12px;
-
-    color: #999;
-
-    font-size: 16px;
-}
-
-
-.launch-buttons {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 30px;
-
-    flex-wrap: wrap;
-
-    margin-top: 50px;
-}
-
-
-.launch-button {
-    width: 280px;
-
-    min-height: 200px;
+    flex: 1;
 
     display: flex;
 
@@ -669,128 +245,163 @@ button {
 
     justify-content: center;
 
-    gap: 10px;
+    padding:
+        30px 30px 20px;
 
-    border-radius: 18px;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
 }
 
 
-.launch-button span:not(.button-icon) {
-    font-size: 22px;
+/* =====================================================
+   CATEGORY
+===================================================== */
 
-    font-weight: 900;
-
-    letter-spacing: 2px;
-}
-
-
-.launch-button small {
-    color: #999;
-
-    font-size: 12px;
-
-    letter-spacing: 1px;
-}
-
-
-.button-icon {
-    font-size: 42px;
-}
-
-
-.live-button {
-    background:
-        linear-gradient(
-            145deg,
-            #191919,
-            #080808
-        );
-
-    border:
-        2px solid #d4af37;
+.category-title {
 
     color: #d4af37;
-}
-
-
-.host-button {
-    background:
-        linear-gradient(
-            145deg,
-            #d4af37,
-            #9d7418
-        );
-
-    color: #000000;
-
-    border:
-        2px solid #d4af37;
-}
-
-
-.host-button small {
-    color: #201800;
-}
-
-
-.launch-button:hover {
-    transform:
-        translateY(-7px);
-
-    box-shadow:
-        0 15px 40px
-        rgba(
-            212,
-            175,
-            55,
-            0.25
-        );
-}
-
-
-.launch-note {
-    margin-top: 45px;
-
-    color: #777;
 
     font-size: 13px;
 
-    line-height: 1.8;
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 8px;
+
 }
 
 
-.launch-note strong {
-    color: #d4af37;
+.category-name {
+
+    color: white;
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
 }
 
 
-/* =========================================================
-   LIVE STREAM PAGE
-========================================================= */
+/* =====================================================
+   PUZZLE BOARD
+===================================================== */
 
-.live-page {
+.puzzle-board {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 22px;
+
+    max-width: 1200px;
+
+    min-height: 125px;
+
+    margin:
+        45px auto;
+
+}
+
+
+.word-group {
+
+    display: flex;
+
+    gap: 8px;
+
+}
+
+
+/* =====================================================
+   LETTER BOX
+===================================================== */
+
+.letter-box {
+
+    width: 66px;
+
+    height: 82px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     background:
-        radial-gradient(
-            circle at center,
-            #202020 0%,
-            #090909 55%,
-            #000000 100%
+
+        linear-gradient(
+            145deg,
+            #191919,
+            #070707
         );
+
+    border:
+        3px solid #d4af37;
+
+    border-radius: 5px;
+
+    color: #ffffff;
+
+    font-size: 40px;
+
+    font-weight: 900;
+
+    box-shadow:
+
+        0 6px 18px
+        rgba(
+            0,
+            0,
+            0,
+            0.65
+        );
+
 }
 
 
-.live-game {
-    width: 100%;
+/* =====================================================
+   REVEALED LETTER
+===================================================== */
 
-    min-height: 100vh;
+.letter-box.revealed {
 
-    padding:
-        35px 45px
-        45px;
+    background:
+
+        linear-gradient(
+            145deg,
+            #e6c95b,
+            #a77c18
+        );
+
+    color: #050505;
+
+    box-shadow:
+
+        0 0 28px
+        rgba(
+            212,
+            175,
+            55,
+            0.5
+        );
+
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+.timer-section {
 
     display: flex;
 
@@ -798,217 +409,36 @@ button {
 
     align-items: center;
 
-    text-align: center;
 }
 
 
-/* =========================================================
-   LIVE HEADER
-========================================================= */
+.timer-title {
 
-.live-header {
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 18px;
-
-    position: relative;
-
-    padding-bottom: 25px;
-
-    border-bottom:
-        1px solid
-        rgba(
-            212,
-            175,
-            55,
-            0.3
-        );
-}
-
-
-.live-logo {
-    width: 55px;
-    height: 55px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border:
-        2px solid #d4af37;
-
-    border-radius: 12px;
-
-    color: #d4af37;
-
-    font-size: 30px;
-
-    font-weight: 900;
-}
-
-
-.live-title {
-    text-align: left;
-}
-
-
-.live-title h1 {
-    color: #d4af37;
-
-    font-size: 22px;
-
-    letter-spacing: 3px;
-}
-
-
-.live-title p {
-    margin-top: 4px;
-
-    color: #999;
+    color: #777;
 
     font-size: 11px;
-
-    letter-spacing: 3px;
-}
-
-
-.live-badge {
-    position: absolute;
-
-    right: 0;
-
-    top: 10px;
-
-    padding:
-        8px 14px;
-
-    border:
-        1px solid #d4af37;
-
-    border-radius: 20px;
-
-    color: #d4af37;
-
-    font-size: 11px;
-
-    font-weight: 900;
-
-    letter-spacing: 2px;
-}
-
-
-/* =========================================================
-   LIVE CATEGORY
-========================================================= */
-
-.live-category-area {
-    margin-top: 45px;
-}
-
-
-.live-label {
-    color: #d4af37;
-
-    font-size: 12px;
 
     font-weight: 900;
 
     letter-spacing: 4px;
 
-    margin-bottom: 12px;
 }
 
 
-.live-category {
-    color: #ffffff;
+.big-timer {
 
-    font-size: 24px;
+    margin-top: 5px;
 
-    font-weight: 900;
-
-    letter-spacing: 3px;
-}
-
-
-/* =========================================================
-   LIVE PUZZLE
-========================================================= */
-
-.live-puzzle {
-    width: 100%;
-
-    max-width: 1050px;
-
-    min-height: 150px;
-
-    margin-top: 35px;
-
-    margin-bottom: 35px;
-}
-
-
-.live-letter {
-    width: 68px;
-    height: 82px;
-
-    border:
-        2px solid #d4af37;
-
-    font-size: 38px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #202020,
-            #080808
-        );
-}
-
-
-.live-letter-revealed {
-    background:
-        linear-gradient(
-            145deg,
-            #e1c45b,
-            #a47c1d
-        );
-
-    color: #000000;
-}
-
-
-.live-space {
-    width: 35px;
-}
-
-
-/* =========================================================
-   LIVE TIMER
-========================================================= */
-
-.live-timer-area {
-    margin-top: 15px;
-}
-
-
-.live-timer {
     color: #d4af37;
 
-    font-size: 86px;
+    font-size: 75px;
 
     font-weight: 900;
 
     line-height: 1;
 
     text-shadow:
+
         0 0 25px
         rgba(
             212,
@@ -1016,24 +446,28 @@ button {
             55,
             0.25
         );
+
 }
 
 
-.live-seconds {
-    color: #777;
+.timer-caption {
 
-    font-size: 11px;
+    color: #666;
+
+    font-size: 10px;
 
     letter-spacing: 4px;
+
 }
 
 
-/* =========================================================
-   LIVE MESSAGE
-========================================================= */
+/* =====================================================
+   CHAT MESSAGE
+===================================================== */
 
-.live-message {
-    margin-top: 30px;
+.chat-message {
+
+    margin-top: 25px;
 
     padding:
         13px 28px;
@@ -1044,7 +478,7 @@ button {
             212,
             175,
             55,
-            0.35
+            0.45
         );
 
     border-radius: 30px;
@@ -1054,153 +488,146 @@ button {
             212,
             175,
             55,
-            0.05
+            0.06
         );
 
-    color: #ffffff;
+    color: white;
 
     font-size: 14px;
 
-    font-weight: 800;
+    font-weight: 900;
 
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+
 }
 
 
-/* =========================================================
-   LIVE WAITING
-========================================================= */
+/* =====================================================
+   FOOTER
+===================================================== */
 
-.live-waiting,
-.waiting {
-    color: #777;
+.live-bottom {
 
-    font-size: 20px;
+    height: 55px;
 
-    font-weight: 800;
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    border-top:
+        1px solid
+        rgba(
+            212,
+            175,
+            55,
+            0.25
+        );
+
+    color: #666;
+
+    font-size: 10px;
+
+    font-weight: 900;
 
     letter-spacing: 3px;
+
 }
 
 
-/* =========================================================
-   LIVE FOOTER
-========================================================= */
+.bottom-divider {
 
-.live-footer {
-    margin-top: auto;
-
-    padding-top: 35px;
-
-    color: #777;
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    letter-spacing: 3px;
-}
-
-
-.live-footer span:nth-child(2) {
     color: #d4af37;
 
-    margin:
-        0 12px;
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
+/* =====================================================
+   MOBILE / SMALL SCREEN
+===================================================== */
 
 @media (
-    max-width: 700px
+    max-width: 800px
 ) {
 
-    header {
-        padding: 20px;
+
+    .live-topbar {
+
+        padding:
+            0 20px;
+
     }
 
 
-    header h1 {
-        font-size: 16px;
+    .brand-name {
+
+        font-size: 15px;
 
         letter-spacing: 2px;
+
     }
 
 
-    header p {
-        font-size: 9px;
+    .brand-game {
+
+        font-size: 8px;
+
     }
 
 
-    main {
-        padding:
-            35px 15px;
-    }
+    .brand-logo {
 
+        width: 45px;
 
-    .letter,
-    .live-letter {
-        width: 43px;
-
-        height: 55px;
+        height: 45px;
 
         font-size: 24px;
+
     }
 
 
-    .live-letter {
+    .live-indicator {
+
+        padding:
+            7px 11px;
+
+        font-size: 10px;
+
+    }
+
+
+    .letter-box {
+
         width: 48px;
 
-        height: 60px;
+        height: 62px;
+
+        font-size: 28px;
+
     }
 
 
-    .timer,
-    .live-timer {
-        font-size: 60px;
+    .word-group {
+
+        gap: 5px;
+
     }
 
 
-    .launch-screen h2 {
-        font-size: 30px;
+    .puzzle-board {
+
+        gap: 14px;
+
     }
 
 
-    .launch-button {
-        width: 90%;
+    .big-timer {
 
-        max-width: 320px;
-    }
+        font-size: 58px;
 
-
-    .live-game {
-        padding:
-            20px 15px;
-    }
-
-
-    .live-header {
-        justify-content: flex-start;
-    }
-
-
-    .live-badge {
-        position: static;
-
-        margin-left: auto;
-    }
-
-
-    .live-title h1 {
-        font-size: 15px;
-    }
-
-
-    .live-title p {
-        font-size: 8px;
     }
 
 }
