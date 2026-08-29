@@ -1,173 +1,59 @@
 ```css
-/* ==================================================
-   DIONLYONEE PLAYGROUND
-   WHEEL OF FORTUNE
-
-   GOLD + BLACK STREAM DESIGN
-================================================== */
-
-
-/* ==================================================
-   RESET
-================================================== */
-
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-
-/* ==================================================
-   COLORS
-================================================== */
-
-:root {
-
-    --black: #050505;
-
-    --black-2: #0b0b0b;
-
-    --black-3: #121212;
-
-    --gold: #d4af37;
-
-    --gold-light: #f5d76e;
-
-    --gold-dark: #80651b;
-
-    --white: #ffffff;
-
-    --gray: #999999;
-
-}
-
-
-/* ==================================================
-   BODY
-================================================== */
 
 body {
 
     min-height: 100vh;
 
-    background:
+    background: #050505;
 
-        radial-gradient(
-            circle at top,
-            #222222 0%,
-            #0b0b0b 45%,
-            #020202 100%
-        );
+    color: white;
 
-    color: var(--white);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, sans-serif;
 
 }
 
 
-/* ==================================================
-   GAME CONTAINER
-================================================== */
-
-.game-container {
+.game {
 
     min-height: 100vh;
 
-    width: 100%;
-
-    padding:
-        30px 35px 50px;
-
-    position: relative;
-
-    overflow: hidden;
-
-}
-
-
-/* ==================================================
-   GOLD GLOW
-================================================== */
-
-.game-container::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 900px;
-
-    height: 500px;
-
-    left: 50%;
-
-    top: -300px;
-
-    transform:
-        translateX(-50%);
+    padding: 30px;
 
     background:
         radial-gradient(
-            circle,
-            rgba(
-                212,
-                175,
-                55,
-                0.20
-            ),
-            transparent 70%
+            circle at top,
+            #222 0%,
+            #050505 60%
         );
-
-    pointer-events: none;
 
 }
 
 
-/* ==================================================
-   HEADER
-================================================== */
+header {
 
-.header {
+    max-width: 1200px;
 
-    width: 100%;
-
-    max-width: 1400px;
-
-    margin:
-        0 auto;
+    margin: auto;
 
     display: flex;
 
     align-items: center;
 
-    gap: 18px;
+    gap: 20px;
 
     padding-bottom: 25px;
 
     border-bottom:
-        1px solid
-        rgba(
-            212,
-            175,
-            55,
-            0.35
-        );
-
-    position: relative;
-
-    z-index: 2;
+        1px solid #6e591b;
 
 }
 
-
-/* ==================================================
-   LOGO
-================================================== */
 
 .logo {
 
@@ -175,27 +61,17 @@ body {
 
     height: 60px;
 
-    border:
-        2px solid
-        var(--gold);
-
-    border-radius: 12px;
-
     display: flex;
 
     align-items: center;
 
     justify-content: center;
 
-    background:
-        linear-gradient(
-            145deg,
-            #1c1c1c,
-            #050505
-        );
+    border: 2px solid #d4af37;
 
-    color:
-        var(--gold-light);
+    border-radius: 10px;
+
+    color: #f5d76e;
 
     font-size: 32px;
 
@@ -204,105 +80,48 @@ body {
 }
 
 
-/* ==================================================
-   TITLE
-================================================== */
+h1 {
 
-.title-area h1 {
+    color: #f5d76e;
 
-    font-size:
-        clamp(
-            22px,
-            3vw,
-            40px
-        );
-
-    font-weight: 900;
+    font-size: 32px;
 
     letter-spacing: 3px;
 
-    color:
-        var(--gold-light);
-
 }
 
 
-.title-area p {
+header p {
 
     margin-top: 5px;
 
-    color:
-        var(--gray);
+    color: #999;
 
-    font-size: 12px;
-
-    letter-spacing: 5px;
-
-    font-weight: 700;
+    letter-spacing: 4px;
 
 }
 
 
-/* ==================================================
-   TOP START BUTTON
-================================================== */
+main {
 
-.start-top {
+    max-width: 1200px;
 
-    margin-left: auto;
-
-    padding:
-        14px 24px;
-
-    border:
-        1px solid
-        var(--gold-light);
-
-    border-radius: 8px;
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--gold-light),
-            var(--gold-dark)
-        );
-
-    color:
-        #050505;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-}
-
-
-/* ==================================================
-   CATEGORY
-================================================== */
-
-.category-area {
-
-    max-width: 1400px;
-
-    margin:
-        40px auto 0;
+    margin: auto;
 
     text-align: center;
 
 }
 
 
-.small-title {
+.category-label {
 
-    color:
-        var(--gold);
+    margin-top: 45px;
 
-    font-size: 12px;
+    color: #d4af37;
 
-    font-weight: 900;
+    font-size: 13px;
+
+    font-weight: bold;
 
     letter-spacing: 4px;
 
@@ -313,74 +132,6 @@ body {
 
     margin-top: 10px;
 
-    font-size:
-        clamp(
-            26px,
-            5vw,
-            48px
-        );
-
-    font-weight: 900;
-
-    letter-spacing: 3px;
-
-}
-
-
-/* ==================================================
-   PUZZLE
-================================================== */
-
-.puzzle {
-
-    max-width: 1400px;
-
-    min-height: 150px;
-
-    margin:
-        50px auto 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-    gap: 10px;
-
-}
-
-
-/* ==================================================
-   LETTER BOX
-================================================== */
-
-.letter {
-
-    width: 65px;
-
-    height: 80px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border:
-        2px solid
-        var(--gold);
-
-    border-radius: 7px;
-
-    background:
-        #080808;
-
-    color:
-        transparent;
-
     font-size: 42px;
 
     font-weight: 900;
@@ -388,71 +139,75 @@ body {
 }
 
 
-/* ==================================================
-   REVEALED LETTER
-================================================== */
+.puzzle {
 
-.letter.revealed {
+    min-height: 120px;
 
-    background:
-        linear-gradient(
-            145deg,
-            var(--gold-light),
-            var(--gold-dark)
-        );
+    margin-top: 50px;
 
-    color:
-        #050505;
+    display: flex;
 
-    border-color:
-        var(--gold-light);
+    justify-content: center;
 
-    box-shadow:
-        0 0 20px
-        rgba(
-            212,
-            175,
-            55,
-            0.30
-        );
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
 
 }
 
 
-/* ==================================================
-   WORD SPACE
-================================================== */
+.letter {
 
-.word-space {
+    width: 60px;
+
+    height: 75px;
+
+    border: 2px solid #d4af37;
+
+    border-radius: 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #080808;
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+}
+
+
+.letter.revealed {
+
+    background: #d4af37;
+
+    color: #050505;
+
+}
+
+
+.space {
 
     width: 25px;
 
 }
 
 
-/* ==================================================
-   TIMER
-================================================== */
+.timer-label {
 
-.timer-area {
+    margin-top: 25px;
 
-    text-align: center;
-
-    margin-top: 35px;
-
-}
-
-
-.timer-title {
-
-    color:
-        var(--gray);
+    color: #999;
 
     font-size: 12px;
 
-    letter-spacing: 4px;
-
-    font-weight: 800;
+    letter-spacing: 3px;
 
 }
 
@@ -461,455 +216,180 @@ body {
 
     margin-top: 5px;
 
-    font-size:
-        clamp(
-            60px,
-            8vw,
-            100px
-        );
+    color: #f5d76e;
 
-    line-height: 1;
+    font-size: 90px;
 
     font-weight: 900;
-
-    color:
-        var(--gold-light);
-
-}
-
-
-.timer.warning {
-
-    animation:
-        pulse 1s infinite;
-
-}
-
-
-@keyframes pulse {
-
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.08);
-    }
-
-    100% {
-        transform: scale(1);
-    }
 
 }
 
 
 .seconds {
 
-    margin-top: 7px;
+    color: #777;
 
-    color:
-        var(--gray);
-
-    font-size: 10px;
+    font-size: 11px;
 
     letter-spacing: 3px;
 
 }
 
 
-/* ==================================================
-   MESSAGE
-================================================== */
-
 .message {
 
-    text-align: center;
+    margin-top: 25px;
 
-    margin-top: 30px;
+    color: #d4af37;
 
-    min-height: 24px;
+    font-weight: bold;
 
-    color:
-        var(--gold);
-
-    font-size: 15px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
+    min-height: 20px;
 
 }
 
-
-/* ==================================================
-   CONTROLS
-================================================== */
 
 .controls {
 
-    width: 100%;
+    max-width: 700px;
 
-    max-width: 900px;
-
-    margin:
-        30px auto 0;
+    margin: 30px auto;
 
     padding: 25px;
 
-    border:
-        1px solid
-        rgba(
-            212,
-            175,
-            55,
-            0.30
-        );
+    background: #101010;
 
-    border-radius: 16px;
+    border: 1px solid #4c3c13;
 
-    background:
-        rgba(
-            10,
-            10,
-            10,
-            0.95
-        );
+    border-radius: 12px;
 
 }
 
 
-/* ==================================================
-   CONTROL SECTION
-================================================== */
-
-.control-section {
+.setting {
 
     margin-bottom: 25px;
 
 }
 
 
-.control-title {
+.setting h3 {
 
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 
-    color:
-        var(--gray);
+    color: #999;
 
-    font-size: 11px;
-
-    font-weight: 800;
+    font-size: 12px;
 
     letter-spacing: 2px;
 
 }
 
 
-/* ==================================================
-   BUTTON ROW
-================================================== */
+button {
 
-.button-row {
+    padding: 13px 20px;
 
-    display: flex;
+    margin: 4px;
 
-    gap: 10px;
+    border: 1px solid #555;
 
-}
+    border-radius: 6px;
 
+    background: #080808;
 
-/* ==================================================
-   OPTION BUTTON
-================================================== */
+    color: white;
 
-.option-button {
-
-    flex: 1;
-
-    padding:
-        13px 10px;
-
-    border:
-        1px solid
-        #333333;
-
-    border-radius: 7px;
-
-    background:
-        #080808;
-
-    color:
-        var(--gray);
-
-    font-weight: 800;
+    font-weight: bold;
 
     cursor: pointer;
 
-    transition:
-        0.2s ease;
+}
+
+
+button:hover {
+
+    border-color: #d4af37;
 
 }
 
 
-.option-button:hover {
+button.active {
 
-    border-color:
-        var(--gold);
+    background: #d4af37;
 
-    color:
-        var(--gold-light);
+    color: #050505;
 
-}
-
-
-.option-button.selected {
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--gold-light),
-            var(--gold-dark)
-        );
-
-    border-color:
-        var(--gold-light);
-
-    color:
-        #050505;
+    border-color: #f5d76e;
 
 }
 
 
-/* ==================================================
-   START GAME
-================================================== */
-
-.start-game {
+.start-button {
 
     width: 100%;
 
+    margin-top: 10px;
+
     padding: 18px;
+
+    background: #d4af37;
+
+    color: #050505;
 
     border: none;
 
-    border-radius: 8px;
-
-    background:
-        linear-gradient(
-            145deg,
-            var(--gold-light),
-            var(--gold-dark)
-        );
-
-    color:
-        #050505;
-
     font-size: 16px;
 
-    font-weight: 900;
+}
 
-    letter-spacing: 2px;
 
-    cursor: pointer;
+.start-button:hover {
+
+    background: #f5d76e;
 
 }
 
 
-.start-game:hover {
+@media (max-width: 700px) {
 
-    filter:
-        brightness(1.15);
+    .game {
 
-}
-
-
-/* ==================================================
-   COOLDOWN
-================================================== */
-
-.cooldown {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 100;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            0.97
-        );
-
-}
-
-
-.cooldown.hidden {
-
-    display: none;
-
-}
-
-
-.cooldown-text {
-
-    color:
-        var(--gold);
-
-    font-size: 20px;
-
-    font-weight: 800;
-
-    letter-spacing: 5px;
-
-}
-
-
-.cooldown-number {
-
-    margin-top: 10px;
-
-    color:
-        var(--gold-light);
-
-    font-size: 120px;
-
-    font-weight: 900;
-
-}
-
-
-/* ==================================================
-   MOBILE
-================================================== */
-
-@media (
-    max-width: 700px
-) {
-
-    .game-container {
-
-        padding:
-            18px 12px 30px;
+        padding: 15px;
 
     }
 
 
-    .logo {
+    h1 {
 
-        width: 45px;
-
-        height: 45px;
-
-        font-size: 24px;
-
-    }
-
-
-    .title-area h1 {
-
-        font-size: 17px;
+        font-size: 18px;
 
         letter-spacing: 1px;
 
     }
 
 
-    .title-area p {
+    .category {
 
-        font-size: 8px;
-
-        letter-spacing: 2px;
-
-    }
-
-
-    .start-top {
-
-        padding:
-            10px 12px;
-
-        font-size: 9px;
-
-    }
-
-
-    .puzzle {
-
-        gap: 5px;
+        font-size: 28px;
 
     }
 
 
     .letter {
 
-        width: 40px;
+        width: 42px;
 
-        height: 52px;
+        height: 55px;
 
-        font-size: 26px;
-
-    }
-
-
-    .word-space {
-
-        width: 12px;
+        font-size: 28px;
 
     }
 
 
-    .button-row {
+    .timer {
 
-        gap: 6px;
-
-    }
-
-
-    .option-button {
-
-        padding:
-            12px 5px;
-
-        font-size: 10px;
-
-    }
-
-}
-
-
-/* ==================================================
-   LARGE STREAM DISPLAY
-================================================== */
-
-@media (
-    min-width: 1400px
-) {
-
-    .letter {
-
-        width: 75px;
-
-        height: 90px;
-
-        font-size: 48px;
-
-    }
-
-
-    .word-space {
-
-        width: 35px;
+        font-size: 70px;
 
     }
 
