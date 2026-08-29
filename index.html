@@ -1,126 +1,34 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Dionlyonee Playground</title>
-
-    <link rel="stylesheet"
-          href="style.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dionlyonee Playground</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-
 <div class="launcher">
-
-
-    <div class="launcher-logo">
-        D
-    </div>
-
-
-    <h1>
-        DIONLYONEE PLAYGROUND
-    </h1>
-
-
-    <div class="launcher-subtitle">
-        WHEEL OF FORTUNE
-    </div>
-
-
-    <p class="launcher-description">
-        Choose your screen
-    </p>
-
-
-    <div class="launcher-buttons">
-
-
-        <button
-            class="launcher-button live-launch"
-            onclick="openLive()"
-        >
-
-            <span class="launcher-icon">
-                📺
-            </span>
-
-            <strong>
-                LIVE GAME
-            </strong>
-
-            <small>
-                Stream this screen
-            </small>
-
-        </button>
-
-
-        <button
-            class="launcher-button host-launch"
-            onclick="openHost()"
-        >
-
-            <span class="launcher-icon">
-                🎤
-            </span>
-
-            <strong>
-                HOST PANEL
-            </strong>
-
-            <small>
-                Control the game
-            </small>
-
-        </button>
-
-
-    </div>
-
-
-    <div class="launcher-footer">
-        DIONLYONEE PLAYGROUND
-    </div>
-
-
+  <div class="launcher-logo">D</div>
+  <h1>DIONLYONEE PLAYGROUND</h1>
+  <div class="launcher-subtitle">WHEEL OF FORTUNE</div>
+  <p class="launcher-description">Choose your screen</p>
+  <div class="launcher-buttons">
+    <button class="launcher-button live-launch" onclick="openLive()">
+      <span class="launcher-icon">📺</span>
+      <strong>LIVE GAME</strong>
+      <small>Stream this screen</small>
+    </button>
+    <button class="launcher-button host-launch" onclick="openHost()">
+      <span class="launcher-icon">🎤</span>
+      <strong>HOST PANEL</strong>
+      <small>Control the game</small>
+    </button>
+  </div>
+  <div class="launcher-footer">DIONLYONEE PLAYGROUND</div>
 </div>
-
-
 <script>
-
-function openLive() {
-
-    window.open(
-        "live.html",
-        "_blank"
-    );
-
-}
-
-
-function openHost() {
-
-    window.open(
-        "host.html",
-        "_blank"
-    );
-
-}
-
+function openLive(){ window.open("live.html","_blank"); }
+function openHost(){ window.open("host.html","_blank"); }
 </script>
-
-
 </body>
-
 </html>
-```

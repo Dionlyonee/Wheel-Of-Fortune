@@ -1,376 +1,80 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Dionlyonee Playground LIVE</title>
-
-    <link rel="stylesheet"
-          href="style.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dionlyonee Playground LIVE</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
-
 <body class="live-page">
-
-
 <div class="live-screen">
-
-
-    <!-- TOP BAR -->
-
-    <div class="live-topbar">
-
-
-        <div class="live-brand">
-
-
-            <div class="live-logo">
-                D
-            </div>
-
-
-            <div>
-
-                <div class="live-brand-name">
-                    DIONLYONEE PLAYGROUND
-                </div>
-
-                <div class="live-brand-game">
-                    WHEEL OF FORTUNE
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-        <div class="live-status">
-
-            <span class="live-dot"></span>
-
-            LIVE
-
-        </div>
-
-
+  <div class="live-topbar">
+    <div class="live-brand">
+      <div class="live-logo">D</div>
+      <div>
+        <div class="live-brand-name">DIONLYONEE PLAYGROUND</div>
+        <div class="live-brand-game">WHEEL OF FORTUNE</div>
+      </div>
     </div>
-
-
-
-    <!-- GAME -->
-
-    <main class="live-main">
-
-
-        <div class="live-category-label">
-            CATEGORY
-        </div>
-
-
-        <div
-            id="category"
-            class="live-category"
-        >
-            WAITING FOR GAME
-        </div>
-
-
-
-        <!-- PUZZLE -->
-
-        <div
-            id="puzzle"
-            class="puzzle"
-        >
-
-            <div class="word">
-
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-                <div class="box"></div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- TIMER -->
-
-        <div class="timer-label">
-            NEXT LETTER
-        </div>
-
-
-        <div
-            id="timer"
-            class="live-timer"
-        >
-            —
-        </div>
-
-
-        <div class="timer-seconds">
-            SECONDS
-        </div>
-
-
-
-        <!-- MESSAGE -->
-
-        <div
-            id="message"
-            class="live-message"
-        >
-            GUESS THE ANSWER IN CHAT
-        </div>
-
-
-    </main>
-
-
-
-    <!-- FOOTER -->
-
-    <footer class="live-footer">
-
-        <span>
-            GUESS IN CHAT
-        </span>
-
-        <b>
-            ◆
-        </b>
-
-        <span>
-            DIONLYONEE
-        </span>
-
-    </footer>
-
-
+    <div class="live-status"><span class="live-dot"></span>LIVE</div>
+  </div>
+  <main class="live-main">
+    <div class="live-category-label">CATEGORY</div>
+    <div id="category" class="live-category">WAITING FOR GAME</div>
+    <div id="puzzle" class="puzzle">
+      <div class="word">
+        <div class="box"></div><div class="box"></div><div class="box"></div>
+        <div class="box"></div><div class="box"></div><div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+    <div class="timer-label">NEXT LETTER</div>
+    <div id="timer" class="live-timer">—</div>
+    <div class="timer-seconds">SECONDS</div>
+    <div id="message" class="live-message">GUESS THE ANSWER IN CHAT</div>
+  </main>
+  <footer class="live-footer">
+    <span>GUESS IN CHAT</span><b>◆</b><span>DIONLYONEE</span>
+  </footer>
 </div>
-
-
-
 <script>
+const channel = new BroadcastChannel("dionlyonee-wheel-game");
+const categoryElement = document.getElementById("category");
+const puzzleElement = document.getElementById("puzzle");
+const timerElement = document.getElementById("timer");
+const messageElement = document.getElementById("message");
 
-
-/* =========================================
-   LIVE CONNECTION
-========================================= */
-
-const channel =
-    new BroadcastChannel(
-        "dionlyonee-wheel-game"
-    );
-
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const categoryElement =
-    document.getElementById(
-        "category"
-    );
-
-
-const puzzleElement =
-    document.getElementById(
-        "puzzle"
-    );
-
-
-const timerElement =
-    document.getElementById(
-        "timer"
-    );
-
-
-const messageElement =
-    document.getElementById(
-        "message"
-    );
-
-
-
-/* =========================================
-   DRAW PUZZLE
-========================================= */
-
-function drawPuzzle(
-    answer,
-    revealed
-) {
-
-
-    puzzleElement.innerHTML = "";
-
-
-    if (!answer) {
-
-        return;
-
+function drawPuzzle(answer, revealed) {
+  puzzleElement.innerHTML = "";
+  if (!answer) return;
+  answer.split(" ").forEach(word => {
+    const wordElement = document.createElement("div");
+    wordElement.className = "word";
+    for (const letter of word) {
+      const box = document.createElement("div");
+      box.className = "box";
+      if (revealed.includes(letter)) {
+        box.textContent = letter;
+        box.classList.add("revealed");
+      }
+      wordElement.appendChild(box);
     }
-
-
-    const words =
-        answer.split(" ");
-
-
-    words.forEach(
-        function(word) {
-
-
-            const wordElement =
-                document.createElement(
-                    "div"
-                );
-
-
-            wordElement.className =
-                "word";
-
-
-            for (
-                let i = 0;
-                i < word.length;
-                i++
-            ) {
-
-
-                const box =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                box.className =
-                    "box";
-
-
-                const letter =
-                    word[i];
-
-
-                if (
-                    revealed.includes(
-                        letter
-                    )
-                ) {
-
-                    box.textContent =
-                        letter;
-
-                    box.classList.add(
-                        "revealed"
-                    );
-
-                }
-
-
-                wordElement.appendChild(
-                    box
-                );
-
-            }
-
-
-            puzzleElement.appendChild(
-                wordElement
-            );
-
-        }
-    );
-
+    puzzleElement.appendChild(wordElement);
+  });
 }
 
-
-
-/* =========================================
-   RECEIVE HOST UPDATE
-========================================= */
-
-channel.onmessage =
-    function(event) {
-
-
-        const game =
-            event.data;
-
-
-        console.log(
-            "LIVE RECEIVED:",
-            game
-        );
-
-
-        categoryElement.textContent =
-            game.category ||
-            "WAITING FOR GAME";
-
-
-        drawPuzzle(
-
-            game.answer,
-
-            game.revealed || []
-
-        );
-
-
-        if (
-            game.running
-        ) {
-
-
-            timerElement.textContent =
-                game.seconds;
-
-
-            messageElement.textContent =
-                "GUESS THE ANSWER IN CHAT";
-
-
-        }
-        else {
-
-
-            timerElement.textContent =
-                "—";
-
-
-            messageElement.textContent =
-                "GET READY FOR THE NEXT PUZZLE";
-
-        }
-
-
-    };
-
-
-console.log(
-    "DIONLYONEE LIVE READY"
-);
-
-
+channel.onmessage = function(event) {
+  const game = event.data;
+  categoryElement.textContent = game.category || "WAITING FOR GAME";
+  drawPuzzle(game.answer, game.revealed || []);
+  if (game.running) {
+    timerElement.textContent = game.seconds;
+    messageElement.textContent = "GUESS THE ANSWER IN CHAT";
+  } else {
+    timerElement.textContent = "—";
+    messageElement.textContent = "GET READY FOR THE NEXT PUZZLE";
+  }
+};
 </script>
-
-
 </body>
-
 </html>
-```
