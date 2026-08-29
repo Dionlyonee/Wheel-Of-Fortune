@@ -1,217 +1,409 @@
-// =====================================================
+// ======================================================
 // DIONLYONEE PLAYGROUND
 // WHEEL OF FORTUNE
-// GAME ENGINE
-// =====================================================
+// ======================================================
+
+// ------------------------------------------------------
+// STORAGE KEY
+// ------------------------------------------------------
+
+const GAME_KEY = "dionlyonee_wheel_game";
 
 
-// =====================================================
-// COMMUNICATION
-// =====================================================
+// ------------------------------------------------------
+// DEFAULT GAME STATE
+// ------------------------------------------------------
 
-const channel =
-    new BroadcastChannel("dionlyonee-wheel");
+const defaultGame = {
 
+    answer: "",
 
-// =====================================================
-// GAME VARIABLES
-// =====================================================
+    category: "",
 
-let currentAnswer = "";
+    revealedLetters: [],
 
-let currentCategory = "";
+    revealTime: 30,
 
-let revealedLetters = [];
+    timer: 30,
 
-let timer = 60;
+    running: false,
 
-let timerInterval = null;
+    paused: false,
 
-let gameRunning = false;
+    message: "WAITING FOR ROUND"
 
-let gamePaused = false;
+};
 
 
-// =====================================================
-// HOST ELEMENTS
-// =====================================================
+// ------------------------------------------------------
+// LOAD GAME
+// ------------------------------------------------------
 
-const categorySelect =
-    document.getElementById("category");
+function loadGame() {
 
-const customAnswerInput =
-    document.getElementById("customAnswer");
+    const saved =
+        localStorage.getItem(GAME_KEY);
 
-const randomPuzzleBtn =
-    document.getElementById("randomPuzzleBtn");
+    if (!saved) {
 
-const startBtn =
-    document.getElementById("startBtn");
+        return {
+            ...defaultGame
+        };
 
-const hostPuzzle =
-    document.getElementById("hostPuzzle");
+    }
 
-const hostAnswer =
-    document.getElementById("hostAnswer");
+    try {
 
-const displayCategory =
-    document.getElementById("displayCategory");
+        return JSON.parse(saved);
 
-const timerDisplay =
-    document.getElementById("timer");
+    } catch (error) {
 
-const gameStatus =
-    document.getElementById("gameStatus");
+        console.error(
+            "Could not load game:",
+            error
+        );
 
-const revealLetterBtn =
-    document.getElementById("revealLetterBtn");
+        return {
+            ...defaultGame
+        };
 
-const pauseBtn =
-    document.getElementById("pauseBtn");
-
-const revealAnswerBtn =
-    document.getElementById("revealAnswerBtn");
-
-const newRoundBtn =
-    document.getElementById("newRoundBtn");
-
-
-// =====================================================
-// STREAM ELEMENTS
-// =====================================================
-
-const streamCategory =
-    document.getElementById("streamCategory");
-
-const streamPuzzle =
-    document.getElementById("streamPuzzle");
-
-const streamTimer =
-    document.getElementById("streamTimer");
-
-const streamMessage =
-    document.getElementById("streamMessage");
-
-
-// =====================================================
-// CHECK WHICH PAGE WE ARE ON
-// =====================================================
-
-const isHostPage =
-    startBtn !== null;
-
-const isStreamPage =
-    streamPuzzle !== null;
-
-
-// =====================================================
-// SEND GAME STATE
-// =====================================================
-
-function sendGameState(message = null) {
-
-    channel.postMessage({
-
-        type: "GAME_STATE",
-
-        answer: currentAnswer,
-
-        category: currentCategory,
-
-        revealedLetters:
-            revealedLetters,
-
-        timer: timer,
-
-        running: gameRunning,
-
-        paused: gamePaused,
-
-        message: message
-
-    });
+    }
 
 }
 
 
-// =====================================================
-// RECEIVE GAME STATE
-// =====================================================
+// ------------------------------------------------------
+// SAVE GAME
+// ------------------------------------------------------
 
-channel.addEventListener(
-    "message",
-    function(event) {
+function saveGame(game) {
 
-        const data =
-            event.data;
+    localStorage.setItem(
+        GAME_KEY,
+        JSON.stringify(game)
+    );
 
-
-        if (!data) {
-            return;
-        }
+}
 
 
-        if (
-            data.type ===
-            "GAME_STATE"
-        ) {
+// ------------------------------------------------------
+// CURRENT GAME
+// ------------------------------------------------------
 
-            currentAnswer =
-                data.answer || "";
-
-            currentCategory =
-                data.category || "";
-
-            revealedLetters =
-                data.revealedLetters || [];
-
-            timer =
-                data.timer ?? 60;
-
-            gameRunning =
-                data.running || false;
-
-            gamePaused =
-                data.paused || false;
+let game = loadGame();
 
 
-            updateEverything();
+// ------------------------------------------------------
+// PAGE DETECTION
+// ------------------------------------------------------
+
+const isHost =
+    document.body.classList.contains(
+        "host-page"
+    );
+
+const isStream =
+    document.body.classList.contains(
+        "stream-page"
+    );
 
 
-            if (
-                data.message &&
-                streamMessage
-            ) {
+// ======================================================
+// HOST ELEMENTS
+// ======================================================
 
-                streamMessage.textContent =
-                    data.message;
+const category =
+    document.getElementById("category");
+
+const customAnswer =
+    document.getElementById(
+        "customAnswer"
+    );
+
+const revealTime =
+    document.getElementById(
+        "revealTime"
+    );
+
+const randomPuzzleBtn =
+    document.getElementById(
+        "randomPuzzleBtn"
+    );
+
+const startBtn =
+    document.getElementById(
+        "startBtn"
+    );
+
+const revealLetterBtn =
+    document.getElementById(
+        "revealLetterBtn"
+    );
+
+const pauseBtn =
+    document.getElementById(
+        "pauseBtn"
+    );
+
+const revealAnswerBtn =
+    document.getElementById(
+        "revealAnswerBtn"
+    );
+
+const newRoundBtn =
+    document.getElementById(
+        "newRoundBtn"
+    );
+
+const hostPuzzle =
+    document.getElementById(
+        "hostPuzzle"
+    );
+
+const hostAnswer =
+    document.getElementById(
+        "hostAnswer"
+    );
+
+const displayCategory =
+    document.getElementById(
+        "displayCategory"
+    );
+
+const hostTimer =
+    document.getElementById(
+        "timer"
+    );
+
+const gameStatus =
+    document.getElementById(
+        "gameStatus"
+    );
+
+
+// ======================================================
+// STREAM ELEMENTS
+// ======================================================
+
+const streamPuzzle =
+    document.getElementById(
+        "streamPuzzle"
+    );
+
+const streamCategory =
+    document.getElementById(
+        "streamCategory"
+    );
+
+const streamTimer =
+    document.getElementById(
+        "streamTimer"
+    );
+
+const streamMessage =
+    document.getElementById(
+        "streamMessage"
+    );
+
+
+// ======================================================
+// CREATE PUZZLE DISPLAY
+// ======================================================
+
+function createPuzzle() {
+
+    if (!game.answer) {
+
+        return "—";
+
+    }
+
+
+    return game.answer
+        .split("")
+        .map(function(letter) {
+
+            // SPACE
+
+            if (letter === " ") {
+
+                return "&nbsp;&nbsp;&nbsp;";
 
             }
+
+
+            // PUNCTUATION
+
+            if (
+                !/[A-Z0-9]/.test(letter)
+            ) {
+
+                return letter;
+
+            }
+
+
+            // REVEALED
+
+            if (
+                game.revealedLetters
+                    .includes(letter)
+            ) {
+
+                return letter;
+
+            }
+
+
+            // HIDDEN
+
+            return "_";
+
+        })
+        .join(" ");
+
+}
+
+
+// ======================================================
+// UPDATE DISPLAY
+// ======================================================
+
+function updateDisplay() {
+
+    const puzzle =
+        createPuzzle();
+
+
+    // HOST
+
+    if (hostPuzzle) {
+
+        hostPuzzle.innerHTML =
+            puzzle;
+
+    }
+
+
+    if (hostAnswer) {
+
+        hostAnswer.textContent =
+            game.answer || "---";
+
+    }
+
+
+    if (displayCategory) {
+
+        displayCategory.textContent =
+            game.category || "---";
+
+    }
+
+
+    if (hostTimer) {
+
+        hostTimer.textContent =
+            game.timer;
+
+    }
+
+
+    if (gameStatus) {
+
+        if (!game.running) {
+
+            gameStatus.textContent =
+                "WAITING";
+
+        } else if (game.paused) {
+
+            gameStatus.textContent =
+                "PAUSED";
+
+        } else {
+
+            gameStatus.textContent =
+                "PLAYING";
 
         }
 
     }
-);
 
 
-// =====================================================
-// RANDOM PUZZLE
-// =====================================================
+    // STREAM
 
-if (randomPuzzleBtn) {
+    if (streamPuzzle) {
 
-    randomPuzzleBtn.addEventListener(
+        streamPuzzle.innerHTML =
+            puzzle;
+
+    }
+
+
+    if (streamCategory) {
+
+        streamCategory.textContent =
+            game.category ||
+            "WAITING FOR GAME";
+
+    }
+
+
+    if (streamTimer) {
+
+        streamTimer.textContent =
+            game.timer;
+
+    }
+
+
+    if (streamMessage) {
+
+        streamMessage.textContent =
+            game.message;
+
+    }
+
+
+    // PAUSE BUTTON
+
+    if (pauseBtn) {
+
+        pauseBtn.textContent =
+            game.paused
+                ? "▶ RESUME"
+                : "⏸ PAUSE";
+
+    }
+
+}
+
+
+// ======================================================
+// START ROUND
+// ======================================================
+
+if (startBtn) {
+
+    startBtn.addEventListener(
         "click",
         function() {
 
-            let category =
-                categorySelect.value;
+            let answer =
+                customAnswer.value.trim();
 
 
+            let selectedCategory =
+                category.value;
+
+
+            // ------------------------------------------
             // RANDOM CATEGORY
+            // ------------------------------------------
 
             if (
-                category ===
+                selectedCategory ===
                 "Random"
             ) {
 
@@ -219,7 +411,7 @@ if (randomPuzzleBtn) {
                     Object.keys(puzzles);
 
 
-                category =
+                selectedCategory =
                     categories[
                         Math.floor(
                             Math.random() *
@@ -230,97 +422,16 @@ if (randomPuzzleBtn) {
             }
 
 
-            const list =
-                puzzles[category];
-
-
-            if (
-                !list ||
-                list.length === 0
-            ) {
-
-                alert(
-                    "There are no puzzles in this category."
-                );
-
-                return;
-
-            }
-
-
-            const answer =
-                list[
-                    Math.floor(
-                        Math.random() *
-                        list.length
-                    )
-                ];
-
-
-            customAnswerInput.value =
-                answer;
-
-
-            categorySelect.value =
-                category;
-
-        }
-    );
-
-}
-
-
-// =====================================================
-// START ROUND
-// =====================================================
-
-if (startBtn) {
-
-    startBtn.addEventListener(
-        "click",
-        function() {
-
-            console.log(
-                "START ROUND clicked"
-            );
-
-
-            let answer =
-                customAnswerInput.value.trim();
-
-
-            let category =
-                categorySelect.value;
-
-
-            // -----------------------------------------
-            // NO CUSTOM ANSWER
-            // -----------------------------------------
+            // ------------------------------------------
+            // RANDOM ANSWER
+            // ------------------------------------------
 
             if (!answer) {
 
-                if (
-                    category ===
-                    "Random"
-                ) {
-
-                    const categories =
-                        Object.keys(puzzles);
-
-
-                    category =
-                        categories[
-                            Math.floor(
-                                Math.random() *
-                                categories.length
-                            )
-                        ];
-
-                }
-
-
                 const list =
-                    puzzles[category];
+                    puzzles[
+                        selectedCategory
+                    ];
 
 
                 if (
@@ -329,7 +440,7 @@ if (startBtn) {
                 ) {
 
                     alert(
-                        "No puzzles found."
+                        "No puzzles are available for this category."
                     );
 
                     return;
@@ -348,71 +459,57 @@ if (startBtn) {
             }
 
 
-            // -----------------------------------------
+            // ------------------------------------------
+            // REVEAL TIME
+            // ------------------------------------------
+
+            const selectedTime =
+                Number(
+                    revealTime.value
+                ) || 30;
+
+
+            // ------------------------------------------
             // CREATE GAME
-            // -----------------------------------------
+            // ------------------------------------------
 
-            currentAnswer =
-                answer
-                    .toUpperCase()
-                    .trim();
+            game = {
 
+                answer:
+                    answer
+                        .toUpperCase()
+                        .trim(),
 
-            currentCategory =
-                category;
+                category:
+                    selectedCategory,
 
+                revealedLetters: [],
 
-            revealedLetters = [];
+                revealTime:
+                    selectedTime,
 
+                timer:
+                    selectedTime,
 
-            timer = 60;
+                running: true,
 
+                paused: false,
 
-            gameRunning = true;
+                message:
+                    "GUESS THE ANSWER!"
 
-
-            gamePaused = false;
-
-
-            // -----------------------------------------
-            // UPDATE SCREEN
-            // -----------------------------------------
-
-            updateEverything();
-
-
-            updateStatus(
-                "PLAYING"
-            );
+            };
 
 
-            if (streamMessage) {
-
-                streamMessage.textContent =
-                    "GUESS THE ANSWER!";
-
-            }
+            saveGame(game);
 
 
-            // -----------------------------------------
-            // START TIMER
-            // -----------------------------------------
-
-            startTimer();
-
-
-            // -----------------------------------------
-            // SEND TO STREAM
-            // -----------------------------------------
-
-            sendGameState(
-                "GUESS THE ANSWER!"
-            );
+            updateDisplay();
 
 
             console.log(
-                "ROUND STARTED:",
-                currentAnswer
+                "ROUND STARTED",
+                game
             );
 
         }
@@ -421,218 +518,91 @@ if (startBtn) {
 }
 
 
-// =====================================================
-// BUILD PUZZLE
-// =====================================================
+// ======================================================
+// RANDOM PUZZLE
+// ======================================================
 
-function buildPuzzle() {
+if (randomPuzzleBtn) {
 
-    if (!currentAnswer) {
+    randomPuzzleBtn.addEventListener(
+        "click",
+        function() {
 
-        return "_ _ _ _ _ _ _";
-
-    }
-
-
-    return currentAnswer
-        .split("")
-        .map(
-            function(character) {
-
-                // SPACE
-
-                if (
-                    character === " "
-                ) {
-
-                    return "&nbsp;&nbsp;";
-
-                }
+            let selectedCategory =
+                category.value;
 
 
-                // PUNCTUATION
+            if (
+                selectedCategory ===
+                "Random"
+            ) {
 
-                if (
-                    !/[A-Z0-9]/.test(
-                        character
-                    )
-                ) {
-
-                    return character;
-
-                }
+                const categories =
+                    Object.keys(puzzles);
 
 
-                // REVEALED LETTER
-
-                if (
-                    revealedLetters.includes(
-                        character
-                    )
-                ) {
-
-                    return character;
-
-                }
-
-
-                // HIDDEN LETTER
-
-                return "_";
+                selectedCategory =
+                    categories[
+                        Math.floor(
+                            Math.random() *
+                            categories.length
+                        )
+                    ];
 
             }
-        )
-        .join(" ");
-
-}
 
 
-// =====================================================
-// UPDATE EVERYTHING
-// =====================================================
-
-function updateEverything() {
-
-    const puzzle =
-        buildPuzzle();
+            const list =
+                puzzles[
+                    selectedCategory
+                ];
 
 
-    // HOST
+            if (
+                !list ||
+                list.length === 0
+            ) {
 
-    if (hostPuzzle) {
+                alert(
+                    "No puzzles found."
+                );
 
-        hostPuzzle.innerHTML =
-            puzzle;
+                return;
 
-    }
-
-
-    if (hostAnswer) {
-
-        hostAnswer.textContent =
-            currentAnswer || "---";
-
-    }
+            }
 
 
-    if (displayCategory) {
-
-        displayCategory.textContent =
-            currentCategory || "---";
-
-    }
-
-
-    // STREAM
-
-    if (streamPuzzle) {
-
-        streamPuzzle.innerHTML =
-            puzzle;
-
-    }
+            const answer =
+                list[
+                    Math.floor(
+                        Math.random() *
+                        list.length
+                    )
+                ];
 
 
-    if (streamCategory) {
-
-        streamCategory.textContent =
-            currentCategory ||
-            "WAITING FOR GAME";
-
-    }
+            customAnswer.value =
+                answer;
 
 
-    updateTimer();
+            category.value =
+                selectedCategory;
 
-}
-
-
-// =====================================================
-// TIMER
-// =====================================================
-
-function startTimer() {
-
-    clearInterval(
-        timerInterval
+        }
     );
 
-
-    timerInterval =
-        setInterval(
-            function() {
-
-                if (
-                    !gameRunning ||
-                    gamePaused
-                ) {
-
-                    return;
-
-                }
-
-
-                timer--;
-
-
-                updateTimer();
-
-
-                sendGameState();
-
-
-                // -------------------------------------
-                // TIME'S UP
-                // -------------------------------------
-
-                if (
-                    timer <= 0
-                ) {
-
-                    revealLetter();
-
-                }
-
-            },
-            1000
-        );
-
 }
 
 
-// =====================================================
-// UPDATE TIMER
-// =====================================================
-
-function updateTimer() {
-
-    if (timerDisplay) {
-
-        timerDisplay.textContent =
-            timer;
-
-    }
-
-
-    if (streamTimer) {
-
-        streamTimer.textContent =
-            timer;
-
-    }
-
-}
-
-
-// =====================================================
+// ======================================================
 // REVEAL LETTER
-// =====================================================
+// ======================================================
 
 function revealLetter() {
 
     if (
-        !currentAnswer ||
-        !gameRunning
+        !game.running ||
+        !game.answer
     ) {
 
         return;
@@ -640,33 +610,31 @@ function revealLetter() {
     }
 
 
-    const availableLetters =
+    const hiddenLetters =
         [
             ...new Set(
-                currentAnswer
+
+                game.answer
                     .split("")
-                    .filter(
-                        function(character) {
+                    .filter(function(letter) {
 
-                            return (
-                                /[A-Z0-9]/.test(
-                                    character
-                                ) &&
-                                !revealedLetters.includes(
-                                    character
-                                )
-                            );
+                        return (
+                            /[A-Z0-9]/.test(letter)
+                            &&
+                            !game.revealedLetters
+                                .includes(letter)
+                        );
 
-                        }
-                    )
+                    })
+
             )
         ];
 
 
-    // NO LETTERS LEFT
+    // NOTHING LEFT
 
     if (
-        availableLetters.length === 0
+        hiddenLetters.length === 0
     ) {
 
         revealAnswer();
@@ -676,38 +644,43 @@ function revealLetter() {
     }
 
 
-    // PICK RANDOM LETTER
+    // RANDOM HIDDEN LETTER
 
     const letter =
-        availableLetters[
+        hiddenLetters[
             Math.floor(
                 Math.random() *
-                availableLetters.length
+                hiddenLetters.length
             )
         ];
 
 
-    revealedLetters.push(
+    game.revealedLetters.push(
         letter
     );
 
 
-    timer = 60;
+    // RESET TIMER
+
+    game.timer =
+        game.revealTime;
 
 
-    updateEverything();
+    game.message =
+        `LETTER REVEALED: ${letter}`;
 
 
-    sendGameState(
-        `LETTER REVEALED: ${letter}`
-    );
+    saveGame(game);
+
+
+    updateDisplay();
 
 }
 
 
-// =====================================================
+// ======================================================
 // REVEAL LETTER BUTTON
-// =====================================================
+// ======================================================
 
 if (revealLetterBtn) {
 
@@ -719,9 +692,9 @@ if (revealLetterBtn) {
 }
 
 
-// =====================================================
-// PAUSE
-// =====================================================
+// ======================================================
+// PAUSE / RESUME
+// ======================================================
 
 if (pauseBtn) {
 
@@ -729,46 +702,27 @@ if (pauseBtn) {
         "click",
         function() {
 
-            if (!gameRunning) {
+            if (!game.running) {
 
                 return;
 
             }
 
 
-            gamePaused =
-                !gamePaused;
+            game.paused =
+                !game.paused;
 
 
-            if (gamePaused) {
-
-                pauseBtn.textContent =
-                    "▶ RESUME";
-
-                updateStatus(
-                    "PAUSED"
-                );
+            game.message =
+                game.paused
+                    ? "⏸ GAME PAUSED"
+                    : "GUESS THE ANSWER!";
 
 
-                sendGameState(
-                    "⏸ GAME PAUSED"
-                );
-
-            } else {
-
-                pauseBtn.textContent =
-                    "⏸ PAUSE";
-
-                updateStatus(
-                    "PLAYING"
-                );
+            saveGame(game);
 
 
-                sendGameState(
-                    "GUESS THE ANSWER!"
-                );
-
-            }
+            updateDisplay();
 
         }
     );
@@ -776,9 +730,52 @@ if (pauseBtn) {
 }
 
 
-// =====================================================
+// ======================================================
 // REVEAL ANSWER
-// =====================================================
+// ======================================================
+
+function revealAnswer() {
+
+    if (!game.answer) {
+
+        return;
+
+    }
+
+
+    game.revealedLetters =
+        [
+            ...new Set(
+
+                game.answer
+                    .split("")
+                    .filter(function(letter) {
+
+                        return /[A-Z0-9]/.test(
+                            letter
+                        );
+
+                    })
+
+            )
+        ];
+
+
+    game.running = false;
+
+    game.paused = false;
+
+    game.message =
+        "🎉 THE ANSWER IS...";
+
+
+    saveGame(game);
+
+
+    updateDisplay();
+
+}
+
 
 if (revealAnswerBtn) {
 
@@ -790,62 +787,9 @@ if (revealAnswerBtn) {
 }
 
 
-function revealAnswer() {
-
-    if (!currentAnswer) {
-
-        return;
-
-    }
-
-
-    revealedLetters =
-        [
-            ...new Set(
-                currentAnswer
-                    .split("")
-                    .filter(
-                        function(character) {
-
-                            return /[A-Z0-9]/.test(
-                                character
-                            );
-
-                        }
-                    )
-            )
-        ];
-
-
-    gameRunning = false;
-
-
-    gamePaused = false;
-
-
-    clearInterval(
-        timerInterval
-    );
-
-
-    updateEverything();
-
-
-    updateStatus(
-        "ANSWER REVEALED"
-    );
-
-
-    sendGameState(
-        "🎉 THE ANSWER IS..."
-    );
-
-}
-
-
-// =====================================================
+// ======================================================
 // NEW ROUND
-// =====================================================
+// ======================================================
 
 if (newRoundBtn) {
 
@@ -853,61 +797,17 @@ if (newRoundBtn) {
         "click",
         function() {
 
-            clearInterval(
-                timerInterval
-            );
+            game = {
+
+                ...defaultGame
+
+            };
 
 
-            currentAnswer = "";
-
-            currentCategory = "";
-
-            revealedLetters = [];
+            saveGame(game);
 
 
-            timer = 60;
-
-
-            gameRunning = false;
-
-            gamePaused = false;
-
-
-            if (customAnswerInput) {
-
-                customAnswerInput.value =
-                    "";
-
-            }
-
-
-            if (pauseBtn) {
-
-                pauseBtn.textContent =
-                    "⏸ PAUSE";
-
-            }
-
-
-            updateEverything();
-
-
-            updateStatus(
-                "WAITING"
-            );
-
-
-            if (streamMessage) {
-
-                streamMessage.textContent =
-                    "WAITING FOR ROUND";
-
-            }
-
-
-            sendGameState(
-                "WAITING FOR ROUND"
-            );
+            updateDisplay();
 
         }
     );
@@ -915,50 +815,122 @@ if (newRoundBtn) {
 }
 
 
-// =====================================================
-// INITIALIZE
-// =====================================================
+// ======================================================
+// TIMER
+// ======================================================
 
-updateEverything();
-
-
-// =====================================================
-// STREAM SCREEN REQUESTS CURRENT GAME
-// =====================================================
-
-if (isStreamPage) {
-
-    channel.postMessage({
-
-        type:
-            "STREAM_REQUEST_STATE"
-
-    });
-
-}
+let lastTick =
+    Date.now();
 
 
-// =====================================================
-// HOST RESPONDS TO STREAM
-// =====================================================
+setInterval(
+    function() {
 
-channel.addEventListener(
-    "message",
+        if (
+            !isHost
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            !game.running ||
+            game.paused
+        ) {
+
+            lastTick =
+                Date.now();
+
+            return;
+
+        }
+
+
+        const now =
+            Date.now();
+
+
+        const elapsed =
+            Math.floor(
+                (now - lastTick) / 1000
+            );
+
+
+        if (
+            elapsed < 1
+        ) {
+
+            return;
+
+        }
+
+
+        lastTick =
+            now;
+
+
+        game.timer -=
+            elapsed;
+
+
+        // ------------------------------------------
+        // TIME IS UP
+        // ------------------------------------------
+
+        if (
+            game.timer <= 0
+        ) {
+
+            game.timer =
+                game.revealTime;
+
+
+            revealLetter();
+
+
+            return;
+
+        }
+
+
+        saveGame(game);
+
+
+        updateDisplay();
+
+    },
+    250
+);
+
+
+// ======================================================
+// STREAM LISTENER
+// ======================================================
+
+window.addEventListener(
+    "storage",
     function(event) {
 
         if (
-            event.data &&
-            event.data.type ===
-            "STREAM_REQUEST_STATE"
+            event.key === GAME_KEY
         ) {
 
-            if (isHostPage) {
+            game =
+                loadGame();
 
-                sendGameState();
 
-            }
+            updateDisplay();
 
         }
 
     }
 );
+
+
+// ======================================================
+// INITIAL DISPLAY
+// ======================================================
+
+updateDisplay();
