@@ -1,240 +1,219 @@
-// ============================================
+// =====================================================
 // DIONLYONEE PLAYGROUND
 // WHEEL OF FORTUNE
-// ============================================
+// GAME ENGINE
+// =====================================================
 
-const channel = new BroadcastChannel("dionlyonee-wheel");
+
+// =====================================================
+// COMMUNICATION
+// =====================================================
+
+const channel =
+    new BroadcastChannel("dionlyonee-wheel");
+
+
+// =====================================================
+// GAME VARIABLES
+// =====================================================
 
 let currentAnswer = "";
+
 let currentCategory = "";
+
 let revealedLetters = [];
 
 let timer = 60;
+
 let timerInterval = null;
 
 let gameRunning = false;
+
 let gamePaused = false;
 
 
-// ============================================
-// GET ELEMENTS
-// ============================================
+// =====================================================
+// HOST ELEMENTS
+// =====================================================
 
-const categorySelect = document.getElementById("category");
-const customAnswerInput = document.getElementById("customAnswer");
+const categorySelect =
+    document.getElementById("category");
 
-const randomPuzzleBtn = document.getElementById("randomPuzzleBtn");
-const startBtn = document.getElementById("startBtn");
+const customAnswerInput =
+    document.getElementById("customAnswer");
 
-const hostPuzzle = document.getElementById("hostPuzzle");
-const hostAnswer = document.getElementById("hostAnswer");
-const displayCategory = document.getElementById("displayCategory");
+const randomPuzzleBtn =
+    document.getElementById("randomPuzzleBtn");
 
-const timerDisplay = document.getElementById("timer");
-const gameStatus = document.getElementById("gameStatus");
+const startBtn =
+    document.getElementById("startBtn");
 
-const revealLetterBtn = document.getElementById("revealLetterBtn");
-const pauseBtn = document.getElementById("pauseBtn");
-const revealAnswerBtn = document.getElementById("revealAnswerBtn");
+const hostPuzzle =
+    document.getElementById("hostPuzzle");
 
-const winnerName = document.getElementById("winnerName");
-const winnerBtn = document.getElementById("winnerBtn");
+const hostAnswer =
+    document.getElementById("hostAnswer");
 
-const newRoundBtn = document.getElementById("newRoundBtn");
+const displayCategory =
+    document.getElementById("displayCategory");
 
+const timerDisplay =
+    document.getElementById("timer");
 
-// STREAM SCREEN
+const gameStatus =
+    document.getElementById("gameStatus");
 
-const streamCategory = document.getElementById("streamCategory");
-const streamPuzzle = document.getElementById("streamPuzzle");
-const streamTimer = document.getElementById("streamTimer");
-const streamMessage = document.getElementById("streamMessage");
+const revealLetterBtn =
+    document.getElementById("revealLetterBtn");
 
-const winnerDisplay = document.getElementById("winnerDisplay");
-const streamWinner = document.getElementById("streamWinner");
-const winningAnswer = document.getElementById("winningAnswer");
+const pauseBtn =
+    document.getElementById("pauseBtn");
 
+const revealAnswerBtn =
+    document.getElementById("revealAnswerBtn");
 
-// ============================================
-// GAME STATE
-// ============================================
-
-function getGameState() {
-
-    return {
-        answer: currentAnswer,
-        category: currentCategory,
-        revealedLetters: revealedLetters,
-        timer: timer,
-        running: gameRunning,
-        paused: gamePaused
-    };
-
-}
+const newRoundBtn =
+    document.getElementById("newRoundBtn");
 
 
-// ============================================
-// SEND STATE TO STREAM SCREEN
-// ============================================
+// =====================================================
+// STREAM ELEMENTS
+// =====================================================
 
-function sendState(extra = {}) {
+const streamCategory =
+    document.getElementById("streamCategory");
+
+const streamPuzzle =
+    document.getElementById("streamPuzzle");
+
+const streamTimer =
+    document.getElementById("streamTimer");
+
+const streamMessage =
+    document.getElementById("streamMessage");
+
+
+// =====================================================
+// CHECK WHICH PAGE WE ARE ON
+// =====================================================
+
+const isHostPage =
+    startBtn !== null;
+
+const isStreamPage =
+    streamPuzzle !== null;
+
+
+// =====================================================
+// SEND GAME STATE
+// =====================================================
+
+function sendGameState(message = null) {
 
     channel.postMessage({
-        type: "GAME_UPDATE",
 
-        state: getGameState(),
+        type: "GAME_STATE",
 
-        ...extra
+        answer: currentAnswer,
+
+        category: currentCategory,
+
+        revealedLetters:
+            revealedLetters,
+
+        timer: timer,
+
+        running: gameRunning,
+
+        paused: gamePaused,
+
+        message: message
+
     });
 
 }
 
 
-// ============================================
-// RECEIVE STATE
-// ============================================
+// =====================================================
+// RECEIVE GAME STATE
+// =====================================================
 
-channel.onmessage = function(event) {
+channel.addEventListener(
+    "message",
+    function(event) {
 
-    if (!event.data) return;
-
-
-    if (event.data.type === "GAME_UPDATE") {
-
-        const state = event.data.state;
+        const data =
+            event.data;
 
 
-        currentAnswer =
-            state.answer || "";
-
-        currentCategory =
-            state.category || "";
-
-        revealedLetters =
-            state.revealedLetters || [];
-
-        timer =
-            state.timer ?? 60;
-
-        gameRunning =
-            state.running || false;
-
-        gamePaused =
-            state.paused || false;
-
-
-        updatePuzzle();
-
-        updateTimer();
-
-
-        if (event.data.winner) {
-
-            showWinner(
-                event.data.winner
-            );
-
+        if (!data) {
+            return;
         }
 
 
-        if (event.data.message) {
+        if (
+            data.type ===
+            "GAME_STATE"
+        ) {
 
-            updateStreamMessage(
-                event.data.message
-            );
+            currentAnswer =
+                data.answer || "";
+
+            currentCategory =
+                data.category || "";
+
+            revealedLetters =
+                data.revealedLetters || [];
+
+            timer =
+                data.timer ?? 60;
+
+            gameRunning =
+                data.running || false;
+
+            gamePaused =
+                data.paused || false;
+
+
+            updateEverything();
+
+
+            if (
+                data.message &&
+                streamMessage
+            ) {
+
+                streamMessage.textContent =
+                    data.message;
+
+            }
 
         }
 
     }
+);
 
-};
 
-
-// ============================================
+// =====================================================
 // RANDOM PUZZLE
-// ============================================
+// =====================================================
 
 if (randomPuzzleBtn) {
 
-    randomPuzzleBtn.addEventListener("click", () => {
+    randomPuzzleBtn.addEventListener(
+        "click",
+        function() {
 
-        let category =
-            categorySelect.value;
-
-
-        if (category === "Random") {
-
-            const categories =
-                Object.keys(puzzles);
+            let category =
+                categorySelect.value;
 
 
-            category =
-                categories[
-                    Math.floor(
-                        Math.random() *
-                        categories.length
-                    )
-                ];
+            // RANDOM CATEGORY
 
-        }
-
-
-        const categoryPuzzles =
-            puzzles[category];
-
-
-        if (!categoryPuzzles) {
-
-            alert("No puzzles found for this category.");
-
-            return;
-
-        }
-
-
-        const answer =
-            categoryPuzzles[
-                Math.floor(
-                    Math.random() *
-                    categoryPuzzles.length
-                )
-            ];
-
-
-        customAnswerInput.value =
-            answer;
-
-
-        categorySelect.value =
-            category;
-
-    });
-
-}
-
-
-// ============================================
-// START ROUND
-// ============================================
-
-if (startBtn) {
-
-    startBtn.addEventListener("click", () => {
-
-        let answer =
-            customAnswerInput.value.trim();
-
-
-        let category =
-            categorySelect.value;
-
-
-        // Automatically choose puzzle
-        // if host didn't type one.
-
-        if (!answer) {
-
-            if (category === "Random") {
+            if (
+                category ===
+                "Random"
+            ) {
 
                 const categories =
                     Object.keys(puzzles);
@@ -251,152 +230,271 @@ if (startBtn) {
             }
 
 
-            const categoryPuzzles =
+            const list =
                 puzzles[category];
 
 
-            answer =
-                categoryPuzzles[
+            if (
+                !list ||
+                list.length === 0
+            ) {
+
+                alert(
+                    "There are no puzzles in this category."
+                );
+
+                return;
+
+            }
+
+
+            const answer =
+                list[
                     Math.floor(
                         Math.random() *
-                        categoryPuzzles.length
+                        list.length
                     )
                 ];
 
-        }
+
+            customAnswerInput.value =
+                answer;
 
 
-        if (!answer) {
-
-            alert("Please enter or select a puzzle.");
-
-            return;
-
-        }
-
-
-        currentAnswer =
-            answer
-                .toUpperCase()
-                .trim();
-
-
-        currentCategory =
-            category;
-
-
-        revealedLetters = [];
-
-
-        timer = 60;
-
-        gameRunning = true;
-
-        gamePaused = false;
-
-
-        if (winnerDisplay) {
-
-            winnerDisplay.classList.add("hidden");
+            categorySelect.value =
+                category;
 
         }
-
-
-        if (winnerName) {
-
-            winnerName.value = "";
-
-        }
-
-
-        if (pauseBtn) {
-
-            pauseBtn.textContent =
-                "⏸ PAUSE";
-
-        }
-
-
-        updatePuzzle();
-
-        updateTimer();
-
-        updateStatus("PLAYING");
-
-
-        updateStreamMessage(
-            "GUESS THE ANSWER!"
-        );
-
-
-        startTimer();
-
-        sendState();
-
-    });
+    );
 
 }
 
 
-// ============================================
-// CREATE PUZZLE
-// ============================================
+// =====================================================
+// START ROUND
+// =====================================================
 
-function createPuzzleDisplay() {
+if (startBtn) {
+
+    startBtn.addEventListener(
+        "click",
+        function() {
+
+            console.log(
+                "START ROUND clicked"
+            );
+
+
+            let answer =
+                customAnswerInput.value.trim();
+
+
+            let category =
+                categorySelect.value;
+
+
+            // -----------------------------------------
+            // NO CUSTOM ANSWER
+            // -----------------------------------------
+
+            if (!answer) {
+
+                if (
+                    category ===
+                    "Random"
+                ) {
+
+                    const categories =
+                        Object.keys(puzzles);
+
+
+                    category =
+                        categories[
+                            Math.floor(
+                                Math.random() *
+                                categories.length
+                            )
+                        ];
+
+                }
+
+
+                const list =
+                    puzzles[category];
+
+
+                if (
+                    !list ||
+                    list.length === 0
+                ) {
+
+                    alert(
+                        "No puzzles found."
+                    );
+
+                    return;
+
+                }
+
+
+                answer =
+                    list[
+                        Math.floor(
+                            Math.random() *
+                            list.length
+                        )
+                    ];
+
+            }
+
+
+            // -----------------------------------------
+            // CREATE GAME
+            // -----------------------------------------
+
+            currentAnswer =
+                answer
+                    .toUpperCase()
+                    .trim();
+
+
+            currentCategory =
+                category;
+
+
+            revealedLetters = [];
+
+
+            timer = 60;
+
+
+            gameRunning = true;
+
+
+            gamePaused = false;
+
+
+            // -----------------------------------------
+            // UPDATE SCREEN
+            // -----------------------------------------
+
+            updateEverything();
+
+
+            updateStatus(
+                "PLAYING"
+            );
+
+
+            if (streamMessage) {
+
+                streamMessage.textContent =
+                    "GUESS THE ANSWER!";
+
+            }
+
+
+            // -----------------------------------------
+            // START TIMER
+            // -----------------------------------------
+
+            startTimer();
+
+
+            // -----------------------------------------
+            // SEND TO STREAM
+            // -----------------------------------------
+
+            sendGameState(
+                "GUESS THE ANSWER!"
+            );
+
+
+            console.log(
+                "ROUND STARTED:",
+                currentAnswer
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// BUILD PUZZLE
+// =====================================================
+
+function buildPuzzle() {
 
     if (!currentAnswer) {
 
-        return "_ _ _ _ _";
+        return "_ _ _ _ _ _ _";
 
     }
 
 
     return currentAnswer
         .split("")
-        .map(character => {
+        .map(
+            function(character) {
 
-            // SPACE
-            if (character === " ") {
+                // SPACE
 
-                return "&nbsp;&nbsp;&nbsp;";
+                if (
+                    character === " "
+                ) {
+
+                    return "&nbsp;&nbsp;";
+
+                }
+
+
+                // PUNCTUATION
+
+                if (
+                    !/[A-Z0-9]/.test(
+                        character
+                    )
+                ) {
+
+                    return character;
+
+                }
+
+
+                // REVEALED LETTER
+
+                if (
+                    revealedLetters.includes(
+                        character
+                    )
+                ) {
+
+                    return character;
+
+                }
+
+
+                // HIDDEN LETTER
+
+                return "_";
 
             }
-
-
-            // PUNCTUATION
-            if (!/[A-Z0-9]/.test(character)) {
-
-                return character;
-
-            }
-
-
-            // REVEALED
-            if (
-                revealedLetters.includes(character)
-            ) {
-
-                return character;
-
-            }
-
-
-            return "_";
-
-        })
+        )
         .join(" ");
 
 }
 
 
-// ============================================
-// UPDATE PUZZLE
-// ============================================
+// =====================================================
+// UPDATE EVERYTHING
+// =====================================================
 
-function updatePuzzle() {
+function updateEverything() {
 
-    const display =
-        createPuzzleDisplay();
+    const puzzle =
+        buildPuzzle();
 
 
     // HOST
@@ -404,7 +502,7 @@ function updatePuzzle() {
     if (hostPuzzle) {
 
         hostPuzzle.innerHTML =
-            display;
+            puzzle;
 
     }
 
@@ -430,7 +528,7 @@ function updatePuzzle() {
     if (streamPuzzle) {
 
         streamPuzzle.innerHTML =
-            display;
+            puzzle;
 
     }
 
@@ -443,136 +541,68 @@ function updatePuzzle() {
 
     }
 
-}
-
-
-// ============================================
-// REVEAL LETTER
-// ============================================
-
-function revealLetter() {
-
-    if (!currentAnswer || !gameRunning) {
-
-        return;
-
-    }
-
-
-    const hiddenLetters = [
-        ...new Set(
-            currentAnswer
-                .split("")
-                .filter(character =>
-                    /[A-Z0-9]/.test(character) &&
-                    !revealedLetters.includes(character)
-                )
-        )
-    ];
-
-
-    // No letters left
-
-    if (hiddenLetters.length === 0) {
-
-        revealAnswer();
-
-        return;
-
-    }
-
-
-    const letter =
-        hiddenLetters[
-            Math.floor(
-                Math.random() *
-                hiddenLetters.length
-            )
-        ];
-
-
-    revealedLetters.push(letter);
-
-
-    timer = 60;
-
-
-    updatePuzzle();
 
     updateTimer();
 
-
-    sendState({
-
-        message:
-            `LETTER REVEALED: ${letter}`
-
-    });
-
 }
 
 
-// ============================================
-// REVEAL LETTER BUTTON
-// ============================================
-
-if (revealLetterBtn) {
-
-    revealLetterBtn.addEventListener(
-        "click",
-        revealLetter
-    );
-
-}
-
-
-// ============================================
+// =====================================================
 // TIMER
-// ============================================
+// =====================================================
 
 function startTimer() {
 
-    clearInterval(timerInterval);
+    clearInterval(
+        timerInterval
+    );
 
 
     timerInterval =
-        setInterval(() => {
+        setInterval(
+            function() {
 
-            if (
-                !gameRunning ||
-                gamePaused
-            ) {
+                if (
+                    !gameRunning ||
+                    gamePaused
+                ) {
 
-                return;
+                    return;
 
-            }
-
-
-            timer--;
+                }
 
 
-            updateTimer();
+                timer--;
 
 
-            // Keep stream synchronized
-
-            sendState();
+                updateTimer();
 
 
-            if (timer <= 0) {
+                sendGameState();
 
-                revealLetter();
 
-            }
+                // -------------------------------------
+                // TIME'S UP
+                // -------------------------------------
 
-        }, 1000);
+                if (
+                    timer <= 0
+                ) {
+
+                    revealLetter();
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
-// ============================================
-// TIMER DISPLAY
-// ============================================
+// =====================================================
+// UPDATE TIMER
+// =====================================================
 
 function updateTimer() {
 
@@ -594,15 +624,110 @@ function updateTimer() {
 }
 
 
-// ============================================
-// PAUSE / RESUME
-// ============================================
+// =====================================================
+// REVEAL LETTER
+// =====================================================
+
+function revealLetter() {
+
+    if (
+        !currentAnswer ||
+        !gameRunning
+    ) {
+
+        return;
+
+    }
+
+
+    const availableLetters =
+        [
+            ...new Set(
+                currentAnswer
+                    .split("")
+                    .filter(
+                        function(character) {
+
+                            return (
+                                /[A-Z0-9]/.test(
+                                    character
+                                ) &&
+                                !revealedLetters.includes(
+                                    character
+                                )
+                            );
+
+                        }
+                    )
+            )
+        ];
+
+
+    // NO LETTERS LEFT
+
+    if (
+        availableLetters.length === 0
+    ) {
+
+        revealAnswer();
+
+        return;
+
+    }
+
+
+    // PICK RANDOM LETTER
+
+    const letter =
+        availableLetters[
+            Math.floor(
+                Math.random() *
+                availableLetters.length
+            )
+        ];
+
+
+    revealedLetters.push(
+        letter
+    );
+
+
+    timer = 60;
+
+
+    updateEverything();
+
+
+    sendGameState(
+        `LETTER REVEALED: ${letter}`
+    );
+
+}
+
+
+// =====================================================
+// REVEAL LETTER BUTTON
+// =====================================================
+
+if (revealLetterBtn) {
+
+    revealLetterBtn.addEventListener(
+        "click",
+        revealLetter
+    );
+
+}
+
+
+// =====================================================
+// PAUSE
+// =====================================================
 
 if (pauseBtn) {
 
     pauseBtn.addEventListener(
         "click",
-        () => {
+        function() {
 
             if (!gameRunning) {
 
@@ -620,9 +745,12 @@ if (pauseBtn) {
                 pauseBtn.textContent =
                     "▶ RESUME";
 
-                updateStatus("PAUSED");
+                updateStatus(
+                    "PAUSED"
+                );
 
-                updateStreamMessage(
+
+                sendGameState(
                     "⏸ GAME PAUSED"
                 );
 
@@ -631,16 +759,16 @@ if (pauseBtn) {
                 pauseBtn.textContent =
                     "⏸ PAUSE";
 
-                updateStatus("PLAYING");
+                updateStatus(
+                    "PLAYING"
+                );
 
-                updateStreamMessage(
+
+                sendGameState(
                     "GUESS THE ANSWER!"
                 );
 
             }
-
-
-            sendState();
 
         }
     );
@@ -648,60 +776,9 @@ if (pauseBtn) {
 }
 
 
-// ============================================
+// =====================================================
 // REVEAL ANSWER
-// ============================================
-
-function revealAnswer() {
-
-    if (!currentAnswer) {
-
-        return;
-
-    }
-
-
-    revealedLetters = [
-        ...new Set(
-            currentAnswer
-                .split("")
-                .filter(character =>
-                    /[A-Z0-9]/.test(character)
-                )
-        )
-    ];
-
-
-    gameRunning = false;
-
-    gamePaused = false;
-
-
-    clearInterval(timerInterval);
-
-
-    updatePuzzle();
-
-
-    updateStatus(
-        "ANSWER REVEALED"
-    );
-
-
-    updateStreamMessage(
-        "🎉 THE ANSWER IS..."
-    );
-
-
-    sendState({
-
-        message:
-            "🎉 THE ANSWER IS..."
-
-    });
-
-}
-
+// =====================================================
 
 if (revealAnswerBtn) {
 
@@ -713,143 +790,68 @@ if (revealAnswerBtn) {
 }
 
 
-// ============================================
-// WINNER
-// ============================================
+function revealAnswer() {
 
-if (winnerBtn) {
+    if (!currentAnswer) {
 
-    winnerBtn.addEventListener(
-        "click",
-        () => {
+        return;
 
-            const name =
-                winnerName.value.trim();
+    }
 
 
-            if (!name) {
+    revealedLetters =
+        [
+            ...new Set(
+                currentAnswer
+                    .split("")
+                    .filter(
+                        function(character) {
 
-                alert(
-                    "Enter the winner's name first."
-                );
+                            return /[A-Z0-9]/.test(
+                                character
+                            );
 
-                return;
-
-            }
-
-
-            gameRunning = false;
-
-            gamePaused = false;
-
-
-            clearInterval(
-                timerInterval
-            );
+                        }
+                    )
+            )
+        ];
 
 
-            updateStatus(
-                "WINNER"
-            );
+    gameRunning = false;
 
 
-            showWinner(name);
+    gamePaused = false;
 
 
-            sendState({
+    clearInterval(
+        timerInterval
+    );
 
-                winner: name,
 
-                message:
-                    "🎉 WE HAVE A WINNER!"
+    updateEverything();
 
-            });
 
-        }
+    updateStatus(
+        "ANSWER REVEALED"
+    );
+
+
+    sendGameState(
+        "🎉 THE ANSWER IS..."
     );
 
 }
 
 
-// ============================================
-// SHOW WINNER
-// ============================================
-
-function showWinner(name) {
-
-    if (streamWinner) {
-
-        streamWinner.textContent =
-            name;
-
-    }
-
-
-    if (winningAnswer) {
-
-        winningAnswer.textContent =
-            currentAnswer;
-
-    }
-
-
-    if (winnerDisplay) {
-
-        winnerDisplay.classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    updateStreamMessage(
-        "🎉 WE HAVE A WINNER!"
-    );
-
-}
-
-
-// ============================================
-// STREAM MESSAGE
-// ============================================
-
-function updateStreamMessage(message) {
-
-    if (streamMessage) {
-
-        streamMessage.textContent =
-            message;
-
-    }
-
-}
-
-
-// ============================================
-// STATUS
-// ============================================
-
-function updateStatus(status) {
-
-    if (gameStatus) {
-
-        gameStatus.textContent =
-            status;
-
-    }
-
-}
-
-
-// ============================================
+// =====================================================
 // NEW ROUND
-// ============================================
+// =====================================================
 
 if (newRoundBtn) {
 
     newRoundBtn.addEventListener(
         "click",
-        () => {
+        function() {
 
             clearInterval(
                 timerInterval
@@ -873,23 +875,8 @@ if (newRoundBtn) {
 
             if (customAnswerInput) {
 
-                customAnswerInput.value = "";
-
-            }
-
-
-            if (winnerName) {
-
-                winnerName.value = "";
-
-            }
-
-
-            if (winnerDisplay) {
-
-                winnerDisplay.classList.add(
-                    "hidden"
-                );
+                customAnswerInput.value =
+                    "";
 
             }
 
@@ -902,26 +889,25 @@ if (newRoundBtn) {
             }
 
 
-            updatePuzzle();
+            updateEverything();
 
-            updateTimer();
 
             updateStatus(
                 "WAITING"
             );
 
 
-            updateStreamMessage(
-                "GUESS THE ANSWER!"
+            if (streamMessage) {
+
+                streamMessage.textContent =
+                    "WAITING FOR ROUND";
+
+            }
+
+
+            sendGameState(
+                "WAITING FOR ROUND"
             );
-
-
-            sendState({
-
-                message:
-                    "WAITING FOR NEXT ROUND"
-
-            });
 
         }
     );
@@ -929,45 +915,46 @@ if (newRoundBtn) {
 }
 
 
-// ============================================
-// INITIALIZE STREAM SCREEN
-// ============================================
+// =====================================================
+// INITIALIZE
+// =====================================================
 
-if (streamPuzzle) {
+updateEverything();
 
-    // Tell the host that the stream
-    // screen has opened.
+
+// =====================================================
+// STREAM SCREEN REQUESTS CURRENT GAME
+// =====================================================
+
+if (isStreamPage) {
 
     channel.postMessage({
 
-        type: "STREAM_CONNECTED"
+        type:
+            "STREAM_REQUEST_STATE"
 
     });
 
 }
 
 
-// ============================================
-// HOST SENDS CURRENT STATE WHEN
-// STREAM SCREEN CONNECTS
-// ============================================
+// =====================================================
+// HOST RESPONDS TO STREAM
+// =====================================================
 
 channel.addEventListener(
     "message",
-    event => {
+    function(event) {
 
         if (
             event.data &&
             event.data.type ===
-            "STREAM_CONNECTED"
+            "STREAM_REQUEST_STATE"
         ) {
 
-            // Only the host needs
-            // to respond.
+            if (isHostPage) {
 
-            if (hostPuzzle) {
-
-                sendState();
+                sendGameState();
 
             }
 
