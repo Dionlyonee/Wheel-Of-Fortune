@@ -1,32 +1,524 @@
-*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%}body{font-family:Arial,Helvetica,sans-serif;background:#050505;color:#fff}
-.launcher{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at center,#252525 0%,#101010 40%,#000 100%)}
-.launcher-logo{width:90px;height:90px;display:flex;align-items:center;justify-content:center;border:3px solid #d4af37;border-radius:20px;color:#d4af37;font-size:52px;font-weight:900;box-shadow:0 0 35px rgba(212,175,55,.25)}
-.launcher h1{margin:25px 0 8px;color:#d4af37;font-size:34px;letter-spacing:5px}.launcher-subtitle{color:#fff;font-size:15px;font-weight:900;letter-spacing:6px}.launcher-description{color:#777;margin-top:15px}
-.launcher-buttons{display:flex;gap:25px;margin-top:35px}.launcher-button{width:270px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:16px;cursor:pointer;font-family:inherit;transition:.25s ease}
-.live-launch{background:#0c0c0c;border:2px solid #d4af37;color:#d4af37}.host-launch{background:linear-gradient(145deg,#e0bf4d,#a47b19);border:2px solid #e0bf4d;color:#000}
-.launcher-button:hover{transform:translateY(-7px);box-shadow:0 15px 40px rgba(212,175,55,.25)}.launcher-icon{font-size:42px}.launcher-button strong{font-size:19px;letter-spacing:2px}.launcher-button small{opacity:.7}.launcher-footer{margin-top:45px;color:#555;font-size:10px;letter-spacing:4px}
+/* =========================================================
+   DIONLYONEE JEORPARDY
+   HOME / SCREEN SELECTOR
+========================================================= */
 
-.live-page{overflow:hidden;background:#000}.live-screen{width:100vw;height:100vh;display:flex;flex-direction:column;background:radial-gradient(circle at center,#252525 0%,#101010 38%,#030303 100%)}
-.live-topbar{height:95px;padding:0 45px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid rgba(212,175,55,.35)}
-.live-brand{display:flex;align-items:center;gap:15px}.live-logo{width:55px;height:55px;display:flex;align-items:center;justify-content:center;border:2px solid #d4af37;border-radius:12px;color:#d4af37;font-size:30px;font-weight:900}
-.live-brand-name{color:#d4af37;font-size:20px;font-weight:900;letter-spacing:3px}.live-brand-game{color:#777;font-size:10px;letter-spacing:4px;margin-top:4px}
-.live-status{padding:9px 17px;border:1px solid #d4af37;border-radius:25px;color:#d4af37;font-size:12px;font-weight:900;letter-spacing:2px}.live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:#d4af37;box-shadow:0 0 15px rgba(212,175,55,.9)}
-.live-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.live-category-label{color:#d4af37;font-size:12px;font-weight:900;letter-spacing:5px}.live-category{margin-top:8px;font-size:27px;font-weight:900;letter-spacing:3px}
-.puzzle{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:22px;max-width:1200px;min-height:120px;margin:40px 25px}.word{display:flex;gap:8px}
-.box{width:65px;height:80px;display:flex;align-items:center;justify-content:center;border:3px solid #d4af37;border-radius:5px;background:linear-gradient(145deg,#191919,#060606);color:#fff;font-size:39px;font-weight:900;box-shadow:0 5px 20px rgba(0,0,0,.7)}
-.box.revealed{background:linear-gradient(145deg,#e5c552,#a47918);color:#000;box-shadow:0 0 30px rgba(212,175,55,.45)}
-.timer-label{color:#777;font-size:11px;font-weight:900;letter-spacing:4px}.live-timer{color:#d4af37;font-size:78px;line-height:1;font-weight:900;margin-top:5px}.timer-seconds{color:#555;font-size:10px;letter-spacing:4px}
-.live-message{margin-top:25px;padding:12px 28px;border:1px solid rgba(212,175,55,.4);border-radius:30px;background:rgba(212,175,55,.06);color:#fff;font-size:13px;font-weight:900;letter-spacing:2px}
-.live-footer{height:50px;display:flex;align-items:center;justify-content:center;gap:16px;border-top:1px solid rgba(212,175,55,.2);color:#555;font-size:10px;font-weight:900;letter-spacing:3px}.live-footer b{color:#d4af37}
 
-.host-screen{min-height:100vh;background:radial-gradient(circle at top,#222,#080808 60%,#000)}.host-header{height:90px;display:flex;align-items:center;gap:15px;padding:0 35px;border-bottom:1px solid rgba(212,175,55,.3)}
-.host-logo{width:55px;height:55px;display:flex;align-items:center;justify-content:center;border:2px solid #d4af37;border-radius:12px;color:#d4af37;font-size:30px;font-weight:900}
-.host-header h1{color:#d4af37;font-size:20px;letter-spacing:3px}.host-header p{color:#777;font-size:10px;letter-spacing:3px;margin-top:4px}
-.host-main{max-width:1000px;margin:0 auto;padding:35px 25px;text-align:center}.host-status{display:inline-block;padding:8px 18px;border:1px solid #d4af37;border-radius:20px;color:#d4af37;font-size:11px;font-weight:900;letter-spacing:3px}
-.host-label{margin-top:25px;margin-bottom:7px;color:#777;font-size:10px;font-weight:900;letter-spacing:4px}.host-category{color:#d4af37;font-size:25px;font-weight:900}.host-answer{color:#fff;font-size:30px;font-weight:900;letter-spacing:4px}.host-revealed{color:#d4af37;font-weight:900}.host-timer{color:#d4af37;font-size:60px;font-weight:900}
-.host-settings{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:30px}.host-setting{min-width:290px;padding:20px;border:1px solid rgba(212,175,55,.25);border-radius:12px;background:rgba(255,255,255,.03)}
-.host-setting h3{color:#d4af37;font-size:11px;letter-spacing:2px;margin-bottom:12px}.time-button,.cooldown-button{padding:10px 15px;margin:3px;border:1px solid #555;border-radius:6px;background:#111;color:#999;font-weight:900;cursor:pointer}
-.time-button:hover,.cooldown-button:hover{border-color:#d4af37;color:#d4af37}.time-button.active,.cooldown-button.active{background:#d4af37;color:#000;border-color:#d4af37}
-.host-controls{display:flex;justify-content:center;gap:15px;margin-top:30px}.start-game,.next-game{padding:15px 30px;border-radius:7px;font-weight:900;cursor:pointer}
-.start-game{background:linear-gradient(135deg,#dfbf50,#a77c19);color:#000}.next-game{background:#111;border:1px solid #d4af37;color:#d4af37}.host-message{margin-top:20px;color:#999;font-size:12px;letter-spacing:1px}
-@media(max-width:700px){.launcher h1{font-size:22px;letter-spacing:3px}.launcher-buttons{flex-direction:column}.live-topbar{padding:0 15px}.live-brand-name{font-size:13px}.live-brand-game{font-size:7px}.box{width:45px;height:58px;font-size:27px}.word{gap:5px}.puzzle{gap:12px}.live-timer{font-size:58px}}
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            #242424 0%,
+            #101010 40%,
+            #030303 100%
+        );
+
+    color: #ffffff;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN LAUNCHER
+========================================================= */
+
+.launcher {
+    width: min(900px, 92vw);
+
+    min-height: 600px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px 30px;
+
+    text-align: center;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   DECORATIVE GLOW
+========================================================= */
+
+.launcher::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(212, 175, 55, 0.08),
+            transparent 68%
+        );
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.launcher-logo {
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    border: 3px solid #d4af37;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #181818,
+            #050505
+        );
+
+    color: #d4af37;
+
+    font-size: 52px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 35px rgba(212, 175, 55, 0.16),
+        inset 0 0 20px rgba(212, 175, 55, 0.04);
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.launcher h1 {
+    margin: 0;
+
+    color: #d4af37;
+
+    font-size: clamp(28px, 5vw, 52px);
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    line-height: 1.1;
+
+    text-shadow:
+        0 0 25px rgba(212, 175, 55, 0.12);
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.launcher-subtitle {
+    margin-top: 12px;
+
+    color: #777;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.launcher-description {
+    margin-top: 45px;
+    margin-bottom: 18px;
+
+    color: #aaa;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   BUTTON CONTAINER
+========================================================= */
+
+.launcher-buttons {
+    width: min(650px, 100%);
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   LAUNCHER BUTTON
+========================================================= */
+
+.launcher-button {
+    min-height: 170px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px 20px;
+
+    border: 1px solid #3d3d3d;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #080808
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
+
+.launcher-button:hover {
+    transform: translateY(-5px);
+
+    border-color: #d4af37;
+
+    background:
+        linear-gradient(
+            145deg,
+            #242424,
+            #0a0a0a
+        );
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(212, 175, 55, 0.08);
+}
+
+
+/* =========================================================
+   BUTTON ACTIVE
+========================================================= */
+
+.launcher-button:active {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   LIVE BUTTON
+========================================================= */
+
+.live-launch {
+    border-color:
+        rgba(212, 175, 55, 0.35);
+}
+
+
+/* =========================================================
+   HOST BUTTON
+========================================================= */
+
+.host-launch {
+    border-color:
+        rgba(212, 175, 55, 0.35);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.launcher-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.35);
+
+    border-radius: 12px;
+
+    background:
+        rgba(212, 175, 55, 0.05);
+
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   BUTTON TITLE
+========================================================= */
+
+.launcher-button strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   BUTTON DESCRIPTION
+========================================================= */
+
+.launcher-button small {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #666;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   BUTTON TITLE HOVER
+========================================================= */
+
+.launcher-button:hover strong {
+    color: #d4af37;
+}
+
+.launcher-button:hover small {
+    color: #888;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.launcher-footer {
+    margin-top: 50px;
+
+    color: #444;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+}
+
+
+/* =========================================================
+   DECORATIVE LINES
+========================================================= */
+
+.launcher-footer::before,
+.launcher-footer::after {
+    content: "";
+
+    display: inline-block;
+
+    width: 45px;
+    height: 1px;
+
+    margin: 0 12px;
+
+    vertical-align: middle;
+
+    background:
+        rgba(212, 175, 55, 0.25);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        overflow-y: auto;
+    }
+
+    .launcher {
+        min-height: 100vh;
+
+        padding:
+            40px 20px;
+    }
+
+    .launcher-logo {
+        width: 75px;
+        height: 75px;
+
+        font-size: 42px;
+    }
+
+    .launcher h1 {
+        letter-spacing: 3px;
+    }
+
+    .launcher-subtitle {
+        font-size: 9px;
+
+        letter-spacing: 3px;
+    }
+
+    .launcher-description {
+        margin-top: 35px;
+    }
+
+    .launcher-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .launcher-button {
+        min-height: 145px;
+    }
+
+    .launcher-footer {
+        margin-top: 35px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .launcher {
+        padding:
+            30px 15px;
+    }
+
+    .launcher-logo {
+        width: 65px;
+        height: 65px;
+
+        font-size: 36px;
+
+        border-radius: 14px;
+    }
+
+    .launcher h1 {
+        font-size: 25px;
+
+        letter-spacing: 2px;
+    }
+
+    .launcher-subtitle {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+    }
+
+    .launcher-description {
+        margin-top: 30px;
+    }
+
+    .launcher-button {
+        min-height: 135px;
+
+        padding: 20px;
+    }
+
+    .launcher-icon {
+        width: 52px;
+        height: 52px;
+
+        font-size: 24px;
+    }
+
+    .launcher-footer::before,
+    .launcher-footer::after {
+        width: 25px;
+
+        margin: 0 7px;
+    }
+}
